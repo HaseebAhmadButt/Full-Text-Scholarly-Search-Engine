@@ -1,11 +1,17 @@
 footer{
-    margin-top: 5%;
+    margin-top: 1.5%;
     background-color: darkblue;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
-    position: absolute;  left: 0; right: 0;  bottom: 0;         }
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /*align-items: center;*/
+    /*position: absolute;  left: 0; right: 0;  bottom: 0;*/
+}
 .footer-detail{
+    flex: 90%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -35,9 +41,8 @@ text-decoration: none;
 .categories ul li a:hover{
 text-decoration: underline;
 }
-.button{
-width:50%;
-}
+.button{width:30%;}
+
 .footer-social-media-copyright{
     display: flex;
     flex-direction: row;
@@ -45,13 +50,15 @@ width:50%;
     align-items: center;
     gap: 5%;
     margin-top: unset;
-    padding:unset;  }
+    padding:unset;
+}
 .CopyRight,.SocialMedia{ flex : 50%;}
 .SocialMedia ul li a{
     color: white;
     text-decoration: none;
     font-size:2rem;
-    margin: 0 5%;}
+    /*margin: 0 5%;*/
+}
 .SocialMedia ul {
     display: flex;
     flex-direction: row;
@@ -61,8 +68,6 @@ width:50%;
 }
 .SocialMedia ul li{margin: 0 2%;}
 .CopyRight p{
-    font-size: 1.3rem;
     text-align: center;
-    height: 100%;}
-.SocialMedia{
-margin-left:   3.5%;}
+}
+.SocialMedia{margin-left:   3.5%;}
