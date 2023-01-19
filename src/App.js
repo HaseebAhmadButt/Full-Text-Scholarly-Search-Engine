@@ -9,13 +9,15 @@ import Footer from './Components/Common/Footer';
 import SearchArea from "./Components/Home-Page/Search-Header";
 import RecentPapers from "./Components/Home-Page/Recent-Papers"
 import ResultsShowing from "./Components/Result Page/ResultsShowing"
+import MiddleSearchArea from "./Components/Result Page/Search-Area";
 function App() {
   return (
     <div className="App">
         <Header />
         <SearchArea />
         <RecentPapers />
-        <ResultsShowing />
+        <MiddleSearchArea />
+        {/*<ResultsShowing />*/}
         <Footer />
     </div>
   );
