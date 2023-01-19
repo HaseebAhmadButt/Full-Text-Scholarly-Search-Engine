@@ -36,11 +36,6 @@ export default function RecentPapers(){
                                <Card.Subtitle className={"text-muted"}>
                                    Recent progress in hardware and methodology for training neural networks has ushered in a new generation of large networks trained on abundant data. These models have obtained notable gains in accuracy across many NLP tasks. However, these accuracy improvements depend on the availability of exceptionally large computational resources that necessitate similarly substantial energy consumption.
                                </Card.Subtitle>
-                               {/*<br />*/}
-                               {/*<Card.Text>*/}
-                               {/*    {date}*/}
-                               {/*</Card.Text>*/}
-                               {/*<Card.Link href="#">Open</Card.Link>*/}
                            </Card.Body>
                        </Card>
                    </a>
@@ -54,11 +49,6 @@ export default function RecentPapers(){
                                <Card.Subtitle className={"text-muted"}>
                                    Recent progress in hardware and methodology for training neural networks has ushered in a new generation of large networks trained on abundant data. These models have obtained notable gains in accuracy across many NLP tasks. However, these accuracy improvements depend on the availability of exceptionally large computational resources that necessitate similarly substantial energy consumption.
                                </Card.Subtitle>
-                               {/*<br />*/}
-                               {/*<Card.Text>*/}
-                               {/*    {date}*/}
-                               {/*</Card.Text>*/}
-                               {/*<Card.Link href="#">Open</Card.Link>*/}
                            </Card.Body>
                        </Card>
                    </a>
