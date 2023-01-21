@@ -46,3 +46,16 @@
     color: rgb(0,123,255);
     text-decoration: underline !important;
 }
+.dateLabel{
+    display: inline-block;
+    margin: 0.5% 0.5% 0 0.5%;
+    color: black;
+}
+.dateField{
+    margin-top: 0.5%;
+    display: inline-block;
+    /*margin-left: 1%;*/
+    color: black;
+    width: 10%;
+    height: 30px;
+}

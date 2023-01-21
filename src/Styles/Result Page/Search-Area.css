@@ -1,48 +1,63 @@
 .middle-search-area{
-    /*background: black;*/
     padding: 30px;
-    /*margin-bottom: 30px;*/
     width: 90%;
     margin: auto;
-    /*border: 1px solid lightgray;*/
 }
 .middle-search-form{
-    /*display: inline-block;*/
-    width: 50%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.middle-search-input{
+.middle-search-form,.advance-search-input,.tags-dive
+{
+    width: 50%;
+}
+.middle-search-input, .middle-search-button, .advance-label, .advance-search-input, .tags-dive
+{
     display: block;
+}
+.middle-search-button, .search-option-button, .close-button{
+    cursor: pointer;
+
+}
+.middle-search-button, .search-option-button{
+    transition: all 0.3s ease;
+
+}
+.search-options,.advance-form-group{
+    margin-top: 1%;
+}
+.middle-search-input{
     flex: 75%;
     border-bottom-right-radius: unset;
     border-top-right-radius: unset;
 }
 .middle-search-button{
-    display: block;
-    flex: 5%;
+     flex: 5%;
     border-bottom-left-radius: unset;
     border-top-left-radius: unset;
-    cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    color: #333;
     text-transform: uppercase;
-    transition: all 0.3s ease;
 }
+
 .search-options{
-    margin-top: 1%;
+    margin-bottom: 1.5%;
+}
+.search-option-button, .advance-search-input{
+    border: 1px solid lightgray;
+
 }
 .search-option-button{
     padding: 0 1.5% 0 1.5%;
-    border: 1px solid lightgray;
     border-radius: 20px;
-    cursor: pointer;
     font-size: 14px;
     color: #333;
     background-color: unset;
-    transition: all 0.3s ease;
+}
+.active{
+    background-color: rgb(0,123,255);
+    color: white;
 }
 .search-option-field{
     margin-left: 1%;
@@ -50,7 +65,28 @@
 
 .search-option-button:hover{
     background-color: unset;
-    border: 1px solid rgb(0,123,255);;
+    border: 1px solid rgb(0,123,255);
     border-radius: 20px;
     color: rgb(0,123,255);;
+}
+
+.advance-search-input{
+    border-radius: 5px;
+    font-size: 14px;
+}
+.advance-search-button{
+
+    margin-left: 17%;
+    width: 15%;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.close-button{
+    font-size: 10px;
+    margin: unset;
+    padding: unset;
+}
+.form-tag{
+    margin: 1% 1% 1% 0;
 }

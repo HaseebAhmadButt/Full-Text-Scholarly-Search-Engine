@@ -17,7 +17,7 @@ function App() {
         <SearchArea />
         <RecentPapers />
         <MiddleSearchArea />
-        {/*<ResultsShowing />*/}
+        <ResultsShowing />
         <Footer />
     </div>
   );
