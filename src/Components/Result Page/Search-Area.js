@@ -45,7 +45,6 @@ export default function MiddleSearchArea() {
     const removeAuthor = (index) => {
         setAuthors((prev) => prev.filter((_, i) => i !== index));
     }
-
     const displayJournals = Journals.map((Journal, index) => {
         return (
             <span className={'tags form-tag'}>{Journal} <CloseButton onClick={()=>{
@@ -58,7 +57,6 @@ export default function MiddleSearchArea() {
     return (
         <>
             <div className={"middle-search-area"}>
-                {/*<div className={"search-form-div"}>*/}
                     <Form >
                         <Form.Group controlId="UserSearch" className={"middle-search-form"}>
                             <Form.Control
@@ -156,7 +154,6 @@ export default function MiddleSearchArea() {
                                         placeholder="Ending Year"
                                         className={"dateField"}
                                         value={formValues.dateTo}
-
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicDate" className={"middle-search-form advance-form-group"}>
@@ -175,7 +172,6 @@ export default function MiddleSearchArea() {
                                 <div className={"tags-dive"}>
                                     {displayAuthors}
                                 </div>
-
                                 <Form.Group controlId="formBasicDate" className={"middle-search-form advance-form-group"}>
                                        <Form.Control
                                            type="text"
@@ -233,7 +229,6 @@ export default function MiddleSearchArea() {
                                    </div>
                         </Collapse>
                     </Form>
-                {/*</div>*/}
             </div>
         </>
     )

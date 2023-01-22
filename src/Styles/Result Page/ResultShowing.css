@@ -1,6 +1,6 @@
 .results-showing{
     width: 90%;
-    margin: auto;
+    margin: auto auto 1%;
 }
 .result{
     border: 1px solid lightgray;

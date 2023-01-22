@@ -1,0 +1,22 @@
+.result-profile-filters{
+    margin: 1% 5%;
+    width: 90%;
+    border-radius: 8px;
+}
+.filter-search-group{
+    display: flex;
+    flex-direction: row;
+    padding: unset !important;
+    width: 100%;
+}
+.dropdown{
+    width: 200px !important;
+    height: 100% !important;
+    margin: 10px 10px 10px 10px !important;
+}
+.filter-search{
+    flex:60%
+}
+.filter-search-button{
+    flex: 5%;
+}

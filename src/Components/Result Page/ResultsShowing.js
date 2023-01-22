@@ -2,6 +2,7 @@ import React from "react";
 import '../../Styles/Result Page/ResultShowing.css';
 
 export default function ResultsShowing() {
+
     return (
         <>
             <div className={"results-showing"}>

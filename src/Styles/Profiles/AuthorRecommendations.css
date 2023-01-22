@@ -1,0 +1,44 @@
+.author-recommendations h3
+{
+    width: 90%;
+    margin: 1% auto;
+}
+.recommendation-div{
+    margin: auto;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 1%;
+}
+.recommendation-author-profile{
+    width: 50%;
+    align-content: center;
+    height: 100%;
+    margin-bottom: 5%;
+}
+.recommendation-list-features{
+    margin: unset;
+    display: flex;
+    flex-direction: row;
+    padding: unset;
+    align-content: center;
+    height: 100%;
+}
+.recommendation-list-features li{
+    margin: 1%;
+    border: 1px solid lightgray;
+    padding: 2%;
+    border-radius: 5px;
+}
+.recommendation-list-features li>h6{
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    text-align: center;
+    font-weight: normal !important;
+}
+.visit-profile-button{
+    width: 50%;
+    margin: 2% 1.5% 1.5%;
+}

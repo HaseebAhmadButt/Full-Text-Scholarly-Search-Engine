@@ -1,7 +1,7 @@
 .middle-search-area{
-    padding: 30px;
+    margin: 30px auto auto auto;
     width: 90%;
-    margin: auto;
+    /*margin: auto;*/
 }
 .middle-search-form{
     display: flex;
