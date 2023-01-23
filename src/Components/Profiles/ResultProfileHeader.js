@@ -59,15 +59,11 @@ export default function ResultProfileHeader() {
                                     <h1>10</h1>
                                 </ListGroup.Item></a>
                             </ListGroup>
-                            <Button variant={"primary"} className={"follow-button"}>Follow</Button>
+                            <Button variant={"primary"} className={"follow-button"}>Follow/Edit</Button>
                         </Card.Body>
                     </Card>
                 </div>
-                <div className={"profile_content_div"}>
-
-                </div>
             </div>
-
         </>
     );
 
