@@ -7,9 +7,11 @@ import './Styles/Profiles/ProfileResultsHeader.css';
 import './Styles/Home-page/Search-Header.css';
 import './Styles/Profiles/ProfileResultsFilter.css';
 import './Styles/Profiles/AuthorRecommendations.css';
-import './Styles/Profiles/User Profile/UpdatePersonalInformation.css';
+import './Styles/Profiles/User Profile/UpdateResearcherInformation.css';
 import './Styles/Profiles/User Profile/UserProfileOptions.css';
 import './Styles/Profiles/User Profile/General.css';
+import './Styles/Profiles/User Profile/UpdatePersonalInformation.css';
+import './Styles/Profiles/User Profile/ProfileArticles.css';
 
 import Header from'./Components/Common/Header';
 import Footer from './Components/Common/Footer';

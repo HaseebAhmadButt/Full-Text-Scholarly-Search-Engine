@@ -1,0 +1,67 @@
+.profile-articles{
+    /*margin: 0 auto;*/
+    width: 70% !important;
+    /*max-width: 500px !important;*/
+    padding: 20px;
+    box-sizing: border-box;
+    height: max-content;
+    border: 1px solid #ccc;
+    margin: 2% 1%;
+}
+.PersonalArticles{
+    margin-top: 2%;
+    display: flex;
+    /*width: 100%;*/
+    /*padding: 10px;*/
+    flex-direction: column;
+    gap: 2em;
+}
+.remove-button{
+    /*margin-top: unset;*/
+    width: 20%;
+    margin: 0 40% ;
+}
+.PersonalArticles tr, .profile-articles-finding-table tr{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 2%;
+}
+.remove-select{
+    /*font-size: 1.2rem;*/
+    font-weight: bolder;
+}
+
+.profile-articles-finding{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin-bottom: 4%;
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+    /*gap: 1em;*/
+    /*margin-bottom: 2%;*/
+}
+.form-select-finding{
+    flex: 10% !important;
+}
+.search-input-finding{
+    flex: 60% !important;
+}
+.Tab-Option{
+    margin-top: 5%;
+    color: black ;
+    border: unset;
+    font-weight: bolder;
+}
+.Tab-Option:hover{
+    background-color: #1976D2;
+    color: white;
+}
+.nav-link.active{
+    background-color: #1976D2 !important;
+    color: white !important;
+}
