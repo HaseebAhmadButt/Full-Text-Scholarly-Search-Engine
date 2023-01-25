@@ -10,7 +10,6 @@ export default function ProfileArticles() {
     });
 
     const showTabData = (key) => {
-        console.log(key);
         if (key === "link-1") {
             setKey({
                 personalArticles: true,
@@ -137,8 +136,7 @@ export default function ProfileArticles() {
                             <Button variant={"primary"} className={"remove-button"}>Remove Articles</Button>
                         </Form>
                     </div> :""}
-                {key.addArticle?
-                    <div>
+                {key.addArticle?<div>
                         <Form>
                             <InputGroup className={"profile-articles-finding"}>
                                 <Form.Control className={"search-input-finding"} type="file" placeholder="Search" />

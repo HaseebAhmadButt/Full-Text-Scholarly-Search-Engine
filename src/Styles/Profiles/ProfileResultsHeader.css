@@ -1,9 +1,9 @@
 .Card_Div{
-    margin: 1% 5%;
-    display: flex;
     padding: 2%;
+    width: 100%;
     flex-direction: row;
-    gap: 2%;
+    margin: 0 1.5% 1% 0;
+    border-radius: unset;
 }
 .Profile_Image{
     width: 20%;
@@ -11,25 +11,32 @@
     object-fit: cover;
     border-radius: 50%;
 }
+.Card-Body{
+    height: 100%;
+    padding-right: 50px !important;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding-left: 5%;
+    margin: 2% 5%;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
 .text-area{
     margin: unset;
+    width: 90%;
 }
 .interests{
-    /*border: 1px solid lightgray;*/
-    /*border-radius: 15px;*/
     margin: 0.5%;
     color: black;
 
 }
 .interests:hover{
-    /*background-color: rgb(0,123,255);*/
-    /*color: white;*/
     text-decoration: underline!important;
 }
 .profile-features{
     display: flex;
     flex-direction: row;
-    /*gap: 1%;*/
     margin: 1% 1% 1% 0;
     padding: unset !important;
 }

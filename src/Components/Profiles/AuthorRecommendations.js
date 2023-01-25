@@ -13,7 +13,6 @@ export default function ResultsShowingSearchRecommendation() {
                 <RecommendedAuthors />
                 <RecommendedAuthors />
                 <RecommendedAuthors />
-                <RecommendedAuthors />
                 </div>
             </div>
         </>

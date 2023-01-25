@@ -33,17 +33,29 @@
     /*font-size: 1.2rem;*/
     font-weight: bolder;
 }
-
+/*
+This class is only for saved articles. In the main development this will be separated
+ */
+/*----------------------------------------------------------------------------------------------------------------------*/
 .profile-articles-finding{
-    margin-top: 2%;
     display: flex;
     flex-direction: row;
-    width: 60%;
-    margin-bottom: 4%;
-    /*justify-content: space-between;*/
-    /*align-items: center;*/
-    /*gap: 1em;*/
-    /*margin-bottom: 2%;*/
+    width: 70% !important;
+    padding: 20px;
+    box-sizing: border-box;
+    height: max-content;
+    border: 1px solid #ccc;
+    margin: 2% 1%;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+
+.saved-articles{
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 2% 1%;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
 }
 .form-select-finding{
     flex: 10% !important;

@@ -1,0 +1,21 @@
+.Metrics-Field{
+    border: 1px solid #ccc;
+    width: 50% !important;
+    padding: 20px;
+    box-sizing: border-box;
+    height: max-content;
+    margin: 2% 1%;
+}
+.researcher-quality{
+    margin-top: 2%;
+    display: flex;
+    gap: 2em;
+}
+.Metrics{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.chart-div{
+    flex: 50%;
+    height: 10% !important;
+}

@@ -6,18 +6,13 @@ import ResultsShowingSearchRecommendation from "./AuthorRecommendations";
 export default function ProfileResults() {
     return (
             <>
-                <ResultProfileHeader />
+                <div className={"main-user-profile"}>
+                    <ResultProfileHeader />
                 <ResultsShowingSearch />
-                  <ResultsShowing />
-                  <ResultsShowing />
-                  <ResultsShowing />
-                  <ResultsShowing />
-                  <ResultsShowing />
-                  <ResultsShowing />
                   <ResultsShowing />
                 <hr/>
                 <ResultsShowingSearchRecommendation />
-
+                </div>
             </>
     );
 

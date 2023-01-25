@@ -12,11 +12,11 @@ export default function ResultProfileHeader() {
                 <div className={"profile_header_div"}>
                     <Card className={"Card_Div"}>
                         <Card.Img src={process.env.PUBLIC_URL+"/Images/Profile_Images/download.png"} className={"Profile_Image"} alt={"profile_image"}/>
-                        <Card.Body>
-                            <Card.Title>
+                        <Card.Body clssName={"Card-Body"}>
+                            <Card.Title className={"text-area"}>
                                 Name of Profile Holder
                             </Card.Title>
-                            <Card.Subtitle className={"text-muted"}>
+                            <Card.Subtitle className={"text-muted text-area"}>
                                 <Card.Text>
                                     Other Names with which the profile holder is known
                                 </Card.Text>
@@ -52,10 +52,6 @@ export default function ResultProfileHeader() {
                                 </ListGroup.Item></a>
                                 <a href={"#"} className={"profile-feature"}><ListGroup.Item className={"feature"}>
                                     <span className={"title"}>Cited Authors </span>
-                                    <h1>10</h1>
-                                </ListGroup.Item></a>
-                                <a href={"#"} className={"profile-feature"}><ListGroup.Item className={"feature"}>
-                                    <span className={"title"}>Citing Authors </span>
                                     <h1>10</h1>
                                 </ListGroup.Item></a>
                             </ListGroup>

@@ -3,6 +3,7 @@
     width: 90%;
     border-radius: 8px;
     display: flex;
+    margin-left: unset  !important;
 }
 .profile-filter-options{
     width: 50%;

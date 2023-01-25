@@ -1,6 +1,11 @@
 .results-showing{
-    width: 90%;
-    margin: auto auto 1%;
+    width: 95%;
+    margin: 1%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 2rem;
+    /*margin-left: unset !important;*/
 }
 .result{
     border: 1px solid lightgray;

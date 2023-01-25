@@ -1,7 +1,12 @@
 import React, {useState} from "react";
 import UpdateResearcherInformation from "./UpdateResearcherInformation";
 import UpdatePersonalInformation from "./UpdatePersonalInformation";
+import Metrics from "./Matrics";
 import ProfileArticles from "./ProfileArticles";
+import SavedArticles from "./Saved Articles";
+import ProfileResults from "../ProfileResults";
+
+
 // import ProfileOptions from "./UserProfileOptions";
 import {Button, Collapse} from "react-bootstrap";
 // import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
@@ -9,9 +14,12 @@ import {Button, Collapse} from "react-bootstrap";
 export default function PersonalProfile() {
     const [open, setOpen] = useState(false);
     const [profileOptions, setProfileOptions] = useState({
-        accountSettings: true,
+        profileResults: true,
+        accountSettings: false,
         researcherProfile: false,
         articles: false,
+        metrics: false,
+        savedArticles: false,
     });
 
     return (
@@ -20,10 +28,28 @@ export default function PersonalProfile() {
                 <div className={"profile-options"}>
                     <Button
                         onClick={() => {
+                            setProfileOptions({
+                                profileResults: true,
+                                accountSettings: false,
+                                researcherProfile: false,
+                                articles: false,
+                                metrics: false,
+                                savedArticles: false,
+                            })
+                        }}
+                    >
+                        Profile
+                    </Button>
+                    <Button
+                        onClick={() => {
                                 setProfileOptions({
                                     accountSettings: true,
                                     researcherProfile: false,
                                     articles: false,
+                                    metrics: false,
+                                    savedArticles: false,
+                                    profileResults: false,
+
                             })
                         }}
                     >
@@ -31,7 +57,6 @@ export default function PersonalProfile() {
                     </Button>
                     <Button onClick={() => setOpen(!open)}>
                         Researcher Profile
-                        {/*<FontAwesomeIcon icon={faArrowDown} className={"downarraow"}/>*/}
                     </Button>
                     <Collapse in={open} >
                         <div className={"profile-detail-options profile-update-inner-buttons"}>
@@ -41,6 +66,10 @@ export default function PersonalProfile() {
                                         accountSettings: false,
                                         researcherProfile: true,
                                         articles: false,
+                                        metrics: false,
+                                        savedArticles: false,
+                                        profileResults: false,
+
                                     })
                                 }}
                             >
@@ -52,6 +81,10 @@ export default function PersonalProfile() {
                                         accountSettings: false,
                                         researcherProfile: false,
                                         articles: true,
+                                        metrics: false,
+                                        savedArticles:  false,
+                                        profileResults: false,
+
                                     })
                                 }}
                             >
@@ -59,10 +92,33 @@ export default function PersonalProfile() {
                             </Button>
                         </div>
                     </Collapse>
-                    <Button>
+                    <Button
+                        onClick={() => {
+                            setProfileOptions({
+                                accountSettings: false,
+                                researcherProfile: false,
+                                articles: false,
+                                metrics: true,
+                                savedArticles: false,
+                                profileResults: false,
+
+                            })
+                        }}>
                         Profile Metrics
                     </Button>
-                    <Button>
+                    <Button
+                        onClick={() => {
+                            setProfileOptions({
+                                accountSettings: false,
+                                researcherProfile: false,
+                                articles: false,
+                                metrics: false,
+                                savedArticles: true,
+                                profileResults: false,
+
+                            })
+                        }}
+                    >
                         Saved Articles
                     </Button>
                     <hr />
@@ -75,6 +131,9 @@ export default function PersonalProfile() {
                 {profileOptions.accountSettings?<UpdatePersonalInformation/>:""}
                 {profileOptions.researcherProfile?<UpdateResearcherInformation/>:""}
                 {profileOptions.articles?<ProfileArticles/>:""}
+                {profileOptions.metrics?<Metrics/>:""}
+                {profileOptions.savedArticles?<SavedArticles />:""}
+                {profileOptions.profileResults?<ProfileResults />:""}
             </div>
         </>
     )

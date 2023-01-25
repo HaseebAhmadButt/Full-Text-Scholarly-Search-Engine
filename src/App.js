@@ -12,6 +12,8 @@ import './Styles/Profiles/User Profile/UserProfileOptions.css';
 import './Styles/Profiles/User Profile/General.css';
 import './Styles/Profiles/User Profile/UpdatePersonalInformation.css';
 import './Styles/Profiles/User Profile/ProfileArticles.css';
+import './Styles/Profiles/User Profile/Metrics.css';
+import './Styles/Profiles/User Profile/Charts.css';
 
 import Header from'./Components/Common/Header';
 import Footer from './Components/Common/Footer';
@@ -27,11 +29,10 @@ function App() {
         <Header />
         {/*<SearchArea />*/}
         {/*<RecentPapers />*/}
-        {/*<MiddleSearchArea />*/}
-        {/*<hr/>*/}
-        {/*<ResultsShowing />*/}
-        {/*<ProfileResults />*/}
-        <PersonalProfile />
+        <MiddleSearchArea />
+        <hr/>
+        <ResultsShowing />
+        {/*<PersonalProfile />*/}
         <Footer />
     </div>
   );

@@ -1,0 +1,14 @@
+.charts{
+    /*background-color: #fff;*/
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 5px;*/
+    /*padding: 10px;*/
+    /*margin: 10px 0;*/
+    /*box-shadow: 0 0 5px #ccc;*/
+    display: flex;
+    flex-direction: column;
+    /*margin-top: 2%;*/
+}
+.Charts_Div{
+    margin-top: 2%;
+}

@@ -3,3 +3,10 @@
     display: flex;
     flex-direction: row;
 }
+.main-user-profile{
+    margin: 2% 1%;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
