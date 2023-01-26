@@ -37,6 +37,7 @@
 .profile-features{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     margin: 1% 1% 1% 0;
     padding: unset !important;
 }
@@ -47,7 +48,7 @@
     padding: 0.5%;
     font-size: 14px;
     color: black;
-    width: 200px;
+    width: 250px;
 }
 .feature h1{
     width: 100%;

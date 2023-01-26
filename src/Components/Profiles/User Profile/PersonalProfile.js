@@ -5,12 +5,8 @@ import Metrics from "./Matrics";
 import ProfileArticles from "./ProfileArticles";
 import SavedArticles from "./Saved Articles";
 import ProfileResults from "../ProfileResults";
-
-
-// import ProfileOptions from "./UserProfileOptions";
 import {Button, Collapse} from "react-bootstrap";
-// import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
-// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 export default function PersonalProfile() {
     const [open, setOpen] = useState(false);
     const [profileOptions, setProfileOptions] = useState({

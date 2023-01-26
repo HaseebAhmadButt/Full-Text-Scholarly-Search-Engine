@@ -1,0 +1,22 @@
+.admin-charts{
+    display: flex;
+    flex-direction: row;
+}
+.Admin-Charts-Div{
+    /*flex: 50%;*/
+    margin: 2%;
+    width: 50%;
+}
+.Admin-metrics-div{
+    /*flex: 50%;*/
+    /*margin: 2%;*/
+    /*border: 1px solid #ccc;*/
+    width: 100%;
+}
+.Admin-metrics-div h4{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: dodgerblue;
+    color: #fff;
+}
