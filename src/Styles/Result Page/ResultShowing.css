@@ -30,7 +30,14 @@
     border: 1px solid lightgray;
     color: black;
 }
-.tags:hover{
+.tags-button{
+    margin-left: 1%;
+    background-color: white;
+    margin-bottom: 0.7%;
+}
+.tags:hover, .tags-button:hover{
+    background-color: white;
+    color: rgb(0,123,255);
     border-radius: 20px;
     border: 1px solid rgb(0,123,255);
 }

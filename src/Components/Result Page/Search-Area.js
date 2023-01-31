@@ -4,6 +4,7 @@ import {Button, Form, Collapse, CloseButton} from "react-bootstrap";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearchengin} from "@fortawesome/free-brands-svg-icons";
+
 export default function MiddleSearchArea() {
 
     const [formValues, setFormValues] = useState({
@@ -112,6 +113,15 @@ export default function MiddleSearchArea() {
                                 aria-expanded={advancedSearch}
                             >
                                 More &nbsp;&nbsp;{advancedSearch?<FontAwesomeIcon icon={faArrowUp}/>:<FontAwesomeIcon icon={faArrowDown}/>}
+                            </Button>
+                            <Button
+                                className={"search-option-button"}
+                                style={{marginLeft: "1%"}}
+                                onClick={() => {
+                                   window.open("https://vasturiano.github.io/3d-force-graph/example/highlight/", "_blank")
+                                }
+                            }>
+                                View Graphically
                             </Button>
                         </Form.Group>
                         <Collapse in={collapseDate}>

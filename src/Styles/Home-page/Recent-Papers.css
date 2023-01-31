@@ -2,6 +2,7 @@
     width: 90%;
     /*background-color: #61dafb;*/
     margin: 2.5% auto auto;
+    display: none;
 }
 .recent-papers > h2{
     border-bottom: 2px solid black;

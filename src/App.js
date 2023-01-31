@@ -25,17 +25,39 @@ import MiddleSearchArea from "./Components/Result Page/Search-Area";
 import ProfileResults from "./Components/Profiles/ProfileResults";
 import PersonalProfile from "./Components/Profiles/User Profile/PersonalProfile";
 import AdminHome from "./Components/Admin/Admin-Home";
+import {Routes,Route} from "react-router-dom";
+
 function App() {
   return (
     <div className="App">
         <Header />
-        {/*<SearchArea />*/}
-        {/*<RecentPapers />*/}
-        {/*<MiddleSearchArea />*/}
-        {/*<hr/>*/}
-        {/*<ResultsShowing />*/}
-        {/*<PersonalProfile />*/}
-        <AdminHome />
+        <Routes >
+            <Route exact path={'/'} element={<>
+                <SearchArea />
+                <RecentPapers />
+            </>} />
+
+            <Route path={'/results'} element={<>
+                <MiddleSearchArea />
+                <hr/>
+                <ResultsShowing />
+                </>
+            } />
+
+
+            <Route path={'/profile'} element={
+                <ProfileResults />
+            } />
+
+            <Route path={'/personalProfile'} element={
+                <PersonalProfile />
+            } />
+
+            <Route path={'/admin'} element={
+                <AdminHome />
+            } />
+
+        </Routes>
         <Footer />
 
     </div>
