@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
 import './Styles/Common/Header.css';
 import './Styles/Common/Footer.css';
+import './Styles/Common/Registration.css';
 import './Styles/Profiles/ProfileResultsHeader.css';
 import './Styles/Home-page/Search-Header.css';
 import './Styles/Profiles/ProfileResultsFilter.css';
@@ -25,6 +26,8 @@ import MiddleSearchArea from "./Components/Result Page/Search-Area";
 import ProfileResults from "./Components/Profiles/ProfileResults";
 import PersonalProfile from "./Components/Profiles/User Profile/PersonalProfile";
 import AdminHome from "./Components/Admin/Admin-Home";
+import SignIn from "./Components/Common/SignIn";
+import SignUp from "./Components/Common/SignUp";
 import {Routes,Route} from "react-router-dom";
 
 function App() {
@@ -56,6 +59,15 @@ function App() {
             <Route path={'/admin'} element={
                 <AdminHome />
             } />
+
+            <Route path={'/signIn'} element={
+                <SignIn />
+            } />
+
+            <Route path={'/signUp'} element={
+                <SignUp />
+            } />
+
 
         </Routes>
         <Footer />

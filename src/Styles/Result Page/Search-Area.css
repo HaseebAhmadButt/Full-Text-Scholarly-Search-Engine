@@ -27,6 +27,27 @@
 .search-options,.advance-form-group{
     margin-top: 1%;
 }
+.hamburger-menue{
+    display: none;
+    background-color: white;
+    border: none;
+    padding: unset;
+    padding-left: 0.6%;
+    margin-top: 1%;
+    height: 35px;
+}
+.hamburger-menue > div{
+    width: 35px;
+    height: 5px;
+    background-color: gray;
+    margin: 3px 0;
+
+
+}
+.mobile-search-options{
+    display: none;
+    margin-top: 1%;
+}
 .middle-search-input{
     flex: 75%;
     border-bottom-right-radius: unset;
@@ -43,6 +64,7 @@
 
 .search-options{
     margin-bottom: 1.5%;
+    /*display: none;*/
 }
 .search-option-button, .advance-search-input{
     border: 1px solid lightgray;
@@ -76,8 +98,7 @@
 }
 .advance-search-button{
 
-    margin-left: 17%;
-    width: 15%;
+    margin-left: 16%;
     border-radius: 5px;
     font-size: 1rem;
 }
@@ -90,3 +111,43 @@
 .form-tag{
     margin: 1% 1% 1% 0;
 }
+@media screen and (max-width: 768px) {
+    .middle-search-form{
+        width: 100%;
+    }
+    .dateField{
+        width: 20%;
+    }
+}
+@media screen and (max-width: 426px) {
+    .search-options{
+        display: none;
+    }
+    .hamburger-menue{
+        display: block;
+    }
+    .mobile-search-options{
+        display: flex;
+        flex-direction: column;
+    }
+    .mobile-search-options button{
+        margin: 1% 0 1% 0;
+        height: 10%;
+    }
+    .advancedMobileSearch{
+        width: 100%;
+        margin-top: 1%;
+    }
+    .dateField{
+        width: 35%;
+    }
+    .advance-mobile-search-input{
+        width: 100%;
+        margin-top: 1%;
+    }
+}
+/*@media screen and (max-width: 320px){*/
+/*    .header-options ul li a {*/
+/*        font-size: 1rem;*/
+/*    }*/
+/*}*/

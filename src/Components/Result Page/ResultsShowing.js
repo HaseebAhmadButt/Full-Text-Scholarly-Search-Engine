@@ -10,7 +10,9 @@ export default function ResultsShowing() {
                     <div className={"result"}>
                         <div className={"result-detail"}>
                             <a href={"#"} className={"heading"}><h3>Energy and policy considerations for deep learning in NLP</h3></a>
-                            <p>Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP, and discuss the implications for the field. We find that the energy consumption of deep learning models for NLP is comparable to that of other deep learning models, and that the energy consumption of training and inference is comparable.</p>
+                            <p>
+                                Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP and discuss the implications for the field.
+                            </p>
                             <a href={"#"} className={'tags'}><span >Download PDF</span></a>
                             <a href={"#"} className={'tags'}><span >Save</span></a>
                             <a href={"#"} className={'tags'}><span >Cite</span></a>
@@ -33,7 +35,7 @@ export default function ResultsShowing() {
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Published at: </h5>
-                                 IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a>
+                                <spanp className={"publication-site"}>IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a></spanp>
                             </div>
                             <div>
                                 <h5 className={"heading"}>Cited By: </h5>
@@ -50,12 +52,12 @@ export default function ResultsShowing() {
                             </div>
                         </div>
                     </div>
-            </div>
-            <div className={"results-showing"}>
                     <div className={"result"}>
                         <div className={"result-detail"}>
                             <a href={"#"} className={"heading"}><h3>Energy and policy considerations for deep learning in NLP</h3></a>
-                            <p>Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP, and discuss the implications for the field. We find that the energy consumption of deep learning models for NLP is comparable to that of other deep learning models, and that the energy consumption of training and inference is comparable.</p>
+                            <p>
+                                Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP and discuss the implications for the field.
+                            </p>
                             <a href={"#"} className={'tags'}><span >Download PDF</span></a>
                             <a href={"#"} className={'tags'}><span >Save</span></a>
                             <a href={"#"} className={'tags'}><span >Cite</span></a>
@@ -78,7 +80,7 @@ export default function ResultsShowing() {
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Published at: </h5>
-                                 IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a>
+                                <spanp className={"publication-site"}>IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a></spanp>
                             </div>
                             <div>
                                 <h5 className={"heading"}>Cited By: </h5>
@@ -95,12 +97,12 @@ export default function ResultsShowing() {
                             </div>
                         </div>
                     </div>
-            </div>
-            <div className={"results-showing"}>
                     <div className={"result"}>
                         <div className={"result-detail"}>
                             <a href={"#"} className={"heading"}><h3>Energy and policy considerations for deep learning in NLP</h3></a>
-                            <p>Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP, and discuss the implications for the field. We find that the energy consumption of deep learning models for NLP is comparable to that of other deep learning models, and that the energy consumption of training and inference is comparable.</p>
+                            <p>
+                                Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP and discuss the implications for the field.
+                            </p>
                             <a href={"#"} className={'tags'}><span >Download PDF</span></a>
                             <a href={"#"} className={'tags'}><span >Save</span></a>
                             <a href={"#"} className={'tags'}><span >Cite</span></a>
@@ -123,7 +125,7 @@ export default function ResultsShowing() {
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Published at: </h5>
-                                 IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a>
+                                <spanp className={"publication-site"}>IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a></spanp>
                             </div>
                             <div>
                                 <h5 className={"heading"}>Cited By: </h5>
@@ -141,6 +143,7 @@ export default function ResultsShowing() {
                         </div>
                     </div>
             </div>
+
         </>
     );
 }

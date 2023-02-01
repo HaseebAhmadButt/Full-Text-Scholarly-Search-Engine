@@ -10,3 +10,9 @@
     flex-direction: column;
     align-items: center;
 }
+@media screen and (max-width: 1024px) {
+    .main-user-profile{
+        width: 100%;
+    }
+
+}

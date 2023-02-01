@@ -42,23 +42,35 @@
     padding: unset !important;
 }
 .profile-feature{
-    border-top-left-radius: unset !important;
-    border-top-right-radius: unset !important;
-    border-top-width: unset !important;
-    padding: 0.5%;
-    font-size: 14px;
+    padding-right: 1%;
+    font-size: 0.8rem;
     color: black;
-    width: 250px;
+    width: 180px;
 }
 .feature h1{
     width: 100%;
     text-align: center;
     margin: auto;
 }
-.feature:hover{
-        border: 2px solid rgb(0,123,255) !important;
-        border-radius: 5px;
+.feature{
+    padding: 2%;
+    border: 2px solid rgb(0,123,255) !important;
+    border-radius: 5px !important;
 }
-.feature:hover h1, .feature:hover span{
+/*.feature:hover{*/
+/*      */
+/*}*/
+.feature h1, .feature span{
     color: rgb(0,123,255);
+}
+@media screen and (max-width: 1024px) {
+    .profile-feature{
+        font-size: 0.8rem;
+        color: black;
+        width: 180px;
+    }
+    .feature{
+        padding: 2%;
+    }
+
 }

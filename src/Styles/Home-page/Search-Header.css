@@ -75,6 +75,14 @@ This is just a 'TUCH'. Not the final solution.
     }
     .search-content{
         width: 90%;
+        padding: 2%;
+    }
+    .search-content h1{
+        font-size: 1.5rem;
+    }
+    .search-content h3{
+        /*display: inline-block;*/
+        font-size: 1rem;
     }
 }
 @media screen and (max-width: 375px){

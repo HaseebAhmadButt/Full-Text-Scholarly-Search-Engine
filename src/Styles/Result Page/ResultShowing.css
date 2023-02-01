@@ -1,19 +1,17 @@
 .results-showing{
-    width: 95%;
-    margin: 1%;
+    width: 90%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    grid-gap: 2rem;
-    /*margin-left: unset !important;*/
+    grid-gap: 0.5rem;
+    margin: auto auto 0.5%;
 }
 .result{
-    border: 1px solid lightgray;
-    border-radius: 8px;
-    padding : 1%;
+    padding : 2%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2rem;
+    border-bottom: 1px solid lightgray;
 }
 .heading{
     font-size: 1.5rem;
@@ -66,8 +64,30 @@
 .dateField{
     margin-top: 0.5%;
     display: inline-block;
-    /*margin-left: 1%;*/
     color: black;
     width: 10%;
     height: 30px;
+}
+@media screen and (max-width: 768px) {
+    .results-showing h3, .result-metadata h5{
+        font-size: 0.95rem !important;
+    }
+
+    .result-metadata .authors, .publication-site, .tags,.results-showing p{
+        font-size: 0.8rem !important;
+    }
+
+
+}
+@media screen and (max-width: 426px) {
+    .result{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        grid-gap: 2%;
+        padding: 2% 2% 5% 2%;
+        /*padding-bottom: 3%;*/
+    }
+    .result-detail p{
+        display: none;
+    }
 }

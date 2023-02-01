@@ -26,7 +26,8 @@
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
     "recharts": "^2.3.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "mdb-react-ui-kit": "5.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
