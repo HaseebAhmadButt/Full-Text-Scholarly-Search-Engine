@@ -16,6 +16,13 @@ export default function AdminPersonalInformation() {
                         className={"profile-upload"}
                     />
                     <Form.Label className={"label"}>
+                        User Name:
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter New Name"
+                        className={"middle-search-input profile-input"}/>
+                    <Form.Label className={"label"}>
                         Password:
                     </Form.Label>
                     <Form.Control

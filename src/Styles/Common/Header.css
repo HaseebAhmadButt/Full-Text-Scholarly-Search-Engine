@@ -1,14 +1,13 @@
-.header-mobile{
-    display: none;
-}
 .App-header{
-    background-color: darkblue;
-    height: max-content;
+    background-color: #0071c5;
+    height: 80px;
     color: white;
     display: flex;
     flex-direction: row;
-    gap: 3.333%;
-    /*padding: 0.5%;*/
+    gap: 5%;
+}
+.Laptop-LogIn{
+    display: none;
 }
 .logo-div{
     flex: 25%;
@@ -18,10 +17,14 @@
 .logo-div img{
     width: 100%;
     height: 100%;
-    margin: auto;
+    padding: 10px;
 }
-.header-options{flex: 75%;}
-.header-options ul{
+
+.header-options{flex: 50%;}
+.login-Div{
+    flex: 15%;
+}
+.header-options ul, .login-Div ul{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -29,21 +32,33 @@
     list-style: none;
     padding: unset;
     height: 100%;
-
 }
-.header-options ul li{
+.header-options ul li, .login-Div ul{
     margin: 0 2.5%;
-}
-.login-option{
-    flex: 20%;
 }
 .header-options ul li a {
     text-decoration: none;
     color: white;
-    font-size: 1.5rem;
-    font-weight: normal;
+    font-size: 1.4rem;
     display: block;
     margin: auto;
+    font-weight: bolder;
+}
+.login-Div ul li a button{
+    background-color: #0071c5;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    border: 1px solid white;
+    border-radius: 50px;
+    /*border: none;*/
+    /*padding: 5px 10px;*/
+    /*border-radius: 5px;*/
+    /*cursor: pointer;*/
+}
+.login-Div ul li a button:hover{
+    background-color: white;
+    color: #0071c5;
 }
 @media screen and (max-width: 1024px){
     .App-header{
@@ -79,6 +94,14 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
+    .login-Div{display: none;}
+    .Laptop-LogIn{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 1%;
     }
     .header-options ul li a {
         font-size: 1.3rem;

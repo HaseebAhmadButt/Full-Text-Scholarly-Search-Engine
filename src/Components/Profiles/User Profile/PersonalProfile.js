@@ -123,16 +123,9 @@ export default function PersonalProfile() {
                     >
                         Saved Articles
                     </Button>
-                    <hr />
                     <Button>
                         Logout
                     </Button>
-
-                    {/*<Button variant="primary" onClick={handleShow} className={"hamburger-menue"}>*/}
-                    {/*    <div></div>*/}
-                    {/*    <div></div>*/}
-                    {/*    <div></div>*/}
-                    {/*</Button>*/}
                     <Offcanvas show={show} onHide={handleClose}>
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>Profile Options</Offcanvas.Title>
@@ -233,16 +226,12 @@ export default function PersonalProfile() {
                             >
                                 Saved Articles
                             </Button>
-                            <hr />
                             <Button>
                                 Logout
                             </Button>
                         </Offcanvas.Body>
                     </Offcanvas>
                 </div>
-
-
-
                 {profileOptions.accountSettings?<UpdatePersonalInformation/>:""}
                 {profileOptions.researcherProfile?<UpdateResearcherInformation/>:""}
                 {profileOptions.articles?<ProfileArticles/>:""}

@@ -4,6 +4,8 @@
     flex-direction: row;
     margin: 0 1.5% 1% 0;
     border-radius: unset;
+    border: unset;
+    border-bottom: 2px solid lightgray;
 }
 .Profile_Image{
     width: 20%;

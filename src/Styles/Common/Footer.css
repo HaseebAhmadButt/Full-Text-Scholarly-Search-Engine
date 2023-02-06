@@ -1,9 +1,8 @@
 .footer{
-    margin-top: 1.5%;
-    background-color: darkblue;
+    /*margin-top: 0.5%;*/
+    background-color: #0071c5;
     color: #fff;
-    padding: 35px;
-    padding-bottom: unset;
+    padding: 35px 35px 0 35px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -21,7 +20,7 @@
     flex: 25%;
 }
 .purpose h2, .suggestions h2, .categories h2{
-    font-size:2rem;
+    font-size:24px;
     text-align: left;
 }
 .purpose p{
@@ -33,7 +32,7 @@ text-align: left;
 padding: 0;
 }
 .categories ul li a{
-font-size: 1.2rem;
+font-size: 1.1rem;
 color: white;
 text-decoration: none;
 }
@@ -94,6 +93,16 @@ text-decoration: underline;
     }
     .categories, .suggestions{
         width: 100%;
+        /*text-align: center;*/
+    }
+    .purpose p{
+        text-align: center;
+    }
+    .categories ul{
+        text-align: center;
+    }
+    .purpose h2, .suggestions h2, .categories h2{
+        text-align: center;
     }
     .footer-social-media-copyright{
         flex-direction: column-reverse;

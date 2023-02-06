@@ -35,7 +35,7 @@ export default function ProfileArticles() {
         <div className={"profile-articles"}>
             <h3>Research Work Information</h3>
             <div>
-                <Nav fill variant={"tabs"} defaultActiveKey={"link-1"} onSelect={showTabData}>
+                <Nav fill variant={"tabs"} defaultActiveKey={"link-1"} onSelect={showTabData} style={{borderBottom:"unset"}}>
                     <Nav.Item>
                         <Nav.Link eventKey="link-1" className={"Tab-Option"}>Personal Articles</Nav.Link>
                     </Nav.Item>

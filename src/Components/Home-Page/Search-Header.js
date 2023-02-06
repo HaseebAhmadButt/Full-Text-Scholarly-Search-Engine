@@ -11,7 +11,8 @@ export default function SearchArea() {
         }
         return (
             <>
-                <div style={BgImage} className={"search-area"}>
+                {/*style={BgImage}*/}
+                <div  className={"search-area"}>
                     <div className={"search-area-content"}>
                         <div className={"search-content"}>
                             <h1>kNowledge Verse</h1>

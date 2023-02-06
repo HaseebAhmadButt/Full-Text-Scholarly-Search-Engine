@@ -17,6 +17,13 @@ export default function UpdatePersonalInformation() {
                         />
 
                     <Form.Label className={"label"}>
+                        Name:
+                    </Form.Label>
+                    <Form.Control
+                        type="email"
+                        placeholder="Enter New Name"
+                        className={"middle-search-input profile-input"}/>
+                    <Form.Label className={"label"}>
                         Email address:
                     </Form.Label>
                     <Form.Control

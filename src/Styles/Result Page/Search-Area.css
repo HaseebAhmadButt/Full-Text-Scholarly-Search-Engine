@@ -30,23 +30,29 @@
 .hamburger-menue{
     display: none;
     background-color: white;
-    border: none;
-    padding: unset;
-    padding-left: 0.6%;
+    /*border: none;*/
+    /*padding: unset;*/
+    padding: 0.6%;
     margin-top: 1%;
     height: 35px;
+    border: 1px solid lightgray;
 }
 .hamburger-menue > div{
     width: 35px;
     height: 5px;
-    background-color: gray;
+    /*background-color: gray;*/
     margin: 3px 0;
-
-
+    border: 2px solid lightgray;
+    border-radius: 10px;
+}
+.hamburger-menue:hover{
+    background-color: gray;
 }
 .mobile-search-options{
     display: none;
     margin-top: 1%;
+    background-color: darkblue;
+    color: white;
 }
 .middle-search-input{
     flex: 75%;
@@ -130,9 +136,21 @@
         display: flex;
         flex-direction: column;
     }
-    .mobile-search-options button{
+    .mobile-search-options>button{
         margin: 1% 0 1% 0;
-        height: 10%;
+        /*height: 10%;*/
+        color: white;
+        border: unset;
+        padding: unset;
+        text-align: left;
+        border-radius: unset;
+        background-color: unset;
+        border-bottom: 1px solid white;
+    }
+    .mobile-active{
+        background-color: darkblue;
+        color: white;
+
     }
     .advancedMobileSearch{
         width: 100%;
@@ -144,6 +162,11 @@
     .advance-mobile-search-input{
         width: 100%;
         margin-top: 1%;
+    }
+    .advance-search-button{
+        margin:unset;
+        padding: 1% 2%;
+        margin-top: 2%;
     }
 }
 /*@media screen and (max-width: 320px){*/

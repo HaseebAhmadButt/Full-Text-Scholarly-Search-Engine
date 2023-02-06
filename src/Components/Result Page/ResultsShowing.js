@@ -1,6 +1,8 @@
 import React from "react";
 import '../../Styles/Result Page/ResultShowing.css';
 import {Button} from "react-bootstrap";
+import Pagination from 'react-bootstrap/Pagination';
+
 
 export default function ResultsShowing() {
 
@@ -142,6 +144,24 @@ export default function ResultsShowing() {
                             </div>
                         </div>
                     </div>
+
+                    <Pagination>
+                        <Pagination.Item active>
+                            1
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            2
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            2
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            3
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            4
+                        </Pagination.Item>
+                    </Pagination>
             </div>
 
         </>

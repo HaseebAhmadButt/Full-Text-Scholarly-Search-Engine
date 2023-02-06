@@ -1,4 +1,5 @@
 import React from "react";
+import {Button} from "react-bootstrap";
 
 export default function Header() {
     return (
@@ -12,10 +13,15 @@ export default function Header() {
                         <li><a href={"#"}>Home</a></li>
                         <li><a href={"#"}>About</a></li>
                         <li><a href={"#"}>Contact</a></li>
-                        <li><a href={"#"}>Login</a></li>
-
+                        <li className={"Laptop-LogIn"}><a href={"#"}>Login</a></li>
                     </ul>
                 </div>
+                <div className={"login-Div"}>
+                    <ul>
+                        <li><a href={"#"}><Button> Login</Button></a></li>
+                    </ul>
+                </div>
+
             </header>
         </>
     );

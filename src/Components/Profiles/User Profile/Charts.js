@@ -47,6 +47,7 @@ export default function LineChart() {
         <div className={"charts"}> {/*This is the main div of this component*/}
             <div className={"Charts_Div"}>
                 <Bar
+                    className={"Chart"}
                     data={Citations_Data}
                     options={{
                         scales:{

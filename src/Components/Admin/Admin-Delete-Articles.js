@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Form, InputGroup, Table} from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
 
 export default function AdminDeleteArticles() {
 
@@ -102,9 +103,28 @@ export default function AdminDeleteArticles() {
                             </td>
                         </tr>
                     </Table>
+                    <Pagination>
+                        <Pagination.Item active>
+                            1
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            2
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            2
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            3
+                        </Pagination.Item>
+                        <Pagination.Item >
+                            4
+                        </Pagination.Item>
+                    </Pagination>
+
                     <Button variant={"primary"} className={"remove-button"} onClick={()=>{prompt("Reason.")}}>Remove Articles</Button>
                 </Form>
             </div>
+
 
 
         </div>

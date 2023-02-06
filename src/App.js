@@ -16,6 +16,8 @@ import './Styles/Profiles/User Profile/ProfileArticles.css';
 import './Styles/Profiles/User Profile/Metrics.css';
 import './Styles/Profiles/User Profile/Charts.css';
 import './Styles/Admin/Admin-Charts.css';
+import './Styles/ContactUs/Contact.css';
+import './Styles/AboutUs/AboutUs.css';
 
 import Header from'./Components/Common/Header';
 import Footer from './Components/Common/Footer';
@@ -28,6 +30,8 @@ import PersonalProfile from "./Components/Profiles/User Profile/PersonalProfile"
 import AdminHome from "./Components/Admin/Admin-Home";
 import SignIn from "./Components/Common/SignIn";
 import SignUp from "./Components/Common/SignUp";
+import Contact from "./Components/ContactUs/Contact";
+import AboutUs from "./Components/AboutUs/AboutUs";
 import {Routes,Route} from "react-router-dom";
 
 function App() {
@@ -66,6 +70,14 @@ function App() {
 
             <Route path={'/signUp'} element={
                 <SignUp />
+            } />
+
+            <Route path={'/contact'} element={
+                <Contact />
+            } />
+
+            <Route path={'/aboutUs'} element={
+                <AboutUs />
             } />
 
 

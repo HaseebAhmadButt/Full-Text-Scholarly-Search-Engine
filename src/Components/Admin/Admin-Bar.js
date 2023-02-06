@@ -122,7 +122,7 @@ export default function AdminBar() {
                 >
                     Statistics
                 </Button>
-                <hr />
+
                 <Button
                     onClick={() => {
                         alert("Logout");

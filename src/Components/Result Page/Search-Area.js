@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../../Styles/Result Page/Search-Area.css";
 import {Button, Form, Collapse, CloseButton, Offcanvas} from "react-bootstrap";
-import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearchengin} from "@fortawesome/free-brands-svg-icons";
 
@@ -90,7 +90,7 @@ export default function MiddleSearchArea() {
                                 aria-expanded={collapseDate}
                             >
                                 Select Date &nbsp;&nbsp;
-                                {collapseDate?<FontAwesomeIcon icon={faArrowUp}/>:<FontAwesomeIcon icon={faArrowDown}/>}
+                                {collapseDate?<FontAwesomeIcon icon={faAngleUp}/>:<FontAwesomeIcon icon={faAngleDown}/>}
                             </Button>
                             <Form.Check
                                 inline
@@ -120,7 +120,7 @@ export default function MiddleSearchArea() {
                                 inline
                                 aria-expanded={advancedSearch}
                             >
-                                More &nbsp;&nbsp;{advancedSearch?<FontAwesomeIcon icon={faArrowUp}/>:<FontAwesomeIcon icon={faArrowDown}/>}
+                                More &nbsp;&nbsp;{advancedSearch?<FontAwesomeIcon icon={faAngleUp}/>:<FontAwesomeIcon icon={faAngleDown}/>}
                             </Button>
                             <Button
                                 className={"search-option-button"}
@@ -163,17 +163,17 @@ export default function MiddleSearchArea() {
                                             className={"search-option-field"}
                                             label={"Sort By Citations"} />
                                         <Button
-                                            className={`${collapseMobileDate?" active search-option-button":"search-option-button"}`}
+                                            className={`${collapseMobileDate?" mobile-active mobile-search-option-button":"mobile-search-option-button"}`}
                                             onClick={() => {
                                                 setAdvancedMobileSearch((prev) => false)
                                                 setCollapseMobileDate((prev) => !prev)
                                             }}
                                             aria-controls="date-collapse-text"
                                             inline
-                                            aria-expanded={collapseDate}
+                                            aria-expanded={collapseMobileDate}
                                         >
                                             Select Date &nbsp;&nbsp;
-                                            {collapseDate?<FontAwesomeIcon icon={faArrowUp}/>:<FontAwesomeIcon icon={faArrowDown}/>}
+                                            {collapseMobileDate?<FontAwesomeIcon icon={faAngleUp}/>:<FontAwesomeIcon icon={faAngleDown}/>}
                                         </Button>
                                          <Collapse in={collapseMobileDate}>
                                         <div className={"datePicker"}>
@@ -201,7 +201,7 @@ export default function MiddleSearchArea() {
                                     </Collapse>
 
                                         <Button
-                                            className={`${advancedMobileSearch?" active search-option-button":"search-option-button"}`}
+                                            className={`${collapseMobileDate?" mobile-active mobile-search-option-button":"mobile-search-option-button"}`}
                                             onClick={() => {
                                                 setCollapseMobileDate((prev) => false)
                                                 setAdvancedMobileSearch((prev) => !prev)
@@ -210,7 +210,7 @@ export default function MiddleSearchArea() {
                                             inline
                                             aria-expanded={advancedMobileSearch}
                                         >
-                                            More &nbsp;&nbsp;{advancedMobileSearch?<FontAwesomeIcon icon={faArrowUp}/>:<FontAwesomeIcon icon={faArrowDown}/>}
+                                            More &nbsp;&nbsp;{advancedMobileSearch?<FontAwesomeIcon icon={faAngleUp}/>:<FontAwesomeIcon icon={faAngleDown}/>}
                                         </Button>
                                         <Collapse in={advancedMobileSearch}>
                                         <div className={"advancedSearch advancedMobileSearch"}>
@@ -307,7 +307,7 @@ export default function MiddleSearchArea() {
                                     </Collapse>
 
                                         <Button
-                                                className={"search-option-button"}
+                                                className={"mobile-search-option-button"}
                                                 style={{marginLeft: "1%"}}
                                                 onClick={() => {
                                                     window.open("https://vasturiano.github.io/3d-force-graph/example/highlight/", "_blank")
