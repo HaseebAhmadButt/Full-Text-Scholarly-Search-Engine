@@ -9,6 +9,10 @@ export default function SearchArea() {
         const BgImage = {
             backgroundImage: `url(${BackgroundImage})`,
         }
+        const OpenSearchresuls = (e) => {
+            e.preventDefault();
+            window.location.href = "/results";
+        }
         return (
             <>
                 {/*style={BgImage}*/}
@@ -18,11 +22,9 @@ export default function SearchArea() {
                             <h1>kNowledge Verse</h1>
                             <h3>A free, AI-powered research tool for scientific literature</h3>
                             <div className={"search-form"}>
-                                <Form className={"form"}>
-                                    {/*<Form.Group controlId="UserSearch">*/}
+                                <Form className={"form"} >
                                         <Form.Control type="text" placeholder="Search for a paper, author, or topic" className={"search-input"}/>
-                                        <Button type="submit" className={"search-button"}><FontAwesomeIcon icon={faSearchengin}/></Button>
-                                    {/*</Form.Group>*/}
+                                        <Button type="submit" className={"search-button"} onClick={OpenSearchresuls}><FontAwesomeIcon icon={faSearchengin}/></Button>
                                 </Form>
                             </div>
                         </div>

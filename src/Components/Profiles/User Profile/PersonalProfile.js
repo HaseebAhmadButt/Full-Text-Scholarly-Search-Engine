@@ -6,8 +6,6 @@ import ProfileArticles from "./ProfileArticles";
 import SavedArticles from "./Saved Articles";
 import ProfileResults from "../ProfileResults";
 import {Button, Collapse, Form, Offcanvas} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 
 export default function PersonalProfile() {
     const [show, setShow] = useState(false);

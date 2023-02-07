@@ -1,6 +1,39 @@
-import {Button, Form} from "react-bootstrap";
+import {Button, CloseButton, Form} from "react-bootstrap";
+import React, {useState} from "react";
 
 export default function UpdateResearcherInformation() {
+    const [Authors, setAuthors] = useState([]);
+    const [Interests, setInterests] = useState([]);
+    // const addAuthor = () => {
+    //     // if(formValues.advance_author.length > 0) {
+    //         setAuthors((prev) => [...prev, formValues.advance_author]);
+    //         // setFormValues((prev) => ({...prev, advance_author: ""}))
+    //     // }
+    // }
+    // const addJournals = () => {
+    //     // if(formValues.advance_journal.length > 0) {
+    //         setInterests((prev) => [...prev, formValues.advance_journal]);
+    //         // setFormValues((prev) => ({...prev, advance_journal: ""}))
+    //     // }
+    // }
+    // const displayAuthors = Authors.map((author, index) => {
+    //     return (
+    //         <span className={'tags form-tag'}>{author} <CloseButton onClick={()=>{
+    //             removeAuthor(index)}} className={"close-button"}/></span>
+    //     )
+    // })
+    // const removeAuthor = (index) => {
+    //     setAuthors((prev) => prev.filter((_, i) => i !== index));
+    // }
+    // const displayJournals = Journals.map((Journal, index) => {
+    //     return (
+    //         <span className={'tags form-tag'}>{Journal} <CloseButton onClick={()=>{
+    //             removeJournals(index)}} className={"close-button"}/></span>
+    //     )
+    // })
+    // const removeJournals = (index) => {
+    //     setJournals((prev) => prev.filter((_, i) => i !== index));
+    // }
     return (
         <>
         <Form className={"personal-profile-update-form"}>
@@ -26,6 +59,9 @@ export default function UpdateResearcherInformation() {
                     Add
                 </Button>
                 <div style={{clear:"right"}}></div>
+                <div className={"tags-dive"}>
+                    {/*{displayAuthors}*/}
+                </div>
             </Form.Group>
             <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
                 <Form.Label>

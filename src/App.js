@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
-import './Styles/Common/Header.css';
+import './Styles/Headers/Header.css';
 import './Styles/Common/Footer.css';
 import './Styles/Common/Registration.css';
 import './Styles/Profiles/ProfileResultsHeader.css';
@@ -18,8 +18,13 @@ import './Styles/Profiles/User Profile/Charts.css';
 import './Styles/Admin/Admin-Charts.css';
 import './Styles/ContactUs/Contact.css';
 import './Styles/AboutUs/AboutUs.css';
+import './Styles/Headers/HomePageheader.css';
+import './Styles/Headers/ProfileHeaders.css';
+import './Styles/Home-page/TopCitedTopics.css';
 
-import Header from'./Components/Common/Header';
+import SearchHeader from './Components/Headers/SearchHeader';
+import HomepageHeader from "./Components/Headers/HomePageHeader";
+import ProfileHeader from "./Components/Headers/ProfileHeaders";
 import Footer from './Components/Common/Footer';
 import SearchArea from "./Components/Home-Page/Search-Header";
 import RecentPapers from "./Components/Home-Page/Recent-Papers"
@@ -32,36 +37,64 @@ import SignIn from "./Components/Common/SignIn";
 import SignUp from "./Components/Common/SignUp";
 import Contact from "./Components/ContactUs/Contact";
 import AboutUs from "./Components/AboutUs/AboutUs";
+import TopCitedTopic from "./Components/Home-Page/TopCitedTopic";
+import TopCitedpapers from "./Components/Home-Page/TopCitedpapers";
+import RecommendedPapers from "./Components/Home-Page/RecommendedPapers";
+import RecommendedAuthors from "./Components/Profiles/AuthorRecommendations";
+
 import {Routes,Route} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-        <Header />
         <Routes >
             <Route exact path={'/'} element={<>
+                <HomepageHeader/>
                 <SearchArea />
+                <TopCitedTopic />
                 <RecentPapers />
+                <TopCitedpapers />
+                <RecommendedPapers />
+                <Footer />
+
             </>} />
 
             <Route path={'/results'} element={<>
+                <SearchHeader />
                 <MiddleSearchArea />
                 <hr/>
                 <ResultsShowing />
+                <Footer />
+
                 </>
             } />
 
 
             <Route path={'/profile'} element={
-                <ProfileResults />
+                <>
+                    <SearchHeader />
+                    <ProfileResults />
+                    <RecommendedAuthors />
+                    <Footer />
+
+                </>
             } />
 
             <Route path={'/personalProfile'} element={
-                <PersonalProfile />
+                <>
+                    <ProfileHeader />
+                    <PersonalProfile />
+                    <Footer />
+                </>
             } />
 
             <Route path={'/admin'} element={
-                <AdminHome />
+                <>
+                    <ProfileHeader />
+                    <AdminHome />
+                    <Footer />
+
+                </>
             } />
 
             <Route path={'/signIn'} element={
@@ -73,16 +106,25 @@ function App() {
             } />
 
             <Route path={'/contact'} element={
+                <>
+                    <SearchHeader />
+
                 <Contact />
+                <Footer />
+                </>
             } />
 
             <Route path={'/aboutUs'} element={
+                <>
+                    <SearchHeader />
+
                 <AboutUs />
+                <Footer />
+                </>
             } />
 
 
         </Routes>
-        <Footer />
 
     </div>
   );

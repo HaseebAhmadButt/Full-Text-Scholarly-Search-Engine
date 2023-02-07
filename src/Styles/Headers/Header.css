@@ -44,6 +44,10 @@
     margin: auto;
     font-weight: bolder;
 }
+.login-Div ul li a{
+    width: 100%;
+    align-items: center;
+}
 .login-Div ul li a button{
     background-color: #0071c5;
     color: white;

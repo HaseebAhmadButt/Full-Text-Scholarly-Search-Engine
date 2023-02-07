@@ -26,8 +26,8 @@ export default function MiddleSearchArea() {
     const [collapseMobileDate, setCollapseMobileDate] = useState(false);
     const [advancedMobileSearch, setAdvancedMobileSearch] = useState(false);
 
-    const [Authors, setAuthors] = useState([]);
-    const [Journals, setJournals] = useState([]);
+        const [Authors, setAuthors] = useState([]);
+        const [Journals, setJournals] = useState([]);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -63,6 +63,10 @@ export default function MiddleSearchArea() {
     const removeJournals = (index) => {
         setJournals((prev) => prev.filter((_, i) => i !== index));
     }
+    const OpenSearchresuls = (e) => {
+        e.preventDefault();
+        window.location.href = "/results";
+    }
     return (
         <>
             <div className={"middle-search-area"}>
@@ -76,7 +80,7 @@ export default function MiddleSearchArea() {
                                 }}
                                 placeholder="Search for a paper, author, or topic"
                                 className={"middle-search-input"}/>
-                            <Button type="submit" className={"middle-search-button"}><FontAwesomeIcon icon={faSearchengin}/></Button>
+                            <Button type="submit" className={"middle-search-button"} onClick={OpenSearchresuls}><FontAwesomeIcon icon={faSearchengin}/></Button>
                         </Form.Group>
                         <Form.Group className={"search-options"}>
                             <Button
@@ -337,6 +341,9 @@ export default function MiddleSearchArea() {
                                         className={"dateField"}
                                         value={formValues.dateTo}
                                     />
+                                </Form.Group>
+                                <Form.Group controlId="UserSearch" className={"advance-form-group"}>
+                                    <Button type="button" className={""}>Update Results</Button>
                                 </Form.Group>
                             </div>
                         </Collapse>

@@ -1,0 +1,7 @@
+.Home-Page-Header{
+    display: grid !important;
+    grid-template-rows: 1fr !important;
+    grid-template-columns: 2.5fr 1fr !important;
+    color: white;
+    gap: 2.5%;
+}

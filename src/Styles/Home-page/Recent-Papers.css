@@ -1,21 +1,19 @@
 .recent-papers{
     width: 90%;
-    /*background-color: #61dafb;*/
-    margin: 2.5% auto auto;
-    /*display: none;*/
+    margin: 2.5% auto;
 }
-.recent-papers > h2{
+.recent-papers .recent-papers-heading h2{
     border-bottom: 2px solid black;
     padding: 0.5% 0.5% 0.5% 0;
     margin-bottom: 2%;
 }
 .recent-papers-div{
     display: grid;
-    margin: auto;
     width: 100%;
     grid-template-columns: repeat(3,1fr);
     grid-gap: 2rem;
     align-content: center;
+    margin-top: 2.5%;
 }
 .paper-anchor{
     text-decoration: none;
@@ -28,13 +26,22 @@
 .more-recent-papers{
     display: block;
     width: max-content;
-    padding: 2%;
+    padding: 1%;
     margin: auto;
     opacity: 0.5;
     color: black;
     cursor: pointer;
+    background-color: white;
+    border: unset;
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+.more-recent-papers:active{
+    background-color: white !important;
 }
 .more-recent-papers:hover{
+    background-color: white;
+    border: unset;
     color: black;
     opacity: 1;
 }

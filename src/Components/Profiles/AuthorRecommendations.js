@@ -6,9 +6,10 @@ export default function ResultsShowingSearchRecommendation() {
     return(
         <>
             <div className={"author-recommendations"}>
-                <h3>Author Recommendations</h3>
+                <h3>Recommended Authors</h3>
                 <div className={"recommendation-div"}>
 
+                <RecommendedAuthors />
                 <RecommendedAuthors />
                 <RecommendedAuthors />
                 <RecommendedAuthors />

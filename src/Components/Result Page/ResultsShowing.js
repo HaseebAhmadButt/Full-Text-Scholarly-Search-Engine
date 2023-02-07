@@ -31,9 +31,9 @@ export default function ResultsShowing() {
                         <div className={"result-metadata"}>
                             <div>
                                 <h5 className={"heading"}>Authors: </h5>
-                                <a href={"#"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
-                                <a href={"#"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
-                                <a href={"#"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Published at: </h5>
@@ -45,12 +45,12 @@ export default function ResultsShowing() {
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Topics Covered: </h5>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
                             </div>
                         </div>
                     </div>
@@ -76,9 +76,9 @@ export default function ResultsShowing() {
                         <div className={"result-metadata"}>
                             <div>
                                 <h5 className={"heading"}>Authors: </h5>
-                                <a href={"#"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
-                                <a href={"#"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
-                                <a href={"#"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Published at: </h5>
@@ -90,12 +90,12 @@ export default function ResultsShowing() {
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Topics Covered: </h5>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
                             </div>
                         </div>
                     </div>
@@ -121,9 +121,9 @@ export default function ResultsShowing() {
                         <div className={"result-metadata"}>
                             <div>
                                 <h5 className={"heading"}>Authors: </h5>
-                                <a href={"#"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
-                                <a href={"#"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
-                                <a href={"#"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
+                                <a href={"/profile"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Published at: </h5>
@@ -135,15 +135,16 @@ export default function ResultsShowing() {
                             </div>
                             <div>
                                 <h5 className={"heading heading-extra"}>Topics Covered: </h5>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                <a href={"#"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
+                                <a href={"/results"} className={'tags'}><span >NLP</span></a>
+                                <a href={"/results"} className={'tags'}><span >Biotech</span></a>
                             </div>
                         </div>
                     </div>
+
 
                     <Pagination>
                         <Pagination.Item active>
