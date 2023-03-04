@@ -50,7 +50,7 @@ function SignIn() {
 
 
                     <div className='text-center text-md-start  pt-2'>
-                        <Button className="mb-0 px-5" size='lg'>Sign Up</Button>
+                        <Button className="mb-0 px-5" size='lg'>Log In</Button>
                         <p className="small fw-bold mt-2 pt-1 mb-2">Don't have an account? <a href="#!" className="link-danger">Register</a></p>
                     </div>
 

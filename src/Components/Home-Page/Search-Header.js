@@ -6,16 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function SearchArea() {
-        const BgImage = {
-            backgroundImage: `url(${BackgroundImage})`,
-        }
         const OpenSearchresuls = (e) => {
             e.preventDefault();
             window.location.href = "/results";
         }
         return (
             <>
-                {/*style={BgImage}*/}
                 <div  className={"search-area"}>
                     <div className={"search-area-content"}>
                         <div className={"search-content"}>

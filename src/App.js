@@ -22,9 +22,9 @@ import './Styles/Headers/HomePageheader.css';
 import './Styles/Headers/ProfileHeaders.css';
 import './Styles/Home-page/TopCitedTopics.css';
 
-import SearchHeader from './Components/Headers/SearchHeader';
-import HomepageHeader from "./Components/Headers/HomePageHeader";
-import ProfileHeader from "./Components/Headers/ProfileHeaders";
+import SearchHeader from './Components/Common/Headers/SearchHeader';
+import HomepageHeader from "./Components/Common/Headers/HomePageHeader";
+import ProfileHeader from "./Components/Common/Headers/ProfileHeaders";
 import Footer from './Components/Common/Footer';
 import SearchArea from "./Components/Home-Page/Search-Header";
 import RecentPapers from "./Components/Home-Page/Recent-Papers"
@@ -55,6 +55,21 @@ function App() {
                 <RecentPapers />
                 <TopCitedpapers />
                 <RecommendedPapers />
+                <div className={'about-us-new-beginning'}>
+                    <h1>A New Beginning</h1>
+                    <div className={'about-us-paragraph'}>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec
+                            tincidunt lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet
+                            mauris. Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
+                            aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
+                            lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
+                            Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
+                            aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
+                            lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
+                        </p>
+                    </div>
+                </div>  
                 <Footer />
 
             </>} />
