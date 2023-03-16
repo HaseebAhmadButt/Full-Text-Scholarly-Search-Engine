@@ -1,6 +1,7 @@
 package com.JPA.Entities.Neo.Paper;
 
 import com.JPA.Entities.Neo.Author.AuthorEntity;
+import com.JPA.Entities.Neo.Topic.TopicEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,4 +29,9 @@ public class PaperEntity {
 
     @Relationship(type = "AUTHORED_BY", direction = Relationship.Direction.INCOMING)
     private List<AuthorEntity> authors;
+
+    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
+    private List<TopicEntity> topic;
 }
+
+
