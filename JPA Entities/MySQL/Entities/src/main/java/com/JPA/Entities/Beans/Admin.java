@@ -20,7 +20,7 @@ public class Admin {
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @Column(name = "ADMIN_NAME", nullable = false)
+    @Column(name = "ADMIN_NAME", nullable = true)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String name;
 
@@ -28,4 +28,12 @@ public class Admin {
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     private User UserID;
 
+    public Admin(String name) {
+        this.name = name;
+    }
+
+    public Admin(User userID) {
+        this.name="";
+        UserID = userID;
+    }
 }

@@ -42,6 +42,19 @@ public class Publisher {
     @JoinColumn(name = "AFFILIATION_ID", referencedColumnName = "AFFILIATION_ID")
     private Affiliations AffiliationID;
 
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "PublisherID=" + PublisherID +
+                ", PublisherName='" + PublisherName + '\'' +
+                ", PublisherEmail='" + PublisherEmail + '\'' +
+                ", PublisherSite='" + PublisherSite + '\'' +
+                ", PublisherHIndex=" + PublisherHIndex +
+                ", PublisherHMedian=" + PublisherHMedian +
+                ", UserID=" + UserID +
+                ", AffiliationID=" + AffiliationID +
+                '}';
+    }
 }
 
 //

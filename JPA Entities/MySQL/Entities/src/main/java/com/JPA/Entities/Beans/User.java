@@ -31,6 +31,13 @@ public class User {
     private String picture;
     @Column(name = "ISADMIN", nullable = false)
     private boolean isAdmin;
+
+    public User(String email, String password, String o, boolean b) {
+        this.email=email;
+        this.password=password;
+        this.picture=o;
+        this.isAdmin=b;
+    }
 }
 
 
