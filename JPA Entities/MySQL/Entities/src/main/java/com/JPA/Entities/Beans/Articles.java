@@ -17,9 +17,9 @@ public class Articles {
     @Column(name = "DOI", nullable = false, unique = true, length = 200)
     private String Paper_DOI;
 
-    @Column(name = "PAPER_TITLE", nullable = false, unique = true, length = 300)
+    @Column(name = "PAPER_TITLE", nullable = false, length = 300)
     private String Paper_Title;
-    @Column(name = "PAPER_ABSTRACT")
+    @Column(name = "PAPER_ABSTRACT", unique = true, length = 1000)
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     private String Paper_Abstract;
 
@@ -30,7 +30,7 @@ public class Articles {
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     private String Paper_URL;
 
-    @Column(name = "PAPER_STATUS", columnDefinition = "ENUM('PUBLISHED', 'ACCEPTED', 'IN-PROGRESS', 'REJECTED')")
+    @Column(name = "PAPER_STATUS", columnDefinition = "ENUM('ACCEPTED', 'IN-PROGRESS', 'REJECTED')")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String Paper_STATUS;
 

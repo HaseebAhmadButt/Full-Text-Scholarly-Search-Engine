@@ -22,7 +22,7 @@ public class Publisher {
     @Column(name = "PUBLISHER_NAME", nullable = false, length = 50)
     private String PublisherName;
 
-    @Column(name = "PUBLISHER_EMAIL", nullable = false, unique = true)
+    @Column(name = "PUBLISHER_EMAIL", unique = true)
     private String PublisherEmail;
 
     @Column(name = "PUBLISHER_WEBSITE", unique = true)
@@ -35,12 +35,19 @@ public class Publisher {
     private double PublisherHMedian;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", updatable = true, insertable = true)
     private User UserID;
 
-    @OneToOne
-    @JoinColumn(name = "AFFILIATION_ID", referencedColumnName = "AFFILIATION_ID")
-    private Affiliations AffiliationID;
+//    @OneToOne
+//    @JoinColumn(name = "AFFILIATION_ID", referencedColumnName = "AFFILIATION_ID", updatable = true, insertable = true)
+//    private Affiliations AffiliationID;
+
+    @Column(name = "Affiliation_Name", nullable = true)
+    private String affiliationName;
+
+    @Column(name = "Affiliation_Link", nullable = true)
+    private String affiliationLink;
+
 
     @Override
     public String toString() {
@@ -52,7 +59,7 @@ public class Publisher {
                 ", PublisherHIndex=" + PublisherHIndex +
                 ", PublisherHMedian=" + PublisherHMedian +
                 ", UserID=" + UserID +
-                ", AffiliationID=" + AffiliationID +
+//                ", AffiliationID=" + AffiliationID +
                 '}';
     }
 }
