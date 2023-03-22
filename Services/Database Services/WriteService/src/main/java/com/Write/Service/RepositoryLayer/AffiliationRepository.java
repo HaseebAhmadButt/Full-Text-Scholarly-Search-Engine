@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AffiliationRepository extends JpaRepository<Affiliations,Long> {
     Affiliations findByName(String affiliationName);
+//    Affiliations findByAffiliation_link(String s);
 }

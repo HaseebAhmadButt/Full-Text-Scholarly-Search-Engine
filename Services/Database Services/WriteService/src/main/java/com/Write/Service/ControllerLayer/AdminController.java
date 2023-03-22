@@ -1,8 +1,6 @@
 package com.Write.Service.ControllerLayer;
 
-import com.JPA.Entities.Beans.Admin;
 import com.JPA.Entities.Beans.User;
-import com.Write.Service.RepositoryLayer.AdminRepository;
 import com.Write.Service.ServiceLayer.AdminService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,4 +15,7 @@ public class AdminService {
         Admin admin = new Admin(userID);
         return adminRepository.save(admin);
     }
+
+
+
 }
