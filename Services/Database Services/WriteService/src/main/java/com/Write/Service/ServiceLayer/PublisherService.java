@@ -25,16 +25,13 @@ public class PublisherService {
     @Autowired
     private AreasOfInterestService areasOfInterestService;
 
-
-
-
-
     public Publisher getPublisher(Long ID){
         return publisherRepository.findById(ID).get();
     }
-    public String savePublisher(String Name){
+    public String savePublisher(String publisherName, Long userID){
+        User user = userService.getUser(userID);
         Publisher publisher = new Publisher();
-        publisher.setPublisherName(Name);
+        publisher.setPublisherName(publisherName);
         Publisher savedPublisher = publisherRepository.save(publisher);
 
         if (savedPublisher != null) {
@@ -68,6 +65,27 @@ public class PublisherService {
         }
         return "FAILED";
     }
+
+//    public String updatePublisherAffiliationName(Long ID, String websiteLink){
+//        Optional<Publisher> publisher = publisherRepository.findById(ID);
+//
+//        if (publisher.isPresent()) {
+//            Publisher publisher1 = publisher.get();
+//            publisher1.setPublisherSite(websiteLink);
+//            publisherRepository.save(publisher1);
+//            return "OK";
+//            // Publisher is saved successfully
+//        }
+//        return "FAILED";
+//    }
+
+
+
+
+
+
+
+
 
     public String updatePublisherHIndex(Long ID, double hIndex){
         Optional<Publisher> publisher = publisherRepository.findById(ID);
@@ -141,6 +159,20 @@ public class PublisherService {
             String[] areasOfInterest,
             Long userID
     ){
+        Publisher publisher = savePublisher(email, name, link, affiliationName, affiliationLink, userID);
+        boolean flag = false;
+        if(authorNames.length > 0){
+            flag = authorNamesService.saveAuthorNames(authorNames, publisher);
+        }
+        if(areasOfInterest.length >0){
+            flag = areasOfInterestService.saveAreasOfInterest(areasOfInterest, publisher);
+        }
+        if(flag) return "OK";
+        else return "PARTIALLY-FAILED";
+        // Publisher is saved successfully
+    }
+
+    private Publisher savePublisher(String email, String name, String link, String affiliationName, String affiliationLink, Long userID) {
         User user = userService.getUser(userID);
         Publisher publisher = new Publisher();
         publisher.setPublisherEmail(email);
@@ -150,44 +182,46 @@ public class PublisherService {
         publisher.setAffiliationLink(affiliationLink);
         publisher.setUserID(user);
 
-        if (publisherRepository.save(publisher) != null) {
-                boolean flag = false;
-            if(authorNames.length > 0){
-                flag = authorNamesService.saveAuthorNames(authorNames, publisher);
-            }
-            if(areasOfInterest.length >0){
-                flag = areasOfInterestService.saveAreasOfInterest(areasOfInterest, publisher);
-            }
-            if(flag) return "OK";
-            else return "PARTIALLY-FAILED";
-            // Publisher is saved successfully
-        }
-        return "FAILED";
+       return publisherRepository.save(publisher);
     }
 
 
-    public String createCompleteProfile(
+    public String createFilledProfileWithOutArrays(
             String email,
             String name,
             String link,
-            Long affiliationID,
+            String affiliationName,
+            String affiliationLink,
             Long userID
     ){
-        User user = userService.getUser(userID);
-        Affiliations affiliations = affiliationService.getAffiliations(affiliationID);
-        Publisher publisher = new Publisher();
-        publisher.setPublisherEmail(email);
-        publisher.setPublisherName(name);
-        publisher.setPublisherSite(link);
-//        publisher.setAffiliationID(affiliations);
-        publisher.setUserID(user);
-
-        if (publisherRepository.save(publisher) != null) {
-            return "OK";
-            // Publisher is saved successfully
-        }
-        return "FAILED";
+        savePublisher(email, name, link, affiliationName, affiliationLink, userID);
+        return "OK";
+        // Publisher is saved successfully
     }
+
+
+//    public String createCompleteProfile(
+//            String email,
+//            String name,
+//            String link,
+//            Long affiliationID,
+//            Long userID
+//    ){
+//        User user = userService.getUser(userID);
+//        Affiliations affiliations = affiliationService.getAffiliations(affiliationID);
+//        Publisher publisher = new Publisher();
+//        publisher.setPublisherEmail(email);
+//        publisher.setPublisherName(name);
+//        publisher.setPublisherSite(link);
+////        publisher.setAffiliationID(affiliations);
+//        publisher.setUserID(user);
+//
+//        if (publisherRepository.save(publisher) != null) {
+//            return "OK";
+//            // Publisher is saved successfully
+//        }
+//        return "FAILED";
+//    }
 
 
 

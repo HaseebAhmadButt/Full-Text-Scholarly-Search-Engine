@@ -27,19 +27,6 @@ public class SavedArticlesService {
         return "OK";
     }
 
-    public String saveArticles(String[] DOI, Long UserID){
-        User user = userService.getUser(UserID);
-        List<SavedArticles> savedArticles  = new ArrayList<>();
-        Articles articles;
-        for (String doi: DOI){
-             articles = articlesService.getArticleByID(doi);
-            SavedArticles savedArticles1 = new SavedArticles(user, articles);
-            savedArticles.add(savedArticles1);
-        }
-        articlesRepository.saveAll(savedArticles);
-        return "OK";
-    }
-
     public String removeSavedArticle(String DOI, Long userID){
         User user = userService.getUser(userID);
         Articles articles =  articlesService.getArticleByID(DOI);

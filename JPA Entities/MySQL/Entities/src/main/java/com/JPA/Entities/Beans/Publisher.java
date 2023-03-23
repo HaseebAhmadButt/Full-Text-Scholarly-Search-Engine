@@ -34,13 +34,11 @@ public class Publisher {
     @Column(name = "PUBLISHER_HMEDIAN")
     private double PublisherHMedian;
 
+    @Column(name = "PUBLISHER_STATUS", columnDefinition = "ENUM('ACTIVE', 'BLOCKED')")
+    private String PublisherStatus;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", updatable = true, insertable = true)
     private User UserID;
-
-//    @OneToOne
-//    @JoinColumn(name = "AFFILIATION_ID", referencedColumnName = "AFFILIATION_ID", updatable = true, insertable = true)
-//    private Affiliations AffiliationID;
 
     @Column(name = "Affiliation_Name", nullable = true)
     private String affiliationName;

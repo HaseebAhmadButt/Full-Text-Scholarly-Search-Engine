@@ -1,13 +1,12 @@
 package com.Write.Service.RepositoryLayer;
 
 import com.JPA.Entities.Beans.Admin;
-import com.JPA.Entities.CompositBeans.AddedArticles;
+import com.JPA.Entities.CompositBeans.DeletedArticles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AddedArticlesRepository extends JpaRepository<AddedArticles, Admin> {
+public interface DeletedArticlesRepository extends JpaRepository<DeletedArticles, Admin> {
 
-    void deleteByAdminIdAAndDOI(Long adminID, String DOI);
-
+    void deleteByAdminIdAndDOI(Long adminID, String DOI);
 }

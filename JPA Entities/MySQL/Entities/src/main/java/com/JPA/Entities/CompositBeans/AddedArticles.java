@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ADDED_ARTICLES")
+@Table(name = "ADDED_AND_REJECTED_ARTICLES")
 @Entity
 @IdClass(AddedArticlesID.class)
 public class AddedArticles {

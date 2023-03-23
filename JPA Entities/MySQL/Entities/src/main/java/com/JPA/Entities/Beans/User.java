@@ -25,6 +25,9 @@ public class User {
 
     @Column(name = "USER_EMAIL", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "USER_NAME", nullable = false, unique = true)
+    private String name;
     @Column(name = "USER_PASSWORD", nullable = false)
     private String password;
     @Column(name = "USER_PICTURE")
@@ -32,11 +35,12 @@ public class User {
     @Column(name = "ISADMIN", nullable = false)
     private boolean isAdmin;
 
-    public User(String email, String password, String o, boolean b) {
+    public User(String email, String password, String picture, boolean isAdmin, String Name) {
         this.email=email;
         this.password=password;
-        this.picture=o;
-        this.isAdmin=b;
+        this.picture=picture;
+        this.isAdmin=isAdmin;
+        this.name=Name;
     }
 }
 

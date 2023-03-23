@@ -23,6 +23,9 @@ public class ArticlesTopicService {
     private ArticlesService articlesService;
 
     public void saveArticles(String[] topics, Articles articles){
+        if (topics.length == 0){
+            return;
+        }
         List<ArticleTopics> articleTopics = new ArrayList<>();
         for (String topic:topics){
             ResearchTopic researchTopic = researchTopicService.FindOrCreateTopic(topic);

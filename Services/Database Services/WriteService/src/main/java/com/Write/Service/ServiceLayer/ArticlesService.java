@@ -42,7 +42,7 @@ public class ArticlesService {
 //        }
 //        return "OK";
     }
-    public String savePaperUpdateAbstract(String DOI, String Abstract){
+    public String UpdatePaperAbstract(String DOI, String Abstract){
         Articles articles = articlesRepository.findById(DOI).get();
         if(articles==null){
             return "FAILED";
@@ -54,8 +54,7 @@ public class ArticlesService {
         }
         return "OK";
     }
-
-    public String savePaperUpdateYear(String DOI, String Year){
+    public String UpdatePaperYear(String DOI, String Year){
         Articles articles = articlesRepository.findById(DOI).get();
         if(articles==null){
             return "FAILED";
@@ -67,9 +66,7 @@ public class ArticlesService {
         }
         return "OK";
     }
-
-
-    public String savePaperUpdateURL(String DOI, String URL){
+    public String UpdatePaperURL(String DOI, String URL){
         Articles articles = articlesRepository.findById(DOI).get();
         if(articles==null){
             return "FAILED";
@@ -81,8 +78,7 @@ public class ArticlesService {
         }
         return "OK";
     }
-
-    public String savePaperUpdateStatus(String DOI, String Status){
+    public String UpdatePaperStatus(String DOI, String Status){
         Articles articles = articlesRepository.findById(DOI).get();
         if(articles==null){
             return "FAILED";
@@ -94,8 +90,7 @@ public class ArticlesService {
         }
         return "OK";
     }
-
-    public String savePaperUpdateJournal(String DOI, String JournalName){
+    public String UpdatePaperJournal(String DOI, String JournalName){
         Articles articles = articlesRepository.findById(DOI).get();
         if(articles==null){
             return "FAILED";
@@ -108,7 +103,6 @@ public class ArticlesService {
         }
         return "OK";
     }
-
     public String savePaperCompleteFromCrawler(
             String DOI,
             String Title,
@@ -124,6 +118,7 @@ public class ArticlesService {
         articles.setPaper_Title(Abstract);
         articles.setPublished_Date(Year);
         articles.setPaper_STATUS("ACCEPTED");
+        articles.setPAPER_UPDATE_TYPE("CRAWLED");
         return getString(Link, JournalName, articles, topics);
     }
 
@@ -142,6 +137,7 @@ public class ArticlesService {
         articles.setPaper_Title(Abstract);
         articles.setPublished_Date(Year);
         articles.setPaper_STATUS("IN-PROGRESS");
+        articles.setPAPER_UPDATE_TYPE("UPLOADED");
         return getString(Link, JournalName, articles, topics);
     }
 
@@ -158,19 +154,9 @@ public class ArticlesService {
         articlesRepository.save(articles);
         articlesTopicService.saveArticles(topics,articles);
 
-        if(articles==null){
-            return "FAILED";
-        }
         return "OK";
     }
 
-
-
-    public String deleteArticle(String DOI){
-        Articles articles = articlesRepository.findById(DOI).get();
-        articles.setPaper_STATUS("REJECTED");
-        return "OK";
-    }
 
 
 }

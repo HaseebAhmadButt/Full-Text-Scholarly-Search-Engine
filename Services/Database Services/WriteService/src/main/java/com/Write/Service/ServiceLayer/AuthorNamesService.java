@@ -34,6 +34,7 @@ public class AuthorNamesService {
         }
     }
 
+//    Below method is also doing the same, as above just keeping it for precautionary measures
     public boolean saveAuthorNamesFromDOI(String[] names, Long publisherID){
         authorNamesRepository.deleteById(publisherService.getPublisher(publisherID));
         List<AuthorNames> authorNamesList = new ArrayList<>();

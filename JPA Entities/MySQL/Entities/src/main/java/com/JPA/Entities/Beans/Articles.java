@@ -34,9 +34,14 @@ public class Articles {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String Paper_STATUS;
 
+    @Column(name = "PAPER_UPDATE_TYPE", columnDefinition = "ENUM('UPLOADED', 'CRAWLED')")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private String PAPER_UPDATE_TYPE;
+
     @ManyToOne
     @JoinColumn(name = "JOURNAL_ID", referencedColumnName = "JOURNAL_ID")
     private Journal Paper_Journal;
+
 
 
 }

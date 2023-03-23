@@ -39,12 +39,37 @@ public class UserService {
         return "FAILED";
     }
 
-    public String updateUserAccount(Long ID, String Email, String Password){
+    public String updateUserName(Long ID, String Name){
         Optional<User> optionalUser = userRepository.findById(ID);
         if(optionalUser.isPresent()){
             User user = optionalUser.get();
-            user.setEmail(Email);
+            user.setName(Name);
+            userRepository.save(user);
+            return "OK";
+        }
+        return "FAILED";
+    }
+
+    public String updateAdminFields(Long ID, String Name, String Password){
+        Optional<User> optionalUser = userRepository.findById(ID);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            user.setName(Name);
             user.setPassword(Password);
+            userRepository.save(user);
+            return "OK";
+        }
+        return "FAILED";
+    }
+
+    public String updateUserAccount(Long ID, User user){
+        Optional<User> optionalUser = userRepository.findById(ID);
+        if(optionalUser.isPresent()){
+            User userFound = optionalUser.get();
+            userFound.setEmail(user.getEmail());
+            userFound.setPassword(user.getPassword());
+            userFound.setName(user.getName());
+            userFound.setPicture("");
             userRepository.save(user);
             return "OK";
         }
