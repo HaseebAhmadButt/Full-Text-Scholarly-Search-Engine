@@ -12,14 +12,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "PAPER_REFERENCES")
 @Entity
-@IdClass(ReferencesID.class)
+//@IdClass(ReferencesID.class)
 public class References {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "DOI", referencedColumnName = "DOI")
     private Articles articleId;
 
-    @Id
     @OneToOne
     @JoinColumn(name = "REFERENCES_TO_DOI", referencedColumnName = "DOI")
     private Articles articleI2;

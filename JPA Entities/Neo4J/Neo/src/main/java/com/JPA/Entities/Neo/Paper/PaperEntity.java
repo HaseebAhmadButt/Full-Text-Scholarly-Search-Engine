@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Node("Paper")
+@Node("Article")
 public class PaperEntity {
     @Id
     @Property("PaperID")
@@ -32,6 +32,17 @@ public class PaperEntity {
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
     private List<TopicEntity> topic;
+
+    @Override
+    public String toString() {
+        return "PaperEntity{" +
+                "paperId='" + paperId + '\'' +
+                ", citedPapers=" + citedPapers +
+                ", citingPapers=" + citingPapers +
+                ", authors=" + authors +
+                ", topic=" + topic +
+                '}';
+    }
 }
 
 

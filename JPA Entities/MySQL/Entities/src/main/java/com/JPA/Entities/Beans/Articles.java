@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.Date;
+
+//import java.sql.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +23,7 @@ public class Articles {
 
     @Column(name = "PAPER_TITLE", nullable = false, length = 300)
     private String Paper_Title;
-    @Column(name = "PAPER_ABSTRACT", unique = true, length = 1000)
+    @Column(name = "PAPER_ABSTRACT", length = 1000)
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     private String Paper_Abstract;
 
@@ -33,6 +37,9 @@ public class Articles {
     @Column(name = "PAPER_STATUS", columnDefinition = "ENUM('ACCEPTED', 'IN-PROGRESS', 'REJECTED')")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String Paper_STATUS;
+    @Column(name = "CREATED_DATE")
+    @Temporal(TemporalType.DATE)
+    private Date createdDate;
 
     @Column(name = "PAPER_UPDATE_TYPE", columnDefinition = "ENUM('UPLOADED', 'CRAWLED')")
     @JdbcTypeCode(SqlTypes.VARCHAR)
@@ -42,6 +49,8 @@ public class Articles {
     @JoinColumn(name = "JOURNAL_ID", referencedColumnName = "JOURNAL_ID")
     private Journal Paper_Journal;
 
-
-
+    @PostPersist
+    protected void onCreate(){
+        createdDate = new Date();
+    }
 }

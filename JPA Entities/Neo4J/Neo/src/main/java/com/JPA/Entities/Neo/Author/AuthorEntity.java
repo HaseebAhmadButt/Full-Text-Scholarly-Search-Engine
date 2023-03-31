@@ -1,6 +1,7 @@
 package com.JPA.Entities.Neo.Author;
 
 
+import com.JPA.Entities.Neo.Paper.PaperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,21 +10,20 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.awt.print.Paper;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Node("Author")
+@Node("ArticleAuthors")
 public class AuthorEntity {
     @Id
     @Property("AuthorID")
-    private String authorId;
+    private Long authorId;
 
     @Property("Name")
     private String name;
 
     @Relationship(type = "AUTHORED_BY", direction = Relationship.Direction.OUTGOING)
-    private List<Paper> papers;
+    private List<PaperEntity> papers;
 }

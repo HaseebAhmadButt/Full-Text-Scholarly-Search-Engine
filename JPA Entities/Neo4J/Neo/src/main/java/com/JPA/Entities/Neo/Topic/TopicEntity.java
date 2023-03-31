@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Node("Topic")
+@Node("ArticleTopics")
 public class TopicEntity {
 
     @Id
@@ -21,7 +21,7 @@ public class TopicEntity {
     private Long id;
 
     @Property("Title")
-    private String title;
+    private String Title;
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.INCOMING)
     private List<PaperEntity> papers;

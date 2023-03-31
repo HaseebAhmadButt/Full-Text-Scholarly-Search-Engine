@@ -12,15 +12,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "ARTICLE_TOPICS")
 @Entity
-@IdClass(ArticleTopicsID.class)
+//@IdClass(ArticleTopicsID.class)
 public class ArticleTopics {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+//    @Id
     @ManyToOne
     @JoinColumn(name = "PAPER_DOI", referencedColumnName = "DOI")
     private Articles paper;
 
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "RESEARCH_TOPIC_ID", referencedColumnName = "RESEARCH_TOPIC_ID")
     private ResearchTopic topic;
