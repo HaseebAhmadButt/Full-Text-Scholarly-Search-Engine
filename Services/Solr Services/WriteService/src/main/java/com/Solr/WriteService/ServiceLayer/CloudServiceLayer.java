@@ -1,15 +1,13 @@
-package com.Solr.Entities.ServiceLayer;
+package com.Solr.WriteService.ServiceLayer;
 
 
-import com.Solr.Entities.Component.SolrCloudClientFactory;
-import com.Solr.Entities.model.Paper;
+import com.Solr.WriteService.Component.SolrCloudClientFactory;
+import com.Solr.WriteService.model.Paper;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.request.CollectionAdminRequest;
-import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.params.CollectionAdminParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,12 +34,12 @@ public class CloudServiceLayer {
 
     public UpdateResponse saveDocument(Paper paper) {
         try {
-            List<String> articleTopics = checkCoreList(paper.getTopics());
+            List<String> articleTopics = checkCollectionList(paper.getTopics());
             for (String articleTopic : paper.getTopics()) {
-                if (articleTopics.contains(articleTopic)) {
+                if (articleTopics.contains(getCollectionName(articleTopic))) {
                     createNewCollection(articleTopic);
                 }
-                saveArticle(paper, articleTopic);
+                saveArticle(paper, getCollectionName(articleTopic));
             }
             System.out.println("Document saved successfully in new_core ");
             return new UpdateResponse();
@@ -52,6 +50,11 @@ public class CloudServiceLayer {
     }
     private void saveArticle(Paper paper, String articleTopic) throws SolrServerException, IOException {
         SolrClient solrClient = solrCloudClientFactory.solrClient(articleTopic);
+        createSolrDocument(paper, solrClient);
+    }
+
+    static void createSolrDocument(Paper paper, SolrClient solrClient) throws SolrServerException, IOException {
+        System.out.println("paper.getPublished_Date() = " + paper.getPublished_Date());
         SolrInputDocument document = new SolrInputDocument();
         document.addField("id", paper.getId());
         document.addField("title", paper.getTitle());
@@ -62,20 +65,25 @@ public class CloudServiceLayer {
         solrClient.commit();
     }
 
-    private List<String> checkCoreList(Set<String> topics){
+    private List<String> checkCollectionList(Set<String> topics){
         List<String> stringList = new ArrayList<>();
         List<String> existingCores = solrCloudClientFactory.getCollectionList();
-        System.out.println("existingCores = " + existingCores);
         for(String topic: topics){
-            System.out.println("topicInCheckList = " + topic);
-            if(existingCores.contains(topic));
-            else stringList.add(topic);
+            String t = getCollectionName(topic);
+            if(existingCores.contains(t));
+            else stringList.add(t);
         }
         return stringList;
     }
     public void createNewCollection(String newCollectionName) throws SolrServerException, IOException {
+        System.out.println("newCollectionName = " + newCollectionName);
         CollectionAdminRequest.Create createRequest =
-                CollectionAdminRequest.createCollection(newCollectionName, collectionConfigurations, totalShards, totalReplicas);
+                CollectionAdminRequest.createCollection(
+                        getCollectionName(newCollectionName),
+                        collectionConfigurations,
+                        totalShards,
+                        totalReplicas);
+        System.out.println("Collection Created");
         createRequest.process(solrCloudClientFactory.solrClient());
         solrCloudClientFactory.setCollections(newCollectionName);
     }
@@ -83,7 +91,7 @@ public class CloudServiceLayer {
     //    Overloading above method to receive a list of Papers and store all of those in separate cores ine by one
     public UpdateResponse saveDocument(List<Paper> papers) throws SolrServerException, IOException {
         for (Paper paper : papers) {
-            List<String> articleTopics = checkCoreList(paper.getTopics());
+            List<String> articleTopics = checkCollectionList(paper.getTopics());
             for (String articleTopic : paper.getTopics()) {
                 if (articleTopics.contains(articleTopic)) {
                     createNewCollection(articleTopic);
@@ -92,5 +100,12 @@ public class CloudServiceLayer {
             }
         }
         return new UpdateResponse();
+    }
+
+    private String getCollectionName(String name){
+        return name
+                .toLowerCase()
+                .replaceAll(" ", "_")
+                .replaceAll("[^a-zA-Z0-9\\\\s]", "");
     }
 }

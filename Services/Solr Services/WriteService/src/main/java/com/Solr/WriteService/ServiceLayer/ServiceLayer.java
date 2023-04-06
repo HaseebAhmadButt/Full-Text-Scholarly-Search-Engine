@@ -1,8 +1,8 @@
-package com.Solr.Entities.ServiceLayer;
+package com.Solr.WriteService.ServiceLayer;
 
 
-import com.Solr.Entities.Component.SolrClientFactory;
-import com.Solr.Entities.model.Paper;
+import com.Solr.WriteService.Component.SolrClientFactory;
+import com.Solr.WriteService.model.Paper;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -39,14 +39,7 @@ public class ServiceLayer {
     }
     private void saveArticle(Paper paper, String articleTopic) throws SolrServerException, IOException {
         SolrClient solrClient = solrClientFactory.getSolrClient(articleTopic);
-        SolrInputDocument document = new SolrInputDocument();
-        document.addField("id", paper.getId());
-        document.addField("title", paper.getTitle());
-        document.addField("abstract", paper.getAbstractText());
-        document.addField("year", paper.getPublished_Date());
-        document.addField("authors", paper.getAuthorList());
-        solrClient.add(document);
-        solrClient.commit();
+        CloudServiceLayer.createSolrDocument(paper, solrClient);
     }
 
     private List<String> checkCoreList(Set<String> topics){

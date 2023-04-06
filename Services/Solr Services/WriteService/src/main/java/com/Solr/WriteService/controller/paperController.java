@@ -1,7 +1,7 @@
-package com.Solr.Entities.controller;
-import com.Solr.Entities.ServiceLayer.CloudServiceLayer;
-import com.Solr.Entities.ServiceLayer.ServiceLayer;
-import com.Solr.Entities.model.Paper;
+package com.Solr.WriteService.controller;
+import com.Solr.WriteService.ServiceLayer.CloudServiceLayer;
+import com.Solr.WriteService.ServiceLayer.ServiceLayer;
+import com.Solr.WriteService.model.Paper;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +25,12 @@ public class paperController {
 	/*
 	JSON Receivable:
 	{
-    "id": "123",
-    "title": "Example Paper 1",
+    "id": "12345/10.98.23",
+    "title": "Testing Paper 3",
     "abstractText": "This is an example of paper abstract.",
-    "Published_Date": "2022-02-01",
+    "published_Date": "2022",
     "authorList": ["Author 1", "Author 2"],
-    "topics": ["Topic_1", "Topic_2"]
+    "topics": ["Natural Language Processing", "Artificial Intelligence"]
 	}
 	 */
 	@PostMapping("/saveDocument")
@@ -45,12 +45,12 @@ public class paperController {
 	/*
 	JSON Receivable:
 	{
-    "id": "123",
-    "title": "Example Paper 1",
+    "id": "12345/10.98.23",
+    "title": "Testing Paper 3",
     "abstractText": "This is an example of paper abstract.",
-    "Published_Date": "2022-02-01",
+    "published_Date": "2022",
     "authorList": ["Author 1", "Author 2"],
-    "topics": ["Topic_1", "Topic_2"]
+    "topics": ["Natural Language Processing", "Artificial Intelligence"]
 	}
 	 */
 

@@ -1,6 +1,5 @@
-package com.Solr.Entities.model;
+package com.Solr.WriteService.model;
 
-import org.apache.solr.client.solrj.beans.Field;
 //import org.springframework.data.annotation.Id;
 //import org.springframework.data.solr.core.mapping.SolrDocument;
 

@@ -1,4 +1,4 @@
-package com.Solr.Entities.Component;
+package com.Solr.WriteService.Component;
 
 
 import jakarta.annotation.PostConstruct;
@@ -9,14 +9,12 @@ import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.client.solrj.response.CoreAdminResponse;
 import org.apache.solr.common.params.CoreAdminParams;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Component
 public class SolrClientFactory {
