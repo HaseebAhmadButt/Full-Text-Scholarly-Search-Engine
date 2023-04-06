@@ -1,7 +1,17 @@
+
 .Searched-topics{
     width: 90%;
     margin: 2.5% auto;
 }
 .Searched-topics h5{
     display: block;
+    
 }
+.tags_wrapper{
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* width: max-content; */
+}
+
