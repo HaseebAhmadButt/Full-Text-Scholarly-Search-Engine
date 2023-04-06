@@ -1,0 +1,59 @@
+.page-main-container{
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 70px;
+    margin-left: 30px;
+    margin-right: 30px;
+
+    /* color: #006699;; */
+}
+
+.page-main-container h1{
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.page-main-container .Authors{
+    margin-top: 10px;
+}
+
+.page-main-container .Authors h5{
+    font-size: 1.5rem;
+    font-weight:lighter;
+    /* color: #006699; */
+    margin-bottom: 10px;
+    display: inline;
+}
+
+.page-main-container .Authors span{
+    font-size: 1.2rem;
+    font: weight 1px;
+    /* color: #006699; */
+    margin-bottom: 10px;
+}
+
+.box-details{
+    padding: 20px;
+    background-color: rgb(252, 252, 252);
+}
+
+.box-details span{
+    /* font-size: 1.5rem; */
+    /* font-weight: bolder; */
+    /* color: #006699; */
+    margin-bottom: 5px;
+}
+
+.button button{
+    background-color: #006699;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    border: 1px solid white;
+    border-radius: 50px;
+    border: none;
+    padding: 6px 6px;
+    border-radius: 5px;
+    margin-top: 10px;
+}

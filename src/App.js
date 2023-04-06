@@ -21,6 +21,7 @@ import './Styles/AboutUs/AboutUs.css';
 import './Styles/Headers/HomePageheader.css';
 import './Styles/Headers/ProfileHeaders.css';
 import './Styles/Home-page/TopCitedTopics.css';
+import './Styles/Singlepaper/Singlepaper.css';
 
 import SearchHeader from './Components/Common/Headers/SearchHeader';
 import HomepageHeader from "./Components/Common/Headers/HomePageHeader";
@@ -41,6 +42,7 @@ import TopCitedTopic from "./Components/Home-Page/TopCitedTopic";
 import TopCitedpapers from "./Components/Home-Page/TopCitedpapers";
 import RecommendedPapers from "./Components/Home-Page/RecommendedPapers";
 import RecommendedAuthors from "./Components/Profiles/AuthorRecommendations";
+import Details from "./Components/Singlepaper/details";
 
 import {Routes,Route} from "react-router-dom";
 
@@ -79,10 +81,26 @@ function App() {
                 <MiddleSearchArea />
                 <hr/>
                 <ResultsShowing />
+                
                 <Footer />
 
                 </>
             } />
+
+
+<Route path={'/singlepaper'} element={<>
+                <HomepageHeader/>
+                <Details />
+                <h1 style={{marginLeft:'30px', paddingLeft:'70px'}}>Citations</h1>
+                <hr style={{width:'85%',margin:'auto'}}/>
+                <ResultsShowing />
+                <RecommendedPapers />
+                <Footer />
+
+                </>
+            } />
+
+
 
 
             <Route path={'/profile'} element={
