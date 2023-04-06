@@ -2,6 +2,9 @@ package com.JPA.Entities.Neo.Paper;
 
 import com.JPA.Entities.Neo.Author.AuthorEntity;
 import com.JPA.Entities.Neo.Topic.TopicEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,12 +25,15 @@ public class PaperEntity {
     private String paperId;
 
     @Relationship(type = "Cites", direction = Relationship.Direction.OUTGOING)
+//    @JsonBackReference("cites")
     private List<PaperEntity> citedPapers;
 
     @Relationship(type = "Cites", direction = Relationship.Direction.INCOMING)
+//    @JsonManagedReference("cites")
     private List<PaperEntity> citingPapers;
 
     @Relationship(type = "AUTHORED_BY", direction = Relationship.Direction.INCOMING)
+//    @JsonIgnoreProperties("papers")
     private List<AuthorEntity> authors;
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
