@@ -14,7 +14,7 @@ public class AreasOfInterestService {
 
     @Autowired
     private AreasOfInterestRepository areasOfInterestRepository;
-    public boolean saveAreasOfInterest(String[] listOfInterests, Publisher publisher){
+    public boolean saveAreasOfInterest(List<String> listOfInterests, Publisher publisher){
         List<AreasOfInterests> areasOfInterests = new ArrayList<>();
         for (String interest : listOfInterests) {
             AreasOfInterests areaOfInterest = new AreasOfInterests();

@@ -19,11 +19,11 @@ public class ArticlesTopicService {
     @Autowired
     private ResearchTopicService researchTopicService;
 
-    @Autowired
-    private ArticlesService articlesService;
+//    @Autowired
+    private final ArticlesService articlesService = new ArticlesService();
 
-    public void saveArticles(String[] topics, Articles articles){
-        if (topics.length == 0){
+    public void saveArticles(List<String> topics, Articles articles){
+        if (topics.size() == 0){
             return;
         }
         List<ArticleTopics> articleTopics = new ArrayList<>();
@@ -49,5 +49,7 @@ public class ArticlesTopicService {
         }
         return "FAILED";
     }
+
+
 
 }

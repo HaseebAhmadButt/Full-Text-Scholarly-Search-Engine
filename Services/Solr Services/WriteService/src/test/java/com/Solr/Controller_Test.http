@@ -1,0 +1,11 @@
+POST http://localhost:8100/saveCloudDocument
+Content-Type: application/json
+
+{
+  "id": "12345/10.98.23",
+  "title": "NLP based technique in Image Processing",
+  "abstractText": "This is an abstract for Multi Model AI Some thing.",
+  "published_Date": "2022",
+  "authorList": ["Waleed", "Sanaullah"],
+  "topics": ["NLP", "Image Processing"]
+}

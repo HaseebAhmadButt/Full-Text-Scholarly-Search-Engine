@@ -1,0 +1,2 @@
+### All Saved Articles
+GET http://localhost:8400/getAllPublishers

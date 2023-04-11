@@ -38,7 +38,7 @@ public class Articles {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String Paper_STATUS;
     @Column(name = "CREATED_DATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
     @Column(name = "PAPER_UPDATE_TYPE", columnDefinition = "ENUM('UPLOADED', 'CRAWLED')")

@@ -36,23 +36,25 @@ public class ArticlesService {
         return articlesRepository.getAllRejectedArticles(pageable);
     }
 
-    public List<Articles> getTopRecentArticles(){
+    public List<Object[]> getTopRecentArticles(){
         return articlesRepository.findTop10ByOrderByPublicationDateDesc();
     }
 
-    public List<Map<String, Object>> getArticles(String[] DOIs){
+    public List<Map<String, Object>> getArticles(List<String> DOIs){
 
+        System.out.println("Inside Get Articles Method");
         List<Map<String, Object>> maps = new ArrayList<>();
         for(String DOI: DOIs)
         {
             Map<String, Object> hashMap = new HashMap<>();
             Object[] article = articlesRepository.getArticles(DOI);
+            System.out.println("article = " + Arrays.toString(article));
             generatingArticleObject(maps, article, hashMap);
         }
         return maps;
     }
 
-    public List<Map<String, List<String>>> getArticlesTopics(String[] DOIs){
+    public List<Map<String, List<String>>> getArticlesTopics(List<String> DOIs){
 
         List<Map<String, List<String>>> maps = new ArrayList<>();
         for(String DOI: DOIs)
@@ -76,6 +78,7 @@ public class ArticlesService {
     }
 
     private void generatingArticleObject(List<Map<String, Object>> maps, Object[] article, Map<String, Object> hashMap) {
+        System.out.println("Inside Article Creation Object");
         hashMap.put("paperDOI", article[0]);
         hashMap.put("paperTitle", article[1]);
         hashMap.put("paperAbstract", article[2]);

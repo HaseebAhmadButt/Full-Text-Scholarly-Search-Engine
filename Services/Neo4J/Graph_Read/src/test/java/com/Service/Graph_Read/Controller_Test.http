@@ -1,0 +1,6 @@
+### Get all papers that are citing this paper
+GET http://localhost:8200/papers/citing/P100
+### Get all papers that this paper has cited
+GET http://localhost:8200/papers/cited/P100
+### Get all papers centrality
+POST http://localhost:8200/getPaperCentrality

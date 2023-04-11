@@ -1,0 +1,10 @@
+POST http://localhost:8400/userSignIn
+Content-Type: application/json
+
+{
+  "Email": "example@ymail.com",
+  "Password": "password123"
+}
+
+###
+GET http://localhost:8400/getUserByID/2

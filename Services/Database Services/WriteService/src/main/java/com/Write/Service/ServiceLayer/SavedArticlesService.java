@@ -7,9 +7,6 @@ import com.Write.Service.RepositoryLayer.SavedArticlesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class SavedArticlesService {
 
@@ -28,9 +25,8 @@ public class SavedArticlesService {
     }
 
     public String removeSavedArticle(String DOI, Long userID){
-        User user = userService.getUser(userID);
-        Articles articles =  articlesService.getArticleByID(DOI);
-        articlesRepository.removeSavedArticlesByCompositKey(articles,user);
+        System.out.println("Data Received");
+        articlesRepository.removeSavedArticles(DOI,userID);
         return "OK";
     }
 

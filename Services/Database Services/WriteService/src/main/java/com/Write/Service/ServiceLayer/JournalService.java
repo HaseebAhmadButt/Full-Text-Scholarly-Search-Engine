@@ -1,6 +1,6 @@
 package com.Write.Service.ServiceLayer;
 
-import com.JPA.Entities.Beans.Affiliations;
+//import com.JPA.Entities.Beans.Affiliations;
 import com.JPA.Entities.Beans.Journal;
 import com.Write.Service.RepositoryLayer.JournalRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,15 +15,17 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
     @Query("SELECT rt.ResearchTopic, t.Paper_Title, t.Paper_Abstract, t.Paper_URL FROM ArticleTopics ats " +
             "JOIN Articles t on ats.paper.Paper_DOI = t.Paper_DOI " +
             "JOIN ResearchTopic rt on rt.ResearchTopicID = ats.topic.ResearchTopicID " +
-            "GROUP BY ats.topic.ResearchTopicID ORDER BY t.Published_Date DESC LIMIT 10")
-    List<Articles> findTop10ByOrderByPublicationDateDesc();
+            "GROUP BY ats.topic.ResearchTopicID ORDER BY t.createdDate DESC LIMIT 10")
+    List<Object[]> findTop10ByOrderByPublicationDateDesc();
 
     @Query("SELECT ar.Paper_DOI,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date, COUNT(*) as Citations FROM Articles ar " +
-            "JOIN Journal jr on jr.id = ar.Paper_Journal.id JOIN References pr ON pr.articleI2.Paper_DOI = ar.Paper_DOI " +
-            "WHERE ar.Paper_DOI = ?1" +
-            "GROUP BY pr.articleI2.Paper_DOI ")
+            "JOIN Journal jr on jr.id = ar.Paper_Journal.id " +
+            "WHERE ar.Paper_DOI = ?1")
     Object[] getArticles(String DOI);
 
+//            "JOIN References pr ON pr.articleI2.Paper_DOI = ar.Paper_DOI " +
+//            "GROUP BY pr.articleI2.Paper_DOI "
+//
 
     @Query("SELECT art.topic.ResearchTopic FROM Articles ar JOIN ArticleTopics art on ar.Paper_DOI = art.paper.Paper_DOI " +
             "JOIN ResearchTopic rt on rt.ResearchTopicID = art.topic.ResearchTopicID WHERE ar.Paper_DOI = ?1")
@@ -32,11 +34,11 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
 
     @Query("SELECT ar.Paper_DOI ,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date, COUNT(*) as Citations " +
             "FROM Articles ar JOIN Journal jr on jr.id = ar.Paper_Journal.id " +
-            "JOIN References pr ON pr.articleI2.Paper_DOI  = ar.Paper_DOI " +
             "JOIN SavedArticles sa on sa.paper.Paper_DOI = ar.Paper_DOI " +
-            "JOIN User u on u.id = ?1 GROUP BY pr.articleI2.Paper_DOI")
+            "JOIN User u on u.id = ?1 ")
     List<Object[]> getSavedArticles(Long userID);
-
+//  "JOIN References pr ON pr.articleI2.Paper_DOI  = ar.Paper_DOI " +
+//  GROUP BY pr.articleI2.Paper_DOI
 
     @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'IN-PROGRESS'")
     Page<Articles> getAllAddedArticles(Pageable pageable);

@@ -1,0 +1,65 @@
+## To Add Article From Crawler
+ POST http://localhost:8600/saveCrawledArticle
+Content-Type: application/json
+
+{
+  "DOI": "10.234.3456/343",
+  "Title": "Title of Paper",
+  "Abstract": "Abstract of Paper",
+  "Year": "2022",
+  "Link": "This is some Link",
+  "JournalName": "IEEE-Journal",
+  "Topics": ["Topic 1", "Topic 2", "Topic 2"]
+}
+
+### To Add Article From From Crawler Side
+POST http://localhost:8600/saveUploadedArticle
+Content-Type: application/json
+
+{
+  "DOI": "10.234.3456/344",
+  "Title": "Title of Paper",
+  "Abstract": "Abstract of Paper",
+  "Year": "2022",
+  "Link": "This is some New Link",
+  "JournalName": "IEEE-Journal",
+  "Topics": ["Topic 1", "Topic 2", "Topic 2"]
+}
+
+###
+POST http://localhost:8600/UpdatePaperAbstract
+Content-Type: application/json
+
+{
+  "DOI": "10.234.3456/344",
+  "Abstract": "This is Updated Abstract"
+}
+
+###
+POST http://localhost:8600/UpdatePaperYear
+Content-Type: application/json
+
+{
+  "DOI": "10.234.3456/344",
+  "Year": "2023"
+}
+
+
+###
+POST http://localhost:8600/UpdatePaperLink
+Content-Type: application/json
+
+{
+  "DOI": "10.234.3456/344",
+  "Link": "This is some New Link"
+}
+
+###
+POST http://localhost:8600/UpdatePaperJournal
+Content-Type: application/json
+
+{
+  "DOI": "10.234.3456/344",
+  "Journal": "Medical-Journal"
+}
+

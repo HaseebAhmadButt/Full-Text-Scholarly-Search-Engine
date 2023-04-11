@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticlesService {
 
@@ -110,12 +112,12 @@ public class ArticlesService {
             String Year,
             String Link,
             String JournalName,
-            String[] topics){
+            List<String> topics){
 
         Articles articles = new Articles();
         articles.setPaper_DOI(DOI);
         articles.setPaper_Title(Title);
-        articles.setPaper_Title(Abstract);
+        articles.setPaper_Abstract(Abstract);
         articles.setPublished_Date(Year);
         articles.setPaper_STATUS("ACCEPTED");
         articles.setPAPER_UPDATE_TYPE("CRAWLED");
@@ -129,12 +131,12 @@ public class ArticlesService {
             String Year,
             String Link,
             String JournalName,
-            String[] topics){
+            List<String> topics){
 
         Articles articles = new Articles();
         articles.setPaper_DOI(DOI);
         articles.setPaper_Title(Title);
-        articles.setPaper_Title(Abstract);
+        articles.setPaper_Abstract(Abstract);
         articles.setPublished_Date(Year);
         articles.setPaper_STATUS("IN-PROGRESS");
         articles.setPAPER_UPDATE_TYPE("UPLOADED");
@@ -142,7 +144,7 @@ public class ArticlesService {
     }
 
     @NotNull
-    private String getString(String Link, String JournalName, Articles articles, String[] topics) {
+    private String getString(String Link, String JournalName, Articles articles, List<String> topics) {
         articles.setPaper_URL(Link);
         if(JournalName.equals("")){
             articles.setPaper_Journal(null);

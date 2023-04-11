@@ -21,9 +21,9 @@ public class AddedArticlesService {
         articlesRepository.save(new AddedArticles(admin, articles));
     }
 
-    public void removeArticlesFromAdded(String DOI, Long adminID){
+    public void removeArticlesFromAdded(Articles DOI, Admin adminID){
 //        Objects.requireNonNull(articlesRepository)
-        articlesRepository.deleteByAdminIdAAndDOI(adminID, DOI);
+        articlesRepository.deleteByAdminIdAndDOI(adminID, DOI);
     }
 
 

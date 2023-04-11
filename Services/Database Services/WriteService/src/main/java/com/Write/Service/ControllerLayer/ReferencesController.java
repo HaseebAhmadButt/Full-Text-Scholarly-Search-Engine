@@ -3,6 +3,7 @@ package com.Write.Service.ControllerLayer;
 import com.JPA.Entities.Beans.Articles;
 import com.Write.Service.ServiceLayer.RefrencesServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,11 +16,14 @@ public class ReferencesController {
     @Autowired
     private RefrencesServiceLayer refrencesServiceLayer;
 
+    @PostMapping("/createReferencesList")
     public void saveRefrences(@RequestBody Map<String, Object> stringObjectMap){
         Articles articles = (Articles) stringObjectMap.get("citingArticle");
-        Articles[] articles1 = (Articles[]) stringObjectMap.get("citedArticles");
+        List<Articles> articles1 = (List<Articles>) stringObjectMap.get("citedArticles");
         refrencesServiceLayer.saveRefrences(articles,articles1);
     }
+
+    @PostMapping("/createReference")
     public void saveRefrence(@RequestBody Map<String, Object> stringObjectMap){
         Articles articles = (Articles) stringObjectMap.get("citingArticle");
         Articles articles1 = (Articles) stringObjectMap.get("citedArticle");

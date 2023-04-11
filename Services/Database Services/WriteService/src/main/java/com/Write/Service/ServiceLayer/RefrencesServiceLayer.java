@@ -18,7 +18,7 @@ public class RefrencesServiceLayer {
     @Autowired
     private ArticlesService articlesService;
 
-    public void saveRefrences(Articles article1, Articles[] articlesList){
+    public void saveRefrences(Articles article1, List<Articles> articlesList){
         List<References> references = new ArrayList<>();
         for (Articles article: articlesList){
             article1 = articlesService.FindOrCreateArticle(article1.getPaper_DOI(), article1.getPaper_Title());

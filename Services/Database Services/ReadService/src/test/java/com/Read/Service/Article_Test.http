@@ -1,0 +1,26 @@
+GET http://localhost:8400/getRecentArticles
+###
+GET http://localhost:8400/getTopics
+
+### Top Cited Articles
+GET http://localhost:8400/getTopCitedArticles
+
+### This is being used at Admin Side
+GET http://localhost:8400/getAllArticles
+
+### All Accepted Articles
+GET http://localhost:8400/getAllAcceptedArticles
+
+### All Rejected Articles
+GET http://localhost:8400/getAllRejectedArticles
+
+### All Saved Articles
+GET http://localhost:8400/getSavedArticles?userID=2
+
+#### All Articles
+#POST http://localhost:8400/getArticles
+#Content-Type: application/json
+#
+#{
+#  "DOIs": ["10.234.3456/343", "10.234.3456/344"]
+#}

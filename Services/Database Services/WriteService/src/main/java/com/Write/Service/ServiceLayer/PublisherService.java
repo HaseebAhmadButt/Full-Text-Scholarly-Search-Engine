@@ -1,12 +1,13 @@
 package com.Write.Service.ServiceLayer;
 
-import com.JPA.Entities.Beans.Affiliations;
+//import com.JPA.Entities.Beans.Affiliations;
 import com.JPA.Entities.Beans.Publisher;
 import com.JPA.Entities.Beans.User;
 import com.Write.Service.RepositoryLayer.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +15,8 @@ public class PublisherService {
 
     @Autowired
     private PublisherRepository publisherRepository;
-    @Autowired
-    private AffiliationService affiliationService;
+//    @Autowired
+//    private AffiliationService affiliationService;
     @Autowired
     private UserService userService;
 
@@ -32,6 +33,7 @@ public class PublisherService {
         User user = userService.getUser(userID);
         Publisher publisher = new Publisher();
         publisher.setPublisherName(publisherName);
+        publisher.setUserID(user);
         Publisher savedPublisher = publisherRepository.save(publisher);
 
         if (savedPublisher != null) {
@@ -155,16 +157,16 @@ public class PublisherService {
             String link,
             String affiliationName,
             String affiliationLink,
-            String[] authorNames,
-            String[] areasOfInterest,
+            List<String> authorNames,
+            List<String> areasOfInterest,
             Long userID
     ){
         Publisher publisher = savePublisher(email, name, link, affiliationName, affiliationLink, userID);
         boolean flag = false;
-        if(authorNames.length > 0){
+        if(authorNames.size() > 0){
             flag = authorNamesService.saveAuthorNames(authorNames, publisher);
         }
-        if(areasOfInterest.length >0){
+        if(areasOfInterest.size() >0){
             flag = areasOfInterestService.saveAreasOfInterest(areasOfInterest, publisher);
         }
         if(flag) return "OK";

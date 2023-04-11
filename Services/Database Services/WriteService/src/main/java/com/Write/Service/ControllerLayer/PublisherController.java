@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,7 +18,6 @@ public class PublisherController {
 
     @Autowired
     private SavedArticlesService savedArticlesService;
-
 
     //    If user has entered only its name on Publisher Page then, call this URL. So, creating publisher account now
     @PostMapping("/createSimplePublisher")
@@ -32,13 +32,12 @@ public class PublisherController {
     @PutMapping("/updatePublisherEmail")
     public HashMap<String, String> updatePublisherEmail(@RequestBody Map<String, Object> stringObjectMap) {
         HashMap<String, String> hashMap = new HashMap<>();
+        System.out.println("stringObjectMap = " + stringObjectMap);
         hashMap.put("Status", publisherService.updatePublisherEmail(
                 Long.valueOf((Integer) stringObjectMap.get("ID")),
                 (String) stringObjectMap.get("PublisherEmail")));
         return hashMap;
     }
-
-
     @PutMapping("/updatePublisherHIndex")
     public HashMap<String, String> updatePublisherHIndex(@RequestBody Map<String, Object> stringObjectMap) {
         HashMap<String, String> hashMap = new HashMap<>();
@@ -47,7 +46,6 @@ public class PublisherController {
                 (double) stringObjectMap.get("hIndex")));
         return hashMap;
     }
-
     @PutMapping("/updatePublisherHMedian")
     public HashMap<String, String> updatePublisherHMedian(@RequestBody Map<String, Object> stringObjectMap) {
         HashMap<String, String> hashMap = new HashMap<>();
@@ -56,7 +54,6 @@ public class PublisherController {
                 (double) stringObjectMap.get("hMedian")));
         return hashMap;
     }
-
     @PutMapping("/updatePublisherSite")
     public HashMap<String, String> updatePublisherSite(@RequestBody Map<String, Object> stringObjectMap) {
         HashMap<String, String> hashMap = new HashMap<>();
@@ -65,7 +62,6 @@ public class PublisherController {
                 (String) stringObjectMap.get("link")));
         return hashMap;
     }
-
     @PutMapping("/updatePublisherAffiliationName")
     public HashMap<String, String> updatePublisherAffiliationName(@RequestBody Map<String, Object> stringObjectMap) {
         HashMap<String, String> hashMap = new HashMap<>();
@@ -110,11 +106,7 @@ public class PublisherController {
         }
      */
 
-
-
-
-
-    @PostMapping("/updatePublisherProfile")
+    @PostMapping("/createPublisherProfile")
     public HashMap<String, String> createCompleteProfile(@RequestBody Map<String, Object> stringObjectMap) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Status", publisherService.createFilledProfile(
@@ -123,22 +115,22 @@ public class PublisherController {
                 (String) stringObjectMap.get("personalLink"),
                 (String) stringObjectMap.get("affiliationName"),
                 (String) stringObjectMap.get("affiliationLink"),
-                (String[]) stringObjectMap.get("authorNames"),
-                (String[]) stringObjectMap.get("areasOfInterest"),
+                (List<String>) stringObjectMap.get("authorNames"),
+                (List<String>) stringObjectMap.get("areasOfInterest"),
                 Long.valueOf((Integer) stringObjectMap.get("userID"))
         ));
         return hashMap;
     }
 
     /*
-    {
-  "email": "john.doe@example.com",
-  "name": "John Doe",
-  "personalLink": "https://johndoe.com",
-  "affiliationName": "Example University",
-  "affiliationLink": "https://example.edu",
-  "userID": 12345
-}
+            {
+          "email": "john.doe@example.com",
+          "name": "John Doe",
+          "personalLink": "https://johndoe.com",
+          "affiliationName": "Example University",
+          "affiliationLink": "https://example.edu",
+          "userID": 12345
+        }
 
      */
 
@@ -158,15 +150,21 @@ public class PublisherController {
 
 
 
-    @PostMapping("/saveArticle/{DOI}/{userID}")
-    public String saveArticle(@RequestParam String DOI, @RequestParam Long userID) {
-        savedArticlesService.saveArticle(DOI,userID);
+    @PostMapping("/saveArticle")
+    public String saveArticle(
+            @RequestBody Map<String, Object> stringObjectMap
+    ) {
+        savedArticlesService.saveArticle(
+                (String) stringObjectMap.get("DOI"),
+                Long.valueOf((Integer) stringObjectMap.get("userID")));
         return "OK";
     }
 
     @PostMapping("/removeArticle")
-    public String removeArticle(@RequestParam String DOI, @RequestParam Long userID) {
-        savedArticlesService.removeSavedArticle(DOI,userID);
+    public String removeArticle(  @RequestBody Map<String, Object> stringObjectMap) {
+        savedArticlesService.removeSavedArticle(
+                (String) stringObjectMap.get("DOI"),
+                Long.valueOf((Integer) stringObjectMap.get("userID")));
         return "OK";
     }
 

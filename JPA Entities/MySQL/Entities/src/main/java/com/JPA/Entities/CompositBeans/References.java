@@ -26,4 +26,8 @@ public class References {
     @OneToOne
     @JoinColumn(name = "REFERENCES_TO_DOI", referencedColumnName = "DOI")
     private Articles articleI2;
+    public References(Articles articleId, Articles articleI2){
+        this.articleId=articleId;
+        this.articleI2=articleI2;
+    }
 }

@@ -1,7 +1,6 @@
 package com.Read.Service.ControllerLayer;
 
 import com.JPA.Entities.Beans.Articles;
-import com.JPA.Entities.Beans.Publisher;
 import com.Read.Service.ServiceLayer.ArticlesService;
 import com.Read.Service.ServiceLayer.ArticlesTopicService;
 import com.Read.Service.ServiceLayer.RefrencesServiceLayer;
@@ -10,17 +9,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 public class ArticleController {
+
+//    Visit Article_Test.http for understanding
 
     @Autowired
     private ArticlesService articlesService;
@@ -31,7 +30,7 @@ public class ArticleController {
 
 
     @GetMapping("/getRecentArticles")
-    public List<Articles> getRecentArticles(){
+    public List<Object[]> getRecentArticles(){
         return articlesService.getTopRecentArticles();
     }
 
@@ -40,13 +39,16 @@ public class ArticleController {
         return refrencesServiceLayer.getTopCitedPapers();
     }
 
-    @GetMapping("/getSavedArticles/{useID}")
+    @GetMapping("/getSavedArticles")
     public List<Map<String, Object>> getSavedArticles(@RequestParam Long userID){
         return articlesService.getSavedArticles(userID);
     }
-    @GetMapping("/getArticles")
-    public Map<String, Object> getArticles(@RequestBody Map<String, String[]> DOIs){
+    @PostMapping("/getArticles")
+    public Map<String, Object> getArticles(@RequestBody Map<String, List<String>> DOIs){
         HashMap<String,  Object> hashMap = new HashMap<>();
+        System.out.println("Received Data: "+DOIs);
+        System.out.println((Arrays.toString(new List[]{DOIs.get("DOIs")})));
+
         List<Map<String, Object>> allArticles =  articlesService.getArticles(DOIs.get("DOIs"));
         hashMap.put("allArticles", allArticles);
         List<Map<String, List<String>>> articleTopics = articlesService.getArticlesTopics(DOIs.get("DOIs"));

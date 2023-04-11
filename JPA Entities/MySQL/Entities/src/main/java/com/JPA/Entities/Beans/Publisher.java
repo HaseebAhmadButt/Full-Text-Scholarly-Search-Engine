@@ -37,7 +37,7 @@ public class Publisher {
     @Column(name = "PUBLISHER_STATUS", columnDefinition = "ENUM('ACTIVE', 'BLOCKED')")
     private String PublisherStatus;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", updatable = true, insertable = true)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID", unique = true, updatable = true, insertable = true)
     private User UserID;
 
     @Column(name = "Affiliation_Name", nullable = true)

@@ -1,0 +1,70 @@
+POST http://localhost:8600/upDateUser
+Content-Type: application/json
+
+{
+  "email": "example@gmail.com",
+  "name": "John Doe",
+  "password": "password123",
+  "picture": "https://example.com/profile.jpg",
+  "isAdmin": true
+}
+
+
+### When User Signs Up this API is called
+POST http://localhost:8600/createAccount
+Content-Type: application/json
+
+{
+  "Email": "example@ymail.com",
+  "Name": "John Doe",
+  "Password": "password123"
+}
+
+### To Change Password of User
+PUT http://localhost:8600/changePassword
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "Password": "password321"
+}
+
+### To Change Email
+PUT http://localhost:8600/changeEmail
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "Email": "example@ymail.com"
+}
+
+### To Change Name
+PUT http://localhost:8600/changeName
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "Name": "New Name"
+}
+### To Change Admin Fields
+PUT http://localhost:8600/changeAdminFields
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "Name": "updated_name",
+  "Password": "updated_password"
+}
+### To Change Account Data Completely
+PUT http://localhost:8600/changeAccount
+Content-Type: application/json
+
+{
+    "id": 1,
+    "email": "updated_email",
+    "name": "updated_name",
+    "password": "updated_password",
+    "picture": "https://example.com/profile.jpg",
+    "isAdmin": false
+}
+

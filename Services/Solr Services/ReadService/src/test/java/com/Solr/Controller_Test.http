@@ -1,0 +1,7 @@
+POST http://localhost:8000/retrieveDocument
+Content-Type: application/json
+
+{
+    "q":"processing",
+    "topics":["Image Processing", "artificial intelligence", "topic 2"]
+}

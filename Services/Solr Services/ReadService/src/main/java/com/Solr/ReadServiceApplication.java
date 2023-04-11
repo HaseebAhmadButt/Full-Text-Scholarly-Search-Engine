@@ -7,9 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 @SpringBootApplication
-public class EntitiesApplication {
+public class ReadServiceApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(EntitiesApplication.class, args);
+		SpringApplication.run(ReadServiceApplication.class, args);
 	}
 	@Value("${solr.host}")
 	private String solrHost;

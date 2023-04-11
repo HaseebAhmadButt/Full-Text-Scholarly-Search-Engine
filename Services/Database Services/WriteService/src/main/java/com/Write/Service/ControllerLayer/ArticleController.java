@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -15,78 +16,76 @@ public class ArticleController {
     private ArticlesService articlesService;
 
     @PostMapping("/saveCrawledArticle")
-    public String saveArticlesFromCrawler(
-            @RequestBody Map<String, Object> stringObjectMap
-    ){
-        articlesService.savePaperCompleteFromCrawler(
+    public String saveArticlesFromCrawler(@RequestBody Map<String, Object> stringObjectMap){
+        return articlesService.savePaperCompleteFromCrawler(
                 (String) stringObjectMap.get("DOI"),
                 (String) stringObjectMap.get("Title"),
                 (String) stringObjectMap.get("Abstract"),
                 (String) stringObjectMap.get("Year"),
                 (String) stringObjectMap.get("Link"),
                 (String) stringObjectMap.get("JournalName"),
-                (String[]) stringObjectMap.get("Topics")
+                (List<String>) stringObjectMap.get("Topics")
         );
-        return "";
     }
 
     @PostMapping("/saveUploadedArticle")
     public String saveArticlesFromUser(
             @RequestBody Map<String, Object> stringObjectMap
     ){
-        articlesService.savePaperCompleteFromUser(
+        System.out.println("stringObjectMap = " + stringObjectMap);
+        System.out.println("Received in Controller ");
+       return articlesService.savePaperCompleteFromUser(
                 (String) stringObjectMap.get("DOI"),
                 (String) stringObjectMap.get("Title"),
                 (String) stringObjectMap.get("Abstract"),
                 (String) stringObjectMap.get("Year"),
                 (String) stringObjectMap.get("Link"),
                 (String) stringObjectMap.get("JournalName"),
-                (String[]) stringObjectMap.get("Topics")
+                (List<String>) stringObjectMap.get("Topics")
         );
-        return "";
     }
 
     @PostMapping("/UpdatePaperAbstract")
     public String updatePaperAbstract(
             @RequestBody Map<String, Object> stringObjectMap
     ){
-        articlesService.UpdatePaperAbstract(
+        return articlesService.UpdatePaperAbstract(
                 (String) stringObjectMap.get("DOI"),
                 (String) stringObjectMap.get("Abstract")
         );
-        return "";
+//        return "";
     }
 
     @PostMapping("/UpdatePaperYear")
     public String updatePaperYear(
             @RequestBody Map<String, Object> stringObjectMap
     ){
-        articlesService.UpdatePaperYear(
+        return articlesService.UpdatePaperYear(
                 (String) stringObjectMap.get("DOI"),
                 (String) stringObjectMap.get("Year")
         );
-        return "";
+//        return "";
     }
 
     @PostMapping("/UpdatePaperLink")
     public String updatePaperLink(
             @RequestBody Map<String, Object> stringObjectMap
     ){
-        articlesService.UpdatePaperURL(
+        return articlesService.UpdatePaperURL(
                 (String) stringObjectMap.get("DOI"),
                 (String) stringObjectMap.get("Link")
         );
-        return "";
+//        return "";
     }
     @PostMapping("/UpdatePaperJournal")
     public String updatePaperJournal(
             @RequestBody Map<String, Object> stringObjectMap
     ){
-        articlesService.UpdatePaperJournal(
+       return articlesService.UpdatePaperJournal(
                 (String) stringObjectMap.get("DOI"),
                 (String) stringObjectMap.get("Journal")
         );
-        return "";
+//        return "";
     }
 
 

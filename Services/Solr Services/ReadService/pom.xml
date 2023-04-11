@@ -49,6 +49,11 @@
 				<scope>test</scope>
 			</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>ch.pete.appconfig</groupId>
 			<artifactId>appconfig</artifactId>
 			<version>0.1.0</version>

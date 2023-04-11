@@ -1,0 +1,122 @@
+### To Create Simple Publisher with only name of publisher (In this API, ID represents user ID)
+POST http://localhost:8600/createSimplePublisher
+Content-Type: application/json
+
+{
+  "PublisherName": "Publisher Name",
+  "ID": 2
+}
+### To Update Publisher Email (In this API, ID represents Publisher ID)
+PUT http://localhost:8600/updatePublisherEmail
+Content-Type: application/json
+
+{
+  "PublisherEmail": "newemail@example.com",
+  "ID": 1
+}
+### To Update Publisher HIndex (In this API, ID represents Publisher ID)
+PUT http://localhost:8600/updatePublisherHIndex
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "hIndex": 5.0
+}
+
+### To Update Publisher HMedian (In this API, ID represents Publisher ID)
+PUT http://localhost:8600/updatePublisherHMedian
+Content-Type: application/json
+
+{
+    "ID": 1,
+    "hMedian": 4.0
+}
+
+### To Update Publisher Site (In this API, ID represents Publisher ID)
+PUT http://localhost:8600/updatePublisherSite
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "link": "https://example.com"
+}
+
+### To Update Publisher Affiliation Name (In this API, ID represents Publisher ID)
+PUT http://localhost:8600/updatePublisherAffiliationName
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "affiliationName": "Example University"
+}
+
+### To Update Publisher Affiliation Link (In this API, ID represents Publisher ID)
+PUT http://localhost:8600/updatePublisherAffiliationLink
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "affiliationLink": "https://example.com"
+}
+
+### To Update Publisher Complete Affiliation Information (In this API, ID represents Publisher ID)
+PUT http://localhost:8600/updatePublisherAffiliations
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "affiliationName": "Example University",
+  "affiliationLink": "https://example.com"
+}
+
+### To Update Publisher Complete Profile (In this API, ID represents user ID)
+POST http://localhost:8600/createPublisherProfile
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "name": "John Doe",
+  "personalLink": "https://johndoe.com",
+  "affiliationName": "Example University",
+  "affiliationLink": "https://example.edu",
+  "authorNames": ["Jane Doe", "Bob Smith"],
+  "areasOfInterest": ["Machine Learning", "Natural Language Processing"],
+  "userID": 1
+}
+### To Update Publisher Complete Profile (In this API, ID represents user ID)
+POST http://localhost:8600/updatePublisherPartial
+Content-Type: application/json
+
+{
+  "email": "example@gmail.com",
+  "name": "John Doe",
+  "personalLink": "https://www.example.com/johndoe",
+  "affiliationName": "Example University",
+  "affiliationLink": "https://www.exampleuniversity.com",
+  "userID": 2
+}
+
+###
+POST http://localhost:8600/saveArticle
+Content-Type: application/json
+
+{
+  "DOI": "10.234.3456/343",
+  "userID": 2
+}
+
+###
+POST http://localhost:8600/removeArticle
+Content-Type: application/json
+
+{
+"DOI": "10.234.3456/343",
+"userID": 2
+}
+
+
+
+
+
+
+

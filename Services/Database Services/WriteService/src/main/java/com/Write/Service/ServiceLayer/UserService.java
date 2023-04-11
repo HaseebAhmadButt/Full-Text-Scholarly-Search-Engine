@@ -15,6 +15,9 @@ public class UserService {
     private UserRepository userRepository;
 
     public User saveUser(User user) {
+        if (userRepository.findByEmail(user.getEmail()) != null){
+            return null;
+        }
         return userRepository.save(user);
     }
     public String updateUserPassword(Long ID, String Password){
@@ -54,6 +57,7 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(ID);
         if(optionalUser.isPresent()){
             User user = optionalUser.get();
+            if(!user.isAdmin()) return "FAILED";
             user.setName(Name);
             user.setPassword(Password);
             userRepository.save(user);
@@ -62,14 +66,14 @@ public class UserService {
         return "FAILED";
     }
 
-    public String updateUserAccount(Long ID, User user){
-        Optional<User> optionalUser = userRepository.findById(ID);
+    public String updateUserAccount(User user){
+        Optional<User> optionalUser = userRepository.findById(user.getId());
         if(optionalUser.isPresent()){
             User userFound = optionalUser.get();
+            System.out.println("userFound = " + userFound);
             userFound.setEmail(user.getEmail());
             userFound.setPassword(user.getPassword());
             userFound.setName(user.getName());
-            userFound.setPicture("");
             userRepository.save(user);
             return "OK";
         }

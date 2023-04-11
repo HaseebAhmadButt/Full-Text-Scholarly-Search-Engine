@@ -73,7 +73,7 @@ public class AdminService {
         Admin admin = adminRepository.findById(AdminID).get();
         Articles article = articlesService.getArticleByID(DOI);
         deletedArticlesService.rejectArticles(admin,article,reason);
-        addedarticlesService.removeArticlesFromAdded(DOI,AdminID);
+        addedarticlesService.removeArticlesFromAdded(article,admin);
         articlesService.UpdatePaperStatus(DOI, "REJECTED");
     }
 

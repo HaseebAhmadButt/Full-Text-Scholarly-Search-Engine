@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -16,21 +17,25 @@ import java.util.Map;
 
 @RestController
 public class UserController {
-
+        /*
+              Find User_Test.http file in "test" folder to see these URIs working
+        */
     @Autowired
     private UserService userService;
+    @Lazy
     @Autowired
     private AdminService adminService;
 
     // To Save Complete user, if all fields are available, then use this URI
-//    @PostMapping("/upDateUser")
-//    public User saveUser(@Valid @RequestBody User user) {
-//        return userService.saveUser(user);
-//    }
+    @PostMapping("/upDateUser")
+    public User saveUser(@Valid @RequestBody User user) {
+        return userService.saveUser(user);
+    }
 
     // This is for creating the user account when Signing Up.
     @PostMapping("/createAccount")
     public User createAccount(@RequestBody Map<String, Object> requestBody) {
+        System.out.println("requestBody = " + requestBody);
         return userService.saveUser(new User((String) requestBody.get("Email"), (String) requestBody.get("Password"), null, false, (String) requestBody.get("Name")));
     }
     @PutMapping("/changePassword")
@@ -69,17 +74,13 @@ public class UserController {
     }
 
     @PutMapping("/changeAccount")
-    public Map<String, String> updateUserAccount(@RequestBody Map<String, Object> requestBody) {
-        Long userID = Long.valueOf((Integer) requestBody.get("userID"));
-        User user = (User)  requestBody.get("UserData");
+    public Map<String, String> updateUserAccount(@RequestBody User requestBody) {
+        System.out.println("requestBody = " + requestBody);
 
-        String status = userService.updateUserAccount(userID, user);
+        String status = userService.updateUserAccount(requestBody);
         HashMap<String, String> map = new HashMap<>();
         map.put("Status", status);
         return map;
     }
-
-
-//    @PostMapping("/publisher")
 
 }

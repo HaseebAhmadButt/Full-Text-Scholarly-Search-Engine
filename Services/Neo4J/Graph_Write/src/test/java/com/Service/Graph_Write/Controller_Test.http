@@ -1,0 +1,41 @@
+POST http://localhost:8300/savePaper
+Content-Type: application/json
+
+{
+  "paperId": "P100",
+  "citedPapers": [{"paperId": "P200"},{"paperId": "P300"}],
+  "citingPapers": [{"paperId": "P400"}],
+  "authors": [{"authorId": 1,"name": "John Doe"},{"authorId": 2,"name": "Jane Smith"}],
+  "topic": [{"id": 1,"title": "Machine Learning"},{"id": 2,"title": "Data Mining"}]
+}
+
+###
+POST http://localhost:8300/saveTopic
+Content-Type: application/json
+
+{
+  "id": 3456,
+  "title":"This is some testing Topic",
+  "papers":[{"paperId":"P200"}, {"paperId":"P300"}, {"paperId":"P400"}]
+}
+
+###
+POST http://localhost:8300/saveAuthor
+Content-Type: application/json
+
+{
+  "authorId": 3456,
+  "name":"Billal Arshad",
+  "papers":[
+    {"paperId":"P200"}, {"paperId":"P300"}, {"paperId":"P400"}
+  ]
+}
+
+### New Incoming Link Generation
+POST http://localhost:8300/savePaper
+Content-Type: application/json
+
+{
+  "paperId": "P100",
+  "citingPapers": [{"paperId": "P3456p3400"}]
+}

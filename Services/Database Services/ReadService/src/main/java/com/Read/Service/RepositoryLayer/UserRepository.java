@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String Email);
 
-    @Query("SELECT pub FROM Publisher pub JOIN User u WHERE u.id=?1")
+    @Query("SELECT pub FROM Publisher pub WHERE pub.UserID.id=?1")
     Publisher findAssociatedPublisher(Long ID);
 
     @Query("SELECT an.PublishedName FROM AuthorNames an WHERE an.authorId.PublisherID = ?1")

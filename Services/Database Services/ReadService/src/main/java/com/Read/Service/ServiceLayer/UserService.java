@@ -17,25 +17,29 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public HashMap<String, Object> getUser(String email, String Password){
+    public User getUser(String email, String Password){
         User user = userRepository.findByEmail(email);
+//        System.out.println("user = " + user);
         HashMap<String, Object> hashMap = new HashMap<>();
         if(user.getPassword().equals(Password)){
-            hashMap.put("userData", user);
-            if(user.isAdmin()) return hashMap;
-            Publisher publisher = userRepository.findAssociatedPublisher(user.getId());
-            if(publisher.getPublisherStatus().equals("BLOCKED"))
-            {
-                hashMap.put("publisherData", "Blocked");
-                return hashMap;
-            }
-            hashMap.put("publisherData", publisher);
-            if(publisher==null) return hashMap;
-            List<String> authorNames = userRepository.getAuthorNames(publisher.getPublisherID());
-            List<String> authorInterests = userRepository.getAuthorInterests(publisher.getPublisherID());
-            hashMap.put("publisherNames", authorNames);
-            hashMap.put("authorInterests", authorInterests);
-            return hashMap;
+            user.setPassword(null);
+//            System.out.println("Passwords Matched");
+//            hashMap.put("userData", user);
+//            if(user.isAdmin()) return hashMap;
+//
+//            Publisher publisher = userRepository.findAssociatedPublisher(user.getId());
+//            if(publisher==null) return hashMap;
+//            if(publisher.getPublisherStatus().equals("BLOCKED"))
+//            {
+//                hashMap.put("publisherData", "Blocked");
+//                return hashMap;
+//            }
+//            hashMap.put("publisherData", publisher);
+//            List<String> authorNames = userRepository.getAuthorNames(publisher.getPublisherID());
+//            List<String> authorInterests = userRepository.getAuthorInterests(publisher.getPublisherID());
+//            hashMap.put("publisherNames", authorNames);
+//            hashMap.put("authorInterests", authorInterests);
+            return user;
         }
         return null;
     }

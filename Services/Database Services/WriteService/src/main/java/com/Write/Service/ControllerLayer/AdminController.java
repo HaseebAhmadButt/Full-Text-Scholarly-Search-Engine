@@ -1,9 +1,12 @@
 package com.Write.Service.ControllerLayer;
 
+import com.JPA.Entities.Beans.Admin;
 import com.JPA.Entities.Beans.User;
 import com.Write.Service.ServiceLayer.AdminService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +19,16 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    /*
+    This method receives userObject which is set with the field of Admin to be true
+     */
     @PostMapping("/saveAdmin")
-    public String saveAdmin(HttpServletRequest request){
-        User adminUser = (User) request.getAttribute("adminUser");
-        adminService.saveAdmin(adminUser);
-        return "Admin Saved";
+    public ResponseEntity<Admin> saveAdmin(@RequestBody User user){
+        System.out.println("user = " + user);
+        if(!user.isAdmin()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.saveAdmin(user));
     }
 
     @PostMapping("/blockPublisher")

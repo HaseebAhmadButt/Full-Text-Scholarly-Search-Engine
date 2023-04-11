@@ -1,0 +1,63 @@
+
+###
+POST http://localhost:8600/saveAdmin
+Content-Type: application/json
+
+{
+  "email": "example@gmail.com",
+  "name": "John Doe",
+  "password": "password123",
+  "picture": "https://example.com/profile.jpg",
+  "isAdmin": true
+}
+
+####
+POST http://localhost:8600/createAccount
+Content-Type: application/json
+
+{
+  "Email": "example@ymail.com",
+  "Name": "John Doe",
+  "Password": "password123"
+
+}
+
+###
+POST http://localhost:8600/blockPublisher
+Content-Type: application/json
+
+{
+  "publisherID": 1,
+  "adminID": 1
+}
+
+###
+POST http://localhost:8600/activePublisher
+Content-Type: application/json
+
+{
+  "publisherID": 1
+}
+
+###
+POST http://localhost:8600/addArticles
+Content-Type: application/json
+
+{
+"DOI": "10.1234/",
+"adminID": 456
+}
+
+###
+#POST http://localhost:8600/rejectArticles
+#Content-Type: application/json
+#
+#{
+#  "DOI": "10.1234/abcd",
+#  "adminID": 456,
+#  "Reason": "This article does not meet our quality standards."
+#}
+
+
+
+
