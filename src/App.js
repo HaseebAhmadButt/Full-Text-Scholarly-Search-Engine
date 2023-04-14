@@ -88,8 +88,8 @@ function App() {
             } />
 
 
-<Route path={'/singlepaper'} element={<>
-                <HomepageHeader/>
+        <Route path={'/singlepaper'} element={<>
+                <SearchHeader />
                 <Details />
                 <h1 style={{marginLeft:'30px', paddingLeft:'70px'}}>Citations</h1>
                 <hr style={{width:'85%',margin:'auto'}}/>
