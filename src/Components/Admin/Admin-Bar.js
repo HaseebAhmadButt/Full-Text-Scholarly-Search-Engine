@@ -5,11 +5,12 @@ import AdminResearcherUpdate from "./Admin-Researcher-Update";
 import AdminDeleteArticles from "./Admin-Delete-Articles";
 import AdminAddArticle from "./Admin-Add-Article";
 import AdminMetrics from "./Admin-Metrics";
+import {useNavigate} from "react-router-dom";
 
 export default function AdminBar() {
+    const navigator = useNavigate();
     const [open, setOpen] = useState(false);
     const [openArticle, setOpenArticle] = useState(false);
-
     const [profileOptions, setProfileOptions] = useState({
         accountSettings: true,
         add_articles: false,
@@ -30,8 +31,6 @@ export default function AdminBar() {
                             update_authors: false,
                             authors_find: false,
                             remove_articles: false,
-
-
                         })
                     }}
                 >
@@ -44,7 +43,7 @@ export default function AdminBar() {
                     <div className={"profile-detail-options profile-update-inner-buttons"}>
                         <Button
                             onClick={() => {
-                                alert("Add Researcher");
+                                navigator("/signUp")
                             }}
                         >
                             Add Researcher

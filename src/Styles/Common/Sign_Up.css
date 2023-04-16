@@ -24,7 +24,7 @@
 }
 .sign-up-button-div > button{
     margin: 2% auto;
-    width: 100px;
+    width: max-content;
 }
 .Error-Message, .important-star, .email-exists-error, .Sign_Up_Form > h5{
     color: #ff0000;
