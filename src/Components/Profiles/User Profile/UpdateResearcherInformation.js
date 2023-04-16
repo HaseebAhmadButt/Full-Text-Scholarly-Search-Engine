@@ -2,6 +2,19 @@ import {Button, CloseButton, Form} from "react-bootstrap";
 import React, {useState} from "react";
 
 export default function UpdateResearcherInformation() {
+
+    const [formValues, setFormValues] = useState({
+        fullName: "",
+        professionalEmail: "",
+        affiliation: "",
+        affiliationLink: "",
+        personalSiteLink: ""
+    });
+
+    const asy
+
+
+
     const [Authors, setAuthors] = useState([]);
     const [Interests, setInterests] = useState([]);
     // const addAuthor = () => {
@@ -40,7 +53,7 @@ export default function UpdateResearcherInformation() {
             <h2>Researcher Information</h2>
             <Form.Group controlId="UserSearch" className={"personal-profile-update-fields"}>
                 <Form.Label>
-                    Name:
+                    Name <span className={"important-star"}>*</span>
                 </Form.Label>
                 <Form.Control
                     type="text"
@@ -49,15 +62,13 @@ export default function UpdateResearcherInformation() {
             </Form.Group>
             <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
                 <Form.Label>
-                    Add other names:
+                    Add other names
                 </Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Add other names you have published"
                     className={"middle-search-input profile-input"}/>
-                <Button variant={"primary"} className={"personal-profile-update-button"}>
-                    Add
-                </Button>
+                <Button variant={"primary"} className={"personal-profile-update-button"}>Add</Button>
                 <div style={{clear:"right"}}></div>
                 <div className={"tags-dive"}>
                     {/*{displayAuthors}*/}
@@ -65,7 +76,7 @@ export default function UpdateResearcherInformation() {
             </Form.Group>
             <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
                 <Form.Label>
-                    Affiliation:
+                    E-Mail for Verification <span className={"important-star"}>*</span>
                 </Form.Label>
                 <Form.Control
                     type="text"
@@ -74,30 +85,18 @@ export default function UpdateResearcherInformation() {
             </Form.Group>
             <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
                 <Form.Label>
-                    E-Mail for Verification:
-                </Form.Label>
-                <Form.Control
-                    type="text"
-                    placeholder="Professor of Physics, Princeton University"
-                    className={"middle-search-input profile-input"}/>
-            </Form.Group>
-            <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
-                <Form.Label>
-                    Areas of Interest:
+                    Areas of Interest
                 </Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Add other names you have published"
                     className={"middle-search-input profile-input"}/>
-                <Button variant={"primary"} className={"personal-profile-update-button"}>
-                    Add
-                </Button>
+                <Button variant={"primary"} className={"personal-profile-update-button"}>Add</Button>
                 <div style={{clear:"right"}}></div>
-
             </Form.Group>
             <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
                 <Form.Label>
-                    Affiliation Homepage:
+                    Affiliation
                 </Form.Label>
                 <Form.Control
                     type="text"
@@ -106,14 +105,23 @@ export default function UpdateResearcherInformation() {
             </Form.Group>
             <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
                 <Form.Label>
-                    Personal Site:
+                    Affiliation Homepage
                 </Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Professor of Physics, Princeton University"
                     className={"middle-search-input profile-input"}/>
             </Form.Group>
-            <Button variant={"primary"} className={"researcher-profile-update-main-button"}>Update</Button>
+            <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
+                <Form.Label>
+                    Personal Site
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder="Professor of Physics, Princeton University"
+                    className={"middle-search-input profile-input"}/>
+            </Form.Group>
+            <Button type={"submit"} variant={"primary"} className={"researcher-profile-update-main-button"}>Update</Button>
         </Form>
         </>
     )

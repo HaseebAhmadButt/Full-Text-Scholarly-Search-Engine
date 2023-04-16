@@ -21,38 +21,27 @@ export default function PersonalProfile() {
         metrics: false,
         savedArticles: false,
     });
+    const handleButtonClick = (profileOption) => {
+        setProfileOptions({
+            profileResults: profileOption === "profileResults",
+            accountSettings: profileOption === "accountSettings",
+            researcherProfile: profileOption === "researcherProfile",
+            articles: profileOption === "articles",
+            metrics: profileOption === "metrics",
+            savedArticles: profileOption === "savedArticles",
+        });
+    }
 
     return (
         <>
             <div className={"UserProfile"}>
                 <div className={"profile-options"}>
-                    <Button
-                        onClick={() => {
-                            setProfileOptions({
-                                profileResults: true,
-                                accountSettings: false,
-                                researcherProfile: false,
-                                articles: false,
-                                metrics: false,
-                                savedArticles: false,
-                            })
-                        }}
-                    >
+                    <Button onClick={() => {
+                            handleButtonClick("profileResults")
+                        }}>
                         Profile
                     </Button>
-                    <Button
-                        onClick={() => {
-                                setProfileOptions({
-                                    accountSettings: true,
-                                    researcherProfile: false,
-                                    articles: false,
-                                    metrics: false,
-                                    savedArticles: false,
-                                    profileResults: false,
-
-                            })
-                        }}
-                    >
+                    <Button onClick={() => handleButtonClick("accountSettings")}>
                         Account Settings
                     </Button>
                     <Button onClick={() => setOpen(!open)}>
@@ -60,70 +49,33 @@ export default function PersonalProfile() {
                     </Button>
                     <Collapse in={open} >
                         <div className={"profile-detail-options profile-update-inner-buttons"}>
-                            <Button
-                                onClick={() => {
-                                    setProfileOptions({
-                                        accountSettings: false,
-                                        researcherProfile: true,
-                                        articles: false,
-                                        metrics: false,
-                                        savedArticles: false,
-                                        profileResults: false,
-
-                                    })
-                                }}
-                            >
+                            <Button onClick={() => handleButtonClick("researcherProfile")}>
                                 Researcher Information
                             </Button>
-                            <Button
-                                onClick={() => {
-                                    setProfileOptions({
-                                        accountSettings: false,
-                                        researcherProfile: false,
-                                        articles: true,
-                                        metrics: false,
-                                        savedArticles:  false,
-                                        profileResults: false,
-
-                                    })
-                                }}
-                            >
+                            <Button onClick={() => handleButtonClick("articles")}>
                                 Articles
                             </Button>
                         </div>
                     </Collapse>
                     <Button
-                        onClick={() => {
-                            setProfileOptions({
-                                accountSettings: false,
-                                researcherProfile: false,
-                                articles: false,
-                                metrics: true,
-                                savedArticles: false,
-                                profileResults: false,
-
-                            })
-                        }}>
+                        onClick={() => handleButtonClick("metrics")}
+                    >
                         Profile Metrics
                     </Button>
                     <Button
-                        onClick={() => {
-                            setProfileOptions({
-                                accountSettings: false,
-                                researcherProfile: false,
-                                articles: false,
-                                metrics: false,
-                                savedArticles: true,
-                                profileResults: false,
-
-                            })
-                        }}
+                        onClick={() => handleButtonClick("savedArticles")}
                     >
                         Saved Articles
                     </Button>
                     <Button>
                         Logout
                     </Button>
+
+
+                    {/*
+                        Below code is for enabling Drawer on smaller Screens
+
+                    */}
                     <Offcanvas show={show} onHide={handleClose}>
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>Profile Options</Offcanvas.Title>

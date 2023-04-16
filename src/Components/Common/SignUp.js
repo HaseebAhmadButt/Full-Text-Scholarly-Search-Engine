@@ -3,10 +3,11 @@ import React, {useState} from 'react';
 // import {faGoogle, faLinkedin, faTwitter} from "@fortawesome/free-brands-svg-icons";
 // import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Button, Form} from "react-bootstrap";
-import {UserSignUp} from '../../Services/LogIn_SignUp_Service';
-import "../../Styles/Sign_In_Up/Sign_Up.css";
+import {UserSignUp} from '../../Services/LogInSignUpService';
+import "../../Styles/Common/Sign_Up.css";
 import {useNavigate} from "react-router-dom";
 // import {useConst} from "@chakra-ui/react";
+import {EmailVarificationRegex} from "../../Services/apiConstants"
 
 // import {fab icon}
 function SignIn() {
@@ -44,8 +45,7 @@ function SignIn() {
         if (formValues.email === "") {
             error.emailRequired = true
         } else {
-            let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-            if (!emailRegex.test(formValues.email)) {
+            if (!EmailVarificationRegex.test(formValues.email)) {
                 error.incorrectEmail = true;
             }
         }
@@ -84,7 +84,7 @@ function SignIn() {
                 }
                 else {
                     setTimeout(() => {
-                        window.location.href = "/signIn";
+                        navigator("/signIn");
                     }, 2000);
                 }
 
@@ -94,8 +94,7 @@ function SignIn() {
         }
 
     }
-    return (
-    <div className={"sign-up-page"}>
+    return (<div className={"sign-up-page"}>
         <div className={"ImageDiv"}>
              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" alt={"Sign Up Logo"}/>
 
@@ -175,8 +174,7 @@ function SignIn() {
 
 
         </div>
-    </div>
-    );
+    </div>);
 }
 
 export default SignIn;
