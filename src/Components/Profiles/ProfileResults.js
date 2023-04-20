@@ -5,13 +5,15 @@ import ResultsShowing from "../Result Page/ResultsShowing";
 import ResultsShowingSearchRecommendation from "./AuthorRecommendations";
 export default function ProfileResults(props) {
     const {settings} = props;
-    console.log(settings);
+    // console.log(settings);
     return (
             <>
                 <div className={"main-user-profile"}>
-                    <ResultProfileHeader functionCalled = {settings}/>
-                     <ResultsShowingSearch />
-                  <ResultsShowing />
+                    <ResultProfileHeader
+                        functionCalled = {settings}
+                    />
+                        <ResultsShowingSearch />
+                    <ResultsShowing />
                 {/*<hr/>*/}
                 {/*<ResultsShowingSearchRecommendation />*/}
                 </div>

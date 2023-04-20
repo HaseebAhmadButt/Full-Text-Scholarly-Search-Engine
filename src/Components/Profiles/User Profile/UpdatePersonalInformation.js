@@ -1,8 +1,8 @@
 import React, {useState, useContext} from "react";
 import {Button, Form, Alert} from "react-bootstrap";
 import User_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
-import {changeName} from "../../../Services/AccountSettingService";
-import {changePassword} from "../../../Services/LogInSignUpService";
+import {changeName} from "../../../Services/AuthorProfileServices/AccountSettingService";
+import {changePassword} from "../../../Services/AuthenticationService/LogInSignUpService";
 export default function UpdatePersonalInformation() {
 
 

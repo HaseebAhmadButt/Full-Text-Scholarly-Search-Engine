@@ -15,12 +15,12 @@
     display: block;
     width: 100%;
     margin: 2% 0;
-    border: unset;
     background-color: #0071c5;
     text-align: left;
     cursor: pointer;
     font-size: 1.2rem;
     color: #ffffff;
+    border: none;
     border-bottom: 1px solid #ffffff;
     border-radius: unset;
 }
@@ -28,19 +28,22 @@
     display: flex;
     flex-direction: row;
     width: 90%;
-    border: unset;
+    border: none;
     border-bottom: 1px solid #ffffff;
     background-color: #0071c5;
     border-radius: unset;
     color: #ffffff;
     margin: 2px 0 0 auto;
     text-align: left !important;
-
-
 }
 .profile-mobile-options{
     width: 100%;
     margin: unset;
+}
+.disabled_link{
+    pointer-events: none !important;
+    cursor: default;
+    color:Gray !important;
 }
 @media screen and (max-width: 1024px) {
     .profile-options{

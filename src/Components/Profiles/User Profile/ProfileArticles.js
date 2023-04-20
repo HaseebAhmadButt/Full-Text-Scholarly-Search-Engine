@@ -1,14 +1,105 @@
-import React from "react";
-import {Nav, Button, Form, Table, InputGroup, FormCheck} from "react-bootstrap";
+import React, {useContext, useEffect, useState} from "react";
+import {Nav, Button, Form, Table, InputGroup, FormCheck, Pagination } from "react-bootstrap";
+import {getAllArticles, getArticleTopics} from "../../../Services/AuthorProfileServices/PublisherDataService";
 // import {Button} from "@chakra-ui/react";
-
+import User_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
 export default function ProfileArticles() {
-    const [key, setKey] = React.useState({
+
+    const [pagination, setPagination] = useState({
+        activePage:0,
+        totalPages: 1,
+        totalElements:10
+    })
+    let items = [];
+    const handlePaginationClick = (pageNumber) => {
+        console.log(`Clicked on page ${pageNumber}`);
+        setPagination(prevState => ({...prevState, activePage: pageNumber}))
+        // pagination.activePage(pageNumber)
+    };
+    for (let number = 1; number <= pagination.totalPages; number++) {
+        items.push(
+            <Pagination.Item
+                key={number}
+                active={number === pagination.activePage}
+                onClick={() => handlePaginationClick(number)}
+            >
+                {number}
+            </Pagination.Item>,
+        );
+    }
+    console.log(pagination)
+    const context = useContext(User_Sign_In_Context)
+    const [data, setData] = useState([])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await getAllArticles(context.userLogIn.user_id, pagination.activePage, pagination.totalElements);
+                console.log(result)
+                setPagination(prevState => ({
+                    ...prevState,
+                    totalPages: result.totalPages,
+                    totalElements: result.totalElements,
+                    activePage: (result.pageable.pageNumber)+1
+                }))
+                setData(result.content);;
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData().then();
+    }, []);
+    const DataObjects = data.map((article)=>{
+       return(
+           <tr>
+            <td>
+                <Form.Check type={'checkbox'} className={"remove-select"}/>
+            </td>
+            <td>
+                <div className={"result"}>
+                    <div className={"result-detail"}>
+                        <a href={"#"} className={"heading"}><h3>{article.paper_Title}</h3></a>
+                        <p>{article.paper_Abstract}</p>
+                    </div>
+                    <div className={"result-metadata"}>
+                        <div>
+                            <h5 className={"heading"}>Authors: </h5>
+                            <span  style={{marginLeft: "1%"}}>{article.authors.join(", ")}</span>
+                            {/*className={"authors"}*/}
+                            {/*<a href={"#"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>*/}
+                            {/*<a href={"#"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>*/}
+                            {/*<a href={"#"}  className={"authors"}><span> Sanaullah Kalasra</span></a>*/}
+                        </div>
+                        <div>
+                            <h5 className={"heading heading-extra"}>Published at: </h5>
+                            {article.paper_Journal.journalName} - {article.published_Date}
+                        </div>
+                        {/*<div>*/}
+                        {/*    <h5 className={"heading"}>Cited By: </h5>*/}
+                        {/*    <a href={"#"}  className={"authors"}><span>255</span></a>*/}
+                        {/*</div>*/}
+                        {/*{topicsFetched?<div>*/}
+                        {/*    <h5 className={"heading heading-extra"}>Topics Covered: </h5>*/}
+                        {/*    /!*{Topics.map((topic)=>{*!/*/}
+                        {/*    /!*    return(*!/*/}
+                        {/*    /!*        <span className={'tags'}>{topic}</span>*!/*/}
+                        {/*    /!*    )*!/*/}
+                        {/*    /!*})}*!/*/}
+                        {/*    /!*<a href={"#"} className={'tags'}><span >Biotech</span></a>*!/*/}
+                        {/*    /!*<a href={"#"} className={'tags'}><span >NLP</span></a>*!/*/}
+                        {/*    /!*<a href={"#"} className={'tags'}><span >Biotech</span></a>*!/*/}
+                        {/*    /!*<a href={"#"} className={'tags'}><span >NLP</span></a>*!/*/}
+                        {/*    /!*<a href={"#"} className={'tags'}><span >Biotech</span></a>*!/*/}
+                        {/*</div>:""}*/}
+                    </div>
+                </div>
+            </td>
+        </tr>)
+    })
+    const [key, setKey] = useState({
         personalArticles: true,
         addArticle: false,
         findArticle: false,
     });
-
     const showTabData = (key) => {
         if (key === "link-1") {
             setKey({
@@ -206,90 +297,14 @@ export default function ProfileArticles() {
                                     <h5>Articles Selected: 0</h5>
                                 </Form.Group>
                             <Table className={"profile-articles-finding-table"}>
-                                <tr>
-                                    <td>
-                                        <Form.Check type={'checkbox'} className={"remove-select"}/>
-                                    </td>
-                                    <td>
-                                        <div className={"result"}>
-                                            <div className={"result-detail"}>
-                                                <a href={"#"} className={"heading"}><h3>Energy and policy considerations for deep learning in NLP</h3></a>
-                                                <p>Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP and discuss the implications for the field.</p>
-                                            </div>
-                                            <div className={"result-metadata"}>
-                                                <div>
-                                                    <h5 className={"heading"}>Authors: </h5>
-                                                    <a href={"#"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
-                                                    <a href={"#"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
-                                                    <a href={"#"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
-                                                </div>
-                                                <div>
-                                                    <h5 className={"heading heading-extra"}>Published at: </h5>
-                                                    IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a>
-                                                </div>
-                                                <div>
-                                                    <h5 className={"heading"}>Cited By: </h5>
-                                                    <a href={"#"}  className={"authors"}><span>255</span></a>
-                                                </div>
-                                                <div>
-                                                    <h5 className={"heading heading-extra"}>Topics Covered: </h5>
-                                                    <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                                    <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                                    <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                                    <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                                    <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                                    <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <Form.Check type={'checkbox'} className={"remove-select"}/>
-                                    </td>
-                                    <td>
-                                        <div className={"result"}>
-                                            <div className={"result-detail"}>
-                                                <a href={"#"} className={"heading"}><h3>Energy and policy considerations for deep learning in NLP</h3></a>
-                                                <p>Deep learning has revolutionized natural language processing (NLP), but its energy consumption is a growing concern. We present a comprehensive study of the energy consumption of deep learning models for NLP and discuss the implications for the field.</p>
-                                            </div>
-                                            <div className={"result-metadata"}>
-                                                <div>
-                                                    <h5 className={"heading"}>Authors: </h5>
-                                                    <a href={"#"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>
-                                                    <a href={"#"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>
-                                                    <a href={"#"}  className={"authors"}><span> Sanaullah Kalasra</span></a>
-                                                </div>
-                                                <div>
-                                                    <h5 className={"heading heading-extra"}>Published at: </h5>
-                                                    IEEE Computational intelligence - 2014 <a href={"#"}  className={"authors"}><span>ieeexplore.ieee.org</span></a>
-                                                </div>
-                                                <div>
-                                                    <h5 className={"heading"}>Cited By: </h5>
-                                                    <a href={"#"}  className={"authors"}><span>255</span></a>
-                                                </div>
-                                                <div>
-                                                    <h5 className={"heading heading-extra"}>Topics Covered: </h5>
-                                                    <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                                    <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                                    <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                                    <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                                    <a href={"#"} className={'tags'}><span >NLP</span></a>
-                                                    <a href={"#"} className={'tags'}><span >Biotech</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                {DataObjects}
                             </Table>
+                                <Pagination size="sm">{items}</Pagination>
                                 <Button variant={"primary"} className={"remove-button"}>Add Articles</Button>
                             </Form>
 
                         </div>
-                    </div>
-                    :""}
+                    </div> :""}
             </div>
         </div>
     )

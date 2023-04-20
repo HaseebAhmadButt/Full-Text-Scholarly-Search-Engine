@@ -2,8 +2,8 @@ import React, {useContext, useState} from "react";
 import {Alert, Button, Form} from "react-bootstrap";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
 import sha1 from "sha1";
-import {changeName} from "../../Services/AccountSettingService";
-import {changePassword} from "../../Services/LogInSignUpService";
+import {changeName} from "../../Services/AuthorProfileServices/AccountSettingService";
+import {changePassword} from "../../Services/AuthenticationService/LogInSignUpService";
 
 export default function AdminPersonalInformation() {
     const context = useContext(User_Sign_In_Context)

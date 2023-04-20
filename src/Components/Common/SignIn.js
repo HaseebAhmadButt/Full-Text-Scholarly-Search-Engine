@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {MDBContainer, MDBCol, MDBRow, MDBInput} from 'mdb-react-ui-kit';
 import {Button, Alert, Form} from "react-bootstrap";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
-import {UserLogIn} from "../../Services/LogInSignUpService";
+import {UserLogIn} from "../../Services/AuthenticationService/LogInSignUpService";
 import {useNavigate} from "react-router-dom";
 import {EmailVarificationRegex} from "../../Services/apiConstants"
 function SignIn() {
@@ -45,12 +45,11 @@ function SignIn() {
                 "Email": `${logInfo.Email}`,
                 "Password": `${password}`}
             );
-            console.log(userLogInfo)
             try{
-                console.log(userLogInfo)
+                console.log(userLogInfo);
                 if (userLogInfo === "Not Found") setError(prevState => ({...prevState, emailNotFound: true}))
                 else {
-                    await context.upDateStateOnLogIn(userLogInfo.id, userLogInfo.email, userLogInfo.name, userLogInfo.picture, userLogInfo.admin, true);
+                    await context.upDateStateOnLogIn(userLogInfo.id, userLogInfo.email, userLogInfo.name, userLogInfo.picture, userLogInfo.admin, true, userLogInfo.publisher);
                     setTimeout(() => {
                         if(userLogInfo.admin) navigator("/admin")
                         else navigator("/personalProfile")
