@@ -26,8 +26,8 @@ export default function MiddleSearchArea() {
     const [collapseMobileDate, setCollapseMobileDate] = useState(false);
     const [advancedMobileSearch, setAdvancedMobileSearch] = useState(false);
 
-        const [Authors, setAuthors] = useState([]);
-        const [Journals, setJournals] = useState([]);
+    const [Authors, setAuthors] = useState([]);
+    const [Journals, setJournals] = useState([]);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

@@ -1,6 +1,6 @@
 import {Alert, Button, Form} from "react-bootstrap";
 import React, {useState} from "react";
-import {changePassword} from "../../Services/LogInSignUpService";
+import {changePassword} from "../../Services/AuthenticationService/LogInSignUpService";
 import {useNavigate} from "react-router-dom";
 import {EmailVarificationRegex} from "../../Services/apiConstants"
 

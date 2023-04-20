@@ -38,3 +38,8 @@
     width: 100%;
     text-align: center;
 }
+.disabled_link{
+    pointer-events: none !important;
+    cursor: default;
+    color:Gray !important;
+}

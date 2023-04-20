@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-// import {MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
-// import {faGoogle, faLinkedin, faTwitter} from "@fortawesome/free-brands-svg-icons";
-// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React, {useState, useContext} from 'react';
 import {Button, Form} from "react-bootstrap";
-import {UserSignUp} from '../../Services/LogInSignUpService';
+import {UserSignUp} from '../../Services/AuthenticationService/LogInSignUpService';
 import "../../Styles/Common/Sign_Up.css";
 import {useNavigate} from "react-router-dom";
-// import {useConst} from "@chakra-ui/react";
 import {EmailVarificationRegex} from "../../Services/apiConstants"
+import user_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
 
 // import {fab icon}
 function SignIn() {
+    const context = useContext(user_Sign_In_Context);
+
+
     const navigator = useNavigate();
     const [formValues, setFormValues] = useState({
             email:"",
@@ -84,7 +84,9 @@ function SignIn() {
                 }
                 else {
                     setTimeout(() => {
-                        navigator("/signIn");
+                        console.log(context.userLogIn)
+                        if(context.userLogIn.isAdmin) navigator("/admin");
+                        else navigator("/signIn");
                     }, 2000);
                 }
 
