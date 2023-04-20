@@ -17,8 +17,9 @@ public class UserController {
 
 
     @PostMapping("/userSignIn")
-    public ResponseEntity<User> userSignIn(@RequestBody Map<String, String> userSignIn){
-        User user = userService.getUser(userSignIn.get("Email"), userSignIn.get("Password"));
+    public ResponseEntity<HashMap<String, Object>> userSignIn(@RequestBody Map<String, String> userSignIn){
+        HashMap<String, Object> user = userService.getUser(userSignIn.get("Email"), userSignIn.get("Password"));
+        System.out.println("user = " + user);
         if (user != null) {
             return ResponseEntity.ok(user);
         } else {

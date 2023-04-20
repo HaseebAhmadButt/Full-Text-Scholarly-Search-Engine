@@ -7,6 +7,7 @@ import com.Write.Service.RepositoryLayer.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLDataException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,25 @@ public class PublisherService {
         }
         return "FAILED";
     }
+
+    public String savePublisher(String publisherName, String publisherEmail ,Long userID){
+        User user = userService.getUser(userID);
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName(publisherName);
+        publisher.setPublisherEmail(publisherEmail);
+        publisher.setUserID(user);
+        Publisher savedPublisher = publisherRepository.save(publisher);
+
+        if (savedPublisher.getPublisherID() != null) {
+            return "OK";
+            // Publisher is saved successfully
+        }
+        return "FAILED";
+    }
+
+
+
+
     public String updatePublisherEmail(Long ID, String Email){
         Optional<Publisher> publisher = publisherRepository.findById(ID);
 
@@ -160,20 +180,64 @@ public class PublisherService {
             List<String> authorNames,
             List<String> areasOfInterest,
             Long userID
-    ){
-        Publisher publisher = savePublisher(email, name, link, affiliationName, affiliationLink, userID);
-        boolean flag = false;
-        if(authorNames.size() > 0){
-            flag = authorNamesService.saveAuthorNames(authorNames, publisher);
+    ) {
+
+        try {
+
+            // Check if a publisher with the given userID already exists in the database
+            Publisher publisher1 = publisherRepository.getPublisherByUserID(userID);
+            // Check if a publisher with the given email already exists in the database
+            Publisher publisher = publisherRepository.getPublisherByEmail(email);
+
+            // If a publisher with the given userID already exists
+            if (publisher1 != null) {
+                // Check if the publisher with the given email is the same as the publisher with the given userID
+                if(publisher != null && publisher.getUserID()!=publisher1.getUserID()){
+                    // If they are different, return "Conflict"
+                    return "Conflict";
+                }
+                // If the publisher with the given email is the same as the publisher with the given userID,
+                // update the existing publisher with the new information
+                publisher = updatePublisher(email, name, link, affiliationName, affiliationLink, userID, publisher1);
+
+                // If a publisher with the given userID does not exist
+            } else {
+                // Check if a publisher with the given email already exists
+                if(publisher!=null){
+                    // If a publisher with the given email already exists, return "Conflict"
+                    return "Conflict";
+                }
+                // If a publisher with the given email does not exist, create a new publisher with the given information
+                publisher = savePublisher(email, name, link, affiliationName, affiliationLink, userID);
+            }
+
+            // Save the author names and areas of interest associated with the publisher
+            authorNamesService.saveAuthorNames(authorNames, publisher);
+            areasOfInterestService.saveAreasOfInterest(areasOfInterest, publisher);
+
+            // If everything went well, return "OK"
+            return "OK";
+
+// If an exception occurred while executing the code above
+        } catch (Exception e) {
+            // Return "Exception"
+            return "Exception";
         }
-        if(areasOfInterest.size() >0){
-            flag = areasOfInterestService.saveAreasOfInterest(areasOfInterest, publisher);
-        }
-        if(flag) return "OK";
-        else return "PARTIALLY-FAILED";
-        // Publisher is saved successfully
     }
 
+
+    public Publisher createFilledProfileWithOutArrays(
+            String email,
+            String name,
+            String link,
+            String affiliationName,
+            String affiliationLink,
+            Long userID
+    ){
+       return savePublisher(email, name, link, affiliationName, affiliationLink, userID);
+
+        // Publisher is saved successfully
+    }
     private Publisher savePublisher(String email, String name, String link, String affiliationName, String affiliationLink, Long userID) {
         User user = userService.getUser(userID);
         Publisher publisher = new Publisher();
@@ -182,24 +246,26 @@ public class PublisherService {
         publisher.setPublisherSite(link);
         publisher.setAffiliationName(affiliationName);
         publisher.setAffiliationLink(affiliationLink);
+        publisher.setPublisherStatus("ACTIVE");
         publisher.setUserID(user);
+
+       return publisherRepository.save(publisher);
+    }
+    private Publisher updatePublisher(String email, String name, String link, String affiliationName, String affiliationLink, Long userID, Publisher publisher) {
+//        User user = userService.getUser(userID);
+//        Publisher publisher = new Publisher();
+        publisher.setPublisherEmail(email);
+        publisher.setPublisherName(name);
+        publisher.setPublisherSite(link);
+        publisher.setAffiliationName(affiliationName);
+        publisher.setAffiliationLink(affiliationLink);
+//        publisher.setUserID(user);
 
        return publisherRepository.save(publisher);
     }
 
 
-    public String createFilledProfileWithOutArrays(
-            String email,
-            String name,
-            String link,
-            String affiliationName,
-            String affiliationLink,
-            Long userID
-    ){
-        savePublisher(email, name, link, affiliationName, affiliationLink, userID);
-        return "OK";
-        // Publisher is saved successfully
-    }
+
 
 
 //    public String createCompleteProfile(

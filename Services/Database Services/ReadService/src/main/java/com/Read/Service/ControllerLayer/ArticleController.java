@@ -61,8 +61,14 @@ public class ArticleController {
         return articlesTopicService.top10Topics();
     }
 
+    @PostMapping("/getArticleTopics")
+    public List<Map<String, List<String>>> mapList (@RequestBody List<String> DOIs){
+         return articlesService.getArticlesTopics(DOIs);
+    }
+
+
     @GetMapping("/getAllArticles")
-    public ResponseEntity<Page<Articles>> getAllArticles(@RequestParam(defaultValue = "0") int pageNo,
+    public ResponseEntity<Page<Articles>> getAllProgressArticles(@RequestParam(defaultValue = "0") int pageNo,
                                                             @RequestParam(defaultValue = "10") int pageSize) {
         Page<Articles> articlesPage = articlesService.getAllAddedArticles(pageNo, pageSize);
 
@@ -73,9 +79,11 @@ public class ArticleController {
 
 
     @GetMapping("/getAllAcceptedArticles")
-    public ResponseEntity<Page<Articles>> getAllAcceptedArticles(@RequestParam(defaultValue = "0") int pageNo,
-                                                           @RequestParam(defaultValue = "10") int pageSize) {
-        Page<Articles> articlesPage = articlesService.getAllAcceptedArticles(pageNo, pageSize);
+    public ResponseEntity<Page<Articles>> getAllAcceptedArticles(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(name="userID") Long ID) {
+        Page<Articles> articlesPage = articlesService.getAllAcceptedArticles(pageNo, pageSize, ID);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));

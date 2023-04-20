@@ -44,10 +44,7 @@ public class ArticlesTopicService {
         articleTopic.setTopic(researchTopic);
         articleTopic.setPaper(articles);
         ArticleTopics articleTopics = articlesTopicsRepository.save(articleTopic);
-        if(articleTopics !=  null){
-            return "OK";
-        }
-        return "FAILED";
+        return "OK";
     }
 
 

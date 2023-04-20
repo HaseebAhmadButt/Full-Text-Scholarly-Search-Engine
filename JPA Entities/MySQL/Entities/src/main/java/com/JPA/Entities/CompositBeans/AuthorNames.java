@@ -13,14 +13,16 @@ import org.hibernate.type.SqlTypes;
 @AllArgsConstructor
 @Table(name = "AUTHOR_NAMES")
 @Entity
-@IdClass(AuthorNamesCompositeKey.class)
 public class AuthorNames {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name = "AuthorNameID", nullable = false, updatable = false, unique = true)
+    @JdbcTypeCode(SqlTypes.BIGINT)
+    private Long authorNameID;
     @ManyToOne
     @JoinColumn(name = "PUBLISHER_ID", referencedColumnName = "PUBLISHER_ID", nullable = false )
     private Publisher authorId;
 
-    @Id
     @Column(name = "PUBLISHED_NAME", nullable = false, length = 50)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String PublishedName;

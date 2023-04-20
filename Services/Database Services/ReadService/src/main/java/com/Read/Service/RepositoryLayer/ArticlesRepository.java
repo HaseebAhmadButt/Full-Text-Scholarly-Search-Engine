@@ -28,7 +28,8 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
 //
 
     @Query("SELECT art.topic.ResearchTopic FROM Articles ar JOIN ArticleTopics art on ar.Paper_DOI = art.paper.Paper_DOI " +
-            "JOIN ResearchTopic rt on rt.ResearchTopicID = art.topic.ResearchTopicID WHERE ar.Paper_DOI = ?1")
+            "JOIN ResearchTopic rt on rt.ResearchTopicID = art.topic.ResearchTopicID WHERE ar.Paper_DOI = ?1" +
+            " GROUP BY rt.ResearchTopic")
     List<String> getArticleTopics(String DOI);
 
 
@@ -44,8 +45,11 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
     Page<Articles> getAllAddedArticles(Pageable pageable);
 
 
-    @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'ACCEPTED'")
-    Page<Articles> getAllAcceptedArticles(Pageable pageable);
+    @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'ACCEPTED' " +
+            "AND ar.Paper_DOI NOT IN (SELECT pa.paper.Paper_DOI FROM PaperAuthors pa " +
+            "JOIN Publisher pu ON pu.PublisherID = pa.author.PublisherID" +
+            " WHERE pu.PublisherID = ?1)")
+    Page<Articles> getAllAcceptedArticles(Long publisherID, Pageable pageable);
 
     @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'REJECTED'")
     Page<Articles> getAllRejectedArticles(Pageable pageable);

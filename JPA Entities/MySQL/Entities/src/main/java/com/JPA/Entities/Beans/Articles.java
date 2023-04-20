@@ -8,6 +8,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.Date;
+import java.util.List;
 
 //import java.sql.Date;
 
@@ -30,7 +31,7 @@ public class Articles {
     @Column(name = "PUBLICATION_YEAR", length = 4)
     private String Published_Date;
 
-    @Column(name = "PAPER_URL", unique = true)
+    @Column(name = "PAPER_URL")
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     private String Paper_URL;
 
@@ -49,6 +50,9 @@ public class Articles {
     @JoinColumn(name = "JOURNAL_ID", referencedColumnName = "JOURNAL_ID")
     private Journal Paper_Journal;
 
+    @Column(name = "AUTHORS")
+    @ElementCollection(targetClass = String.class)
+    private List<String> Authors;
     @PostPersist
     protected void onCreate(){
         createdDate = new Date();

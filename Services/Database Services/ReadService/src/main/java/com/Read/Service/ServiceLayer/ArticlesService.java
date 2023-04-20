@@ -3,6 +3,7 @@ package com.Read.Service.ServiceLayer;
 import com.JPA.Entities.Beans.Articles;
 import com.JPA.Entities.Beans.Publisher;
 import com.Read.Service.RepositoryLayer.ArticlesRepository;
+import com.Read.Service.RepositoryLayer.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,9 @@ public class ArticlesService {
     @Autowired
     private ArticlesRepository articlesRepository;
 
+    @Autowired
+    private PublisherRepository publisherRepository;
+
 
 
 
@@ -26,9 +30,10 @@ public class ArticlesService {
         return articlesRepository.getAllAddedArticles(pageable);
     }
 
-    public Page<Articles> getAllAcceptedArticles(int pageNo, int pageSize) {
+    public Page<Articles> getAllAcceptedArticles(int pageNo, int pageSize, Long userID) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return articlesRepository.getAllAcceptedArticles(pageable);
+        Publisher publisher = publisherRepository.getPublisherThroughUserID(userID);
+        return articlesRepository.getAllAcceptedArticles(publisher.getPublisherID(),pageable);
     }
 
     public Page<Articles> getAllRejectedArticles(int pageNo, int pageSize) {
@@ -59,6 +64,7 @@ public class ArticlesService {
         List<Map<String, List<String>>> maps = new ArrayList<>();
         for(String DOI: DOIs)
         {
+            System.out.println("DOI = " + DOI);
             Map<String, List<String>> hashMap = new HashMap<>();
             List<String> ArticleTopics = articlesRepository.getArticleTopics(DOI);
             hashMap.put(DOI, ArticleTopics);

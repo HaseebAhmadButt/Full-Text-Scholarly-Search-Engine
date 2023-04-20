@@ -28,6 +28,17 @@ public class RefrencesServiceLayer {
         refrencesRepository.saveAll(references);
     }
 
+
+    public void saveRefrence(String article1, List<String> articlesList){
+        List<References> references = new ArrayList<>();
+        Articles articles = articlesService.getArticleByID(article1);
+        for (String article: articlesList){
+            Articles article2 = articlesService.getArticleByID(article);
+            references.add(new References(articles, article2));
+        }
+        refrencesRepository.saveAll(references);
+    }
+
     public void saveRefrence(Articles article1, Articles article2){
         article1 = articlesService.FindOrCreateArticle(article1.getPaper_DOI(), article1.getPaper_Title());
         article2 = articlesService.FindOrCreateArticle(article2.getPaper_DOI(), article2.getPaper_Title());

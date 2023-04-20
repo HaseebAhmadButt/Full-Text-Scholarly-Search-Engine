@@ -8,14 +8,17 @@ import jakarta.persistence.*;
 
 @Table(name = "PAPER_AUTHORS")
 @Entity
-@IdClass(PaperAuthorID.class)
+//@IdClass(PaperAuthorID.class)
 public class PaperAuthors {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+//    @Id
     @ManyToOne
     @JoinColumn(name = "PAPER_DOI", referencedColumnName = "DOI")
     private Articles paper;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "PUBLISHER_ID", referencedColumnName = "PUBLISHER_ID")
     private Publisher author;

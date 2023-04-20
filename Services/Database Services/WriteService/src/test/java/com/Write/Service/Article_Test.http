@@ -2,15 +2,60 @@
  POST http://localhost:8600/saveCrawledArticle
 Content-Type: application/json
 
-{
-  "DOI": "10.234.3456/343",
-  "Title": "Title of Paper",
-  "Abstract": "Abstract of Paper",
-  "Year": "2022",
-  "Link": "This is some Link",
-  "JournalName": "IEEE-Journal",
-  "Topics": ["Topic 1", "Topic 2", "Topic 2"]
-}
+//{
+//  "Title": "Title of Paper",
+//  "Abstract": "Abstract of Paper",
+//  "Year": "2022",
+//  "Link": "This is some Link",
+//  "JournalName": "IEEE-Journal",
+//  "Topics": ["Topic 1", "Topic 2", "Topic 2"],
+//  "Authors": ["Author 1", "Author 2", "Author 3"],
+//  "References": [{
+//    "Title": "Title of Paper",
+//    "Abstract": "Abstract of Paper",
+//    "Year": "2022",
+//    "Link": "This is some Link",
+//    "JournalName": "IEEE-Journal",
+//    "Topics": ["Topic 1", "Topic 2", "Topic 2"],
+//    "Authors": ["Author 1", "Author 2", "Author 3"]
+//  },
+//    {
+//      "Title": "Title of Paper",
+//      "Abstract": "Abstract of Paper",
+//      "Year": "2022",
+//      "Link": "This is some Link",
+//      "JournalName": "IEEE-Journal",
+//      "Topics": ["Topic 1", "Topic 2", "Topic 2"],
+//      "Authors": ["Author 1", "Author 2", "Author 3"]
+//    },
+//    {
+//      "Title": "Title of Paper",
+//      "Abstract": "Abstract of Paper",
+//      "Year": "2022",
+//      "Link": "This is some Link",
+//      "JournalName": "IEEE-Journal",
+//      "Topics": ["Topic 1", "Topic 2", "Topic 2"],
+//      "Authors": ["Author 1", "Author 2", "Author 3"]
+//    },
+//    {
+//      "Title": "Title of Paper",
+//      "Abstract": "Abstract of Paper",
+//      "Year": "2022",
+//      "Link": "This is some Link",
+//      "JournalName": "IEEE-Journal",
+//      "Topics": ["Topic 1", "Topic 2", "Topic 2"],
+//      "Authors": ["Author 1", "Author 2", "Author 3"]
+//    },
+//    {
+//      "Title": "Title of Paper",
+//      "Abstract": "Abstract of Paper",
+//      "Year": "2022",
+//      "Link": "This is some Link",
+//      "JournalName": "IEEE-Journal",
+//      "Topics": ["Topic 1", "Topic 2", "Topic 2"],
+//      "Authors": ["Author 1", "Author 2", "Author 3"]
+//    }]
+//}
 
 ### To Add Article From From Crawler Side
 POST http://localhost:8600/saveUploadedArticle
@@ -23,7 +68,8 @@ Content-Type: application/json
   "Year": "2022",
   "Link": "This is some New Link",
   "JournalName": "IEEE-Journal",
-  "Topics": ["Topic 1", "Topic 2", "Topic 2"]
+  "Topics": ["Topic 1", "Topic 2", "Topic 2"],
+  "Authors": ["Author 1", "Author 2", "Author 3"]
 }
 
 ###

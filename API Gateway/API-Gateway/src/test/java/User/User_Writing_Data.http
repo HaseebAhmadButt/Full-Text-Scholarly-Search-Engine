@@ -1,0 +1,36 @@
+### When User Signs Up this API is called
+POST http://localhost:8765/KNOWLEDGEVERSE-MYSQL-WRITING-ENTITY/createAccount
+Content-Type: application/json
+
+{
+  "Email": "haseebabdul148@gmail.com",
+  "Name": "John Doe",
+  "Password": "password123"
+}
+
+### When User Signs Up this API is called
+POST http://localhost:8765/KNOWLEDGEVERSE-MYSQL-READING-ENTITY/userSignIn
+Content-Type: application/json
+
+{
+  "Email": "haseebabdul148@gmail.com",
+  "Password": "password123"
+}
+
+###
+PUT http://localhost:8765/KNOWLEDGEVERSE-MYSQL-WRITING-ENTITY/changePassword
+Content-Type: application/json
+
+{
+  "Email": "haseebabdul148@gmail.com",
+  "Password": "qwer10f3535bcd81344062dacff7dacec10bee1e39"
+}
+
+###
+PUT http://localhost:8765/KNOWLEDGEVERSE-MYSQL-WRITING-ENTITY/changePicture
+Content-Type: application/json
+
+{
+  "ID": 1,
+  "Picture": "picture.jpg"
+}

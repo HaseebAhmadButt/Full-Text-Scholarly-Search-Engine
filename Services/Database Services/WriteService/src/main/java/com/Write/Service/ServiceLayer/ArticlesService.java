@@ -131,7 +131,8 @@ public class ArticlesService {
             String Year,
             String Link,
             String JournalName,
-            List<String> topics){
+            List<String> topics,
+            List<String> authors){
 
         Articles articles = new Articles();
         articles.setPaper_DOI(DOI);
@@ -140,6 +141,7 @@ public class ArticlesService {
         articles.setPublished_Date(Year);
         articles.setPaper_STATUS("IN-PROGRESS");
         articles.setPAPER_UPDATE_TYPE("UPLOADED");
+        articles.setAuthors(authors);
         return getString(Link, JournalName, articles, topics);
     }
 

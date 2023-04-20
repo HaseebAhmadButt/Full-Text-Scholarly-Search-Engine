@@ -43,7 +43,7 @@ public class Publisher {
     @Column(name = "Affiliation_Name", nullable = true)
     private String affiliationName;
 
-    @Column(name = "Affiliation_Link", nullable = true)
+    @Column(name = "Affiliation_Link", nullable = true, unique = false)
     private String affiliationLink;
 
 

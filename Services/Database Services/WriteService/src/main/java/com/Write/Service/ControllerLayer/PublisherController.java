@@ -1,16 +1,22 @@
 package com.Write.Service.ControllerLayer;
 
 
+import com.JPA.Entities.Beans.Publisher;
 import com.Write.Service.ServiceLayer.PublisherService;
 import com.Write.Service.ServiceLayer.SavedArticlesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLDataException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
+//@CrossOrigin("http://localhost:3000")
 public class PublisherController {
 
     @Autowired
@@ -19,13 +25,22 @@ public class PublisherController {
     @Autowired
     private SavedArticlesService savedArticlesService;
 
-    //    If user has entered only its name on Publisher Page then, call this URL. So, creating publisher account now
+    //    If user has entered only its name and email on Publisher Page then, call this URL. So, creating publisher account now
     @PostMapping("/createSimplePublisher")
-    public HashMap<String, String> createPublisher(@RequestBody Map<String, Object> stringObjectMap) {
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("Status", publisherService.
-                savePublisher((String) stringObjectMap.get("PublisherName"),Long.valueOf((Integer) stringObjectMap.get("ID"))));
-        return hashMap;
+    public ResponseEntity<Object> createPublisher(@RequestBody Map<String, Object> stringObjectMap) {
+        String status = publisherService
+                .savePublisher(
+                        (String) stringObjectMap.get("PublisherName"),
+                        (String) stringObjectMap.get("PublisherEmail"),
+                        Long.valueOf((Integer) stringObjectMap.get("ID")));
+        if(Objects.equals(status, "OK"))
+        {
+            return ResponseEntity.ok().build();
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
     }
 
     //    To Update Publisher Email
@@ -107,9 +122,8 @@ public class PublisherController {
      */
 
     @PostMapping("/createPublisherProfile")
-    public HashMap<String, String> createCompleteProfile(@RequestBody Map<String, Object> stringObjectMap) {
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("Status", publisherService.createFilledProfile(
+    public ResponseEntity<Object> createCompleteProfile(@RequestBody Map<String, Object> stringObjectMap) {
+        String status =  publisherService.createFilledProfile(
                 (String) stringObjectMap.get("email"),
                 (String) stringObjectMap.get("name"),
                 (String) stringObjectMap.get("personalLink"),
@@ -117,9 +131,10 @@ public class PublisherController {
                 (String) stringObjectMap.get("affiliationLink"),
                 (List<String>) stringObjectMap.get("authorNames"),
                 (List<String>) stringObjectMap.get("areasOfInterest"),
-                Long.valueOf((Integer) stringObjectMap.get("userID"))
-        ));
-        return hashMap;
+                Long.valueOf((Integer) stringObjectMap.get("userID")));
+        if(status.equals("OK")) return ResponseEntity.ok().build();
+        else if (status.equals("Conflict")) return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     /*
@@ -135,17 +150,24 @@ public class PublisherController {
      */
 
     @PostMapping("/updatePublisherPartial")
-    public HashMap<String, String> createProfilePartial(@RequestBody Map<String, Object> stringObjectMap) {
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("Status", publisherService.createFilledProfileWithOutArrays(
+    public ResponseEntity<Object> createProfilePartial(@RequestBody Map<String, Object> stringObjectMap) {
+        Publisher publisher = publisherService.createFilledProfileWithOutArrays(
                 (String) stringObjectMap.get("email"),
                 (String) stringObjectMap.get("name"),
                 (String) stringObjectMap.get("personalLink"),
                 (String) stringObjectMap.get("affiliationName"),
                 (String) stringObjectMap.get("affiliationLink"),
-                Long.valueOf((Integer) stringObjectMap.get("userID"))
-        ));
-        return hashMap;
+                Long.valueOf((Integer) stringObjectMap.get("userID")));
+        if(publisher.getPublisherID() != null){
+            return ResponseEntity.ok().body(publisher);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+//        HashMap<String, String> hashMap = new HashMap<>();
+//        hashMap.put("Status",
+//
+//        );
+//        return hashMap;
     }
 
 

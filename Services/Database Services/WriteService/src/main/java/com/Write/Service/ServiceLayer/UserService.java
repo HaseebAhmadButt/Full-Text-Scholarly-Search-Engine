@@ -20,15 +20,14 @@ public class UserService {
         }
         return userRepository.save(user);
     }
-    public String updateUserPassword(Long ID, String Password){
-        Optional<User> optionalUser = userRepository.findById(ID);
-        if(optionalUser.isPresent()){
-            User user = optionalUser.get();
-            user.setPassword(Password);
-            userRepository.save(user);
-            return "OK";
-        }
-        return "FAILED";
+    public User updateUserPassword(String Email, String Password){
+        User optionalUser = userRepository.findByEmail(Email);
+        if(optionalUser ==  null){return null;}
+        optionalUser.setPassword(Password);
+         userRepository.save(optionalUser);
+         optionalUser.setPassword(null);
+         return optionalUser;
+//        return "FAILED";
     }
 
     public String updateUserEmail(Long ID, String Email){
@@ -36,6 +35,16 @@ public class UserService {
         if(optionalUser.isPresent()){
             User user = optionalUser.get();
             user.setEmail(Email);
+            userRepository.save(user);
+            return "OK";
+        }
+        return "FAILED";
+    }
+    public String updateUserPicture(Long ID, String picture){
+        Optional<User> optionalUser = userRepository.findById(ID);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            user.setPicture(picture);
             userRepository.save(user);
             return "OK";
         }
