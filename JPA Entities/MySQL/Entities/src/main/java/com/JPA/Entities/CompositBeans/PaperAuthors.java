@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 //@IdClass(PaperAuthorID.class)
 public class PaperAuthors {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 //    @Id
     @ManyToOne
@@ -22,4 +22,12 @@ public class PaperAuthors {
     @ManyToOne
     @JoinColumn(name = "PUBLISHER_ID", referencedColumnName = "PUBLISHER_ID")
     private Publisher author;
+
+    public PaperAuthors() {}
+    public PaperAuthors(Articles paper, Publisher publisher){
+        this.paper = paper;
+        this.author = publisher;
+    }
+
+
 }

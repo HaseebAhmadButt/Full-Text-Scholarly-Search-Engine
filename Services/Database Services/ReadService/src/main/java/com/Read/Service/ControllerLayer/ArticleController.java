@@ -41,7 +41,10 @@ public class ArticleController {
 
     @GetMapping("/getSavedArticles")
     public List<Map<String, Object>> getSavedArticles(@RequestParam Long userID){
+//        System.out.println("userID = " + userID);
+//                System.out.println();
         return articlesService.getSavedArticles(userID);
+
     }
     @PostMapping("/getArticles")
     public Map<String, Object> getArticles(@RequestBody Map<String, List<String>> DOIs){
@@ -82,8 +85,44 @@ public class ArticleController {
     public ResponseEntity<Page<Articles>> getAllAcceptedArticles(
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "10") int pageSize,
-            @RequestParam(name="userID") Long ID) {
+            @RequestParam(name="userID") Long ID
+    ) {
         Page<Articles> articlesPage = articlesService.getAllAcceptedArticles(pageNo, pageSize, ID);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllUploadedArticlesBySpecificPublisher")
+    public ResponseEntity<Page<List<Object>>> getAllUploadedArticlesBySpecificPublisher(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(name="publisherID") Long ID
+    ) {
+        Page<List<Object>> articlesPage = articlesService.getUploadedArticles(pageNo, pageSize, ID);
+        if(articlesPage == null){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+    @GetMapping("/getAllRequiredAcceptedArticles")
+    public ResponseEntity<Page<Articles>> getAllAcceptedArticles(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(name="userID") Long ID,
+            @RequestParam(name="query") String query
+    ) {
+        Page<Articles> articlesPage = articlesService.getAllRequiredAcceptedArticles(pageNo, pageSize, ID, query);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
@@ -99,4 +138,5 @@ public class ArticleController {
         headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
         return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
     }
+
 }

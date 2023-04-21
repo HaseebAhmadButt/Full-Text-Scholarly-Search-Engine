@@ -10,9 +10,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.multipart.support.*;
 
 import java.util.Arrays;
 
+//@EnableMultipartConfig
 @EnableJpaRepositories
 @EntityScan(basePackages = "com.JPA.Entities")
 @SpringBootApplication

@@ -1,11 +1,13 @@
 package com.Read.Service.RepositoryLayer;
 
 import com.JPA.Entities.Beans.Articles;
+import com.JPA.Entities.Beans.Publisher;
 import jakarta.persistence.OrderBy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,11 +35,14 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
     List<String> getArticleTopics(String DOI);
 
 
-    @Query("SELECT ar.Paper_DOI ,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date, COUNT(*) as Citations " +
+    @Query("SELECT ar.Paper_DOI ,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date " +
+//            ", COUNT(*) as Citations " +
             "FROM Articles ar JOIN Journal jr on jr.id = ar.Paper_Journal.id " +
             "JOIN SavedArticles sa on sa.paper.Paper_DOI = ar.Paper_DOI " +
-            "JOIN User u on u.id = ?1 ")
-    List<Object[]> getSavedArticles(Long userID);
+            "JOIN User u on u.id = sa.user.id " +
+            "WHERE u.id = :userID " +
+            "GROUP BY ar.Paper_DOI")
+    List<Object[]> getSavedArticles(@Param("userID") Long userID);
 //  "JOIN References pr ON pr.articleI2.Paper_DOI  = ar.Paper_DOI " +
 //  GROUP BY pr.articleI2.Paper_DOI
 
@@ -51,9 +56,24 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
             " WHERE pu.PublisherID = ?1)")
     Page<Articles> getAllAcceptedArticles(Long publisherID, Pageable pageable);
 
+    @Query("SELECT ar FROM Articles ar " +
+            "WHERE ar.Paper_STATUS = 'ACCEPTED' " +
+            "AND ar.Paper_Title LIKE %?1%" +
+            "AND ar.Paper_DOI NOT IN (SELECT pa.paper.Paper_DOI FROM PaperAuthors pa " +
+            "JOIN Publisher pu ON pu.PublisherID = pa.author.PublisherID" +
+            " WHERE pu.PublisherID = ?2)")
+    Page<Articles> getAllRequiredAcceptedArticles(String query, Long publisherID, Pageable pageable);
+
     @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'REJECTED'")
     Page<Articles> getAllRejectedArticles(Pageable pageable);
 
 
+    @Query("SELECT ar.Paper_DOI ,ar.createdDate, ar.Paper_Title, ar.Paper_Abstract, ar.Paper_STATUS " +
+            "FROM PaperAuthors pa " +
+            "JOIN Publisher pu ON pa.author.PublisherID = ?1 " +
+            "JOIN Articles ar on pa.paper.Paper_DOI = ar.Paper_DOI " +
+            "AND ar.PAPER_UPDATE_TYPE = 'UPLOADED'" +
+            "ORDER BY ar.createdDate DESC ")
+    Page<List<Object>> getAllUploadedArticlesBySpecificPublisher(Long publisherID, Pageable pageable);
 }
 //

@@ -21,19 +21,33 @@ public class ArticlesService {
     @Autowired
     private PublisherRepository publisherRepository;
 
-
-
-
-
     public Page<Articles> getAllAddedArticles(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return articlesRepository.getAllAddedArticles(pageable);
+    }
+
+
+    public Page<List<Object>> getUploadedArticles(int pageNo, int PageSize, Long publisherID){
+        Pageable pageable = PageRequest.of(pageNo, PageSize);
+        try{
+            Page<List<Object>> lists = articlesRepository.getAllUploadedArticlesBySpecificPublisher(publisherID, pageable);
+            return lists;
+        }
+        catch (Exception exception){
+            return null;
+        }
     }
 
     public Page<Articles> getAllAcceptedArticles(int pageNo, int pageSize, Long userID) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Publisher publisher = publisherRepository.getPublisherThroughUserID(userID);
         return articlesRepository.getAllAcceptedArticles(publisher.getPublisherID(),pageable);
+    }
+
+    public Page<Articles> getAllRequiredAcceptedArticles(int pageNo, int pageSize, Long userID, String query) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Publisher publisher = publisherRepository.getPublisherThroughUserID(userID);
+        return articlesRepository.getAllRequiredAcceptedArticles(query,publisher.getPublisherID(),pageable);
     }
 
     public Page<Articles> getAllRejectedArticles(int pageNo, int pageSize) {
@@ -84,14 +98,13 @@ public class ArticlesService {
     }
 
     private void generatingArticleObject(List<Map<String, Object>> maps, Object[] article, Map<String, Object> hashMap) {
-        System.out.println("Inside Article Creation Object");
         hashMap.put("paperDOI", article[0]);
         hashMap.put("paperTitle", article[1]);
         hashMap.put("paperAbstract", article[2]);
         hashMap.put("paperURL", article[3]);
         hashMap.put("paperJournal", article[4]);
         hashMap.put("paperYear", article[5]);
-        hashMap.put("paperCitations", article[6]);
+//        hashMap.put("paperCitations", article[6]);
         maps.add(hashMap);
     }
 

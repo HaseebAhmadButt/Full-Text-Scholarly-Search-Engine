@@ -13,4 +13,5 @@ public interface AddedArticlesRepository extends JpaRepository<AddedArticles, Ad
 
     void deleteByAdminIdAndDOI(Admin adminId, Articles DOI);
 
+
 }

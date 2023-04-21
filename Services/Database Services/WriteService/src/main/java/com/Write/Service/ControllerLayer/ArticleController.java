@@ -2,11 +2,14 @@ package com.Write.Service.ControllerLayer;
 
 import com.Write.Service.ServiceLayer.ArticlesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 /*
@@ -71,6 +74,7 @@ import java.util.Map;
 //@CrossOrigin("http://localhost:3000")
 public class ArticleController {
 
+    private String Upload_DIR = "E:\\FYP\\Implementation\\Complete Implementation With Branches\\FYP\\Uploaded Files Storage Folder";
     @Autowired
     private ArticlesService articlesService;
 
@@ -103,6 +107,56 @@ public class ArticleController {
                 (List<String>) stringObjectMap.get("Topics"),
                 (List<String>) stringObjectMap.get("Authors")
         );
+    }
+    @PostMapping("/saveUploadArticle")
+    public String saveUploadedArticlesFromUser(
+           @RequestParam("DOI") String doi,
+           @RequestParam("Title") String title,
+           @RequestParam("Abstract") String abstractText,
+           @RequestParam("Year") String year,
+           @RequestParam("JournalName") String journalName,
+           @RequestParam("Authors") List<String> authors,
+           @RequestParam("authorID") Long authorID,
+           @RequestParam("file") MultipartFile multipartFile
+    ) throws IOException {
+        //First Saving File With the Name and DOI of Article
+        InputStream inputStream = null;
+        FileOutputStream fileOutputStream = null;
+
+        try {
+            inputStream = multipartFile.getInputStream();
+            byte[] buffer = new byte[inputStream.available()]; // Use a buffer to read from input stream
+            int bytesRead;
+            fileOutputStream = new FileOutputStream(Upload_DIR + File.separator + doi.replaceAll("/","_") + multipartFile.getOriginalFilename());
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead); // Write the data to the output stream
+            }
+
+            fileOutputStream.flush(); // Flush the output stream to ensure all data is written
+        } catch (IOException e) {
+            // Handle any I/O errors that may occur
+            e.printStackTrace();
+        } finally {
+            // Close the input and output streams
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
+                // Handle any I/O errors that may occur while closing the streams
+                e.printStackTrace();
+            }
+        }
+
+        //  File Writing is completed.
+        // Now Storing the complete information along with PDF File Name in Database
+
+       return articlesService.savePaperCompleteFromUserUpload(authorID, doi,title,abstractText,year,"This is random String for Link, which will be updated when URL for each Article will be created",Upload_DIR+ File.separator+ doi+multipartFile.getOriginalFilename(),journalName,authors);
+
     }
 
     @PostMapping("/UpdatePaperAbstract")

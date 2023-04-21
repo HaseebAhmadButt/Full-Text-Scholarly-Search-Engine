@@ -2,6 +2,8 @@ package com.Write.Service.ControllerLayer;
 
 
 import com.JPA.Entities.Beans.Publisher;
+import com.Write.Service.RepositoryLayer.PaperAuthorsRepository;
+import com.Write.Service.RepositoryLayer.PublisherRepository;
 import com.Write.Service.ServiceLayer.PublisherService;
 import com.Write.Service.ServiceLayer.SavedArticlesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLDataException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 //@CrossOrigin("http://localhost:3000")
@@ -25,9 +24,17 @@ public class PublisherController {
     @Autowired
     private SavedArticlesService savedArticlesService;
 
+    @Autowired
+    private PublisherRepository publisherRepository;
+    @Autowired
+    private PaperAuthorsRepository paperAuthorsRepository;
+
+
+
     //    If user has entered only its name and email on Publisher Page then, call this URL. So, creating publisher account now
     @PostMapping("/createSimplePublisher")
     public ResponseEntity<Object> createPublisher(@RequestBody Map<String, Object> stringObjectMap) {
+
         String status = publisherService
                 .savePublisher(
                         (String) stringObjectMap.get("PublisherName"),
@@ -132,7 +139,10 @@ public class PublisherController {
                 (List<String>) stringObjectMap.get("authorNames"),
                 (List<String>) stringObjectMap.get("areasOfInterest"),
                 Long.valueOf((Integer) stringObjectMap.get("userID")));
-        if(status.equals("OK")) return ResponseEntity.ok().build();
+        if(status.equals("OK")) {
+            Publisher publisher = publisherRepository.getPublisherByEmail((String) stringObjectMap.get("email"));
+            return ResponseEntity.ok().body(publisher);
+        }
         else if (status.equals("Conflict")) return ResponseEntity.status(HttpStatus.CONFLICT).build();
         else return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
@@ -177,7 +187,7 @@ public class PublisherController {
             @RequestBody Map<String, Object> stringObjectMap
     ) {
         savedArticlesService.saveArticle(
-                (String) stringObjectMap.get("DOI"),
+                (Set<String>) stringObjectMap.get("DOI"),
                 Long.valueOf((Integer) stringObjectMap.get("userID")));
         return "OK";
     }
@@ -185,7 +195,7 @@ public class PublisherController {
     @PostMapping("/removeArticle")
     public String removeArticle(  @RequestBody Map<String, Object> stringObjectMap) {
         savedArticlesService.removeSavedArticle(
-                (String) stringObjectMap.get("DOI"),
+                (Set<String>) stringObjectMap.get("DOIs"),
                 Long.valueOf((Integer) stringObjectMap.get("userID")));
         return "OK";
     }
