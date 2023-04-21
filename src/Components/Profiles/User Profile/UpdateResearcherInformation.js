@@ -96,13 +96,27 @@ export default function UpdateResearcherInformation() {
             }
 
                 const response = await createPublisherProfile(data)
-                if (response === 200) {
-                    Object.success= true; await setAlerts(Object)
-                    await context.updatePublisherField(true);
-                }
-                else if(response === 409){ Object.emailConflict= true; await setAlerts(Object)}
-                else { Object.serverError = true;
-                    await setAlerts(Object)}
+                if(response === 409){ Object.emailConflict= true; await setAlerts(Object)}
+                else if(response === 500){ Object.serverError = true;await setAlerts(Object)}
+                else{
+                        Object.success= true; await setAlerts(Object)
+                        await context.updatePublisherField(true);
+                        await context.upDataPublisher({
+                            publisherEmail: response.publisherEmail,
+                            publisherName: response.publisherName,
+                            publisherSite: response.publisherSite,
+                            affiliationName: response.affiliationName,
+                            affiliationLink: response.affiliationLink,
+                            names: authorName,
+                            interests: Interests,
+                            userID: context.userLogIn.user_id,
+                            publisherHIndex: 0,
+                            publisherHMedian:0,
+                            publisherID:response.publisherID,
+                            publisherStatus:response.publisherStatus,
+
+                        })
+                    }
 
     }
     return (

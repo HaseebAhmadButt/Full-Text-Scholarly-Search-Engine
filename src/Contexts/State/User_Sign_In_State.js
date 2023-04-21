@@ -15,6 +15,20 @@ const User_Sign_In_State = ({ children }) => {
 
     });
 
+    const [publisher, setPublisher] = useState({
+        affiliationLink: "",
+        affiliationName:"",
+        publisherEmail: "",
+        publisherHIndex: 0,
+        publisherHMedian: 0,
+        publisherID:0,
+        publisherName: "",
+        publisherSite: "",
+        publisherStatus: "",
+        interests:[],
+        names:[]
+
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
 
@@ -78,6 +92,9 @@ const User_Sign_In_State = ({ children }) => {
         await setLogIn((prevState) => ({...prevState, publisherID: ID}))
     }
 
+    const upDataPublisher = async (publisherData) =>{
+        await setPublisher(publisherData)
+    }
 
     const upDateStateOnLogOut = () => {
         setLogIn({
@@ -86,17 +103,33 @@ const User_Sign_In_State = ({ children }) => {
             user_name: "",
             user_picture: "",
             isAdmin: false,
-            isAuthenticated: "",
+            isAuthenticated: false,
             isPublisher: false,
+            publisherID: 0
         });
         // Remove the user log-in information from local storage
         localStorage.removeItem("userLogIn");
+    };
+    const upDatePublisherOnLogOut = () => {
+        setPublisher({
+            affiliationLink: "",
+            affiliationName:"",
+            publisherEmail: "",
+            publisherHIndex: 0,
+            publisherHMedian: 0,
+            publisherID:0,
+            publisherName: "",
+            publisherSite: "",
+            publisherStatus: "",
+            interests:[],
+            names:[]
+        })
     };
 
 
     return (
         <User_Sign_In_Context.Provider
-            value={{ userLogIn, upDateStateOnLogIn, upDateStateOnLogOut,updatePublisherField }}
+            value={{ userLogIn, publisher, upDateStateOnLogIn, upDateStateOnLogOut, upDatePublisherOnLogOut, updatePublisherField, upDataPublisher }}
         >
             {children}
         </User_Sign_In_Context.Provider>

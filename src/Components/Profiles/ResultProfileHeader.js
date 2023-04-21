@@ -7,6 +7,7 @@ import {getPublisher} from "../../Services/AuthorProfileServices/PublisherDataSe
 
 export default function ResultProfileHeader(props) {
     const {functionCalled} = props;
+
     const [errors, setErrors] = useState({
         serverError:false,
         notFoundError:false
@@ -35,7 +36,7 @@ export default function ResultProfileHeader(props) {
                 } else if (response === "Error") {
                     await setErrors({...errors, serverError: true})
                 } else {
-                    await setProfileObject({
+                    const dataObject = {
                         affiliationLink: response.Publisher.affiliationLink,
                         affiliationName:response.Publisher.affiliationName,
                         publisherEmail: response.Publisher.publisherEmail,
@@ -47,16 +48,19 @@ export default function ResultProfileHeader(props) {
                         publisherStatus: response.Publisher.publisherStatus,
                         interests: response.AreaofInterests,
                         names: response.AuthorNames,
-
                     }
-                    )
-                    console.log("Retrieved Data is: ", response)
+                    await context.upDataPublisher(dataObject)
+                    await setProfileObject(dataObject)
+
+
                 }
             }
         }
-        fetchPublisher().then();
+        fetchPublisher().then(async ()=>{
+            // await context.upDataPublisher(profileObject)
+        });
     }, [])
-
+    console.log("Publisher Data Updated: ", context.publisher)
     return (
         <>
             {<div className={"profile_div"}>

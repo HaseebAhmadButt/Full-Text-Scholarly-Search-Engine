@@ -11,10 +11,6 @@ import {DOIs, articleObjects } from "../../../Sampe Data/DOIs";
 
 export default function PersonalProfile() {
 
-
-
-
-
     const context = useContext(User_Sign_In_Context);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -70,18 +66,23 @@ export default function PersonalProfile() {
                             </Button>
                         </div>
                     </Collapse>
-                    <Button
-                        className={context.userLogIn.isPublisher?"simple":"disabled_link"}
-                        onClick={() => handleButtonClick("metrics")}
-                    >
-                        Profile Metrics
-                    </Button>
+                    {/*<Button*/}
+                    {/*    className={context.userLogIn.isPublisher?"simple":"disabled_link"}*/}
+                    {/*    onClick={() => handleButtonClick("metrics")}*/}
+                    {/*>*/}
+                    {/*    Profile Metrics*/}
+                    {/*</Button>*/}
                     <Button
                         onClick={() => handleButtonClick("savedArticles")}
                     >
                         Saved Articles
                     </Button>
-                    <Button>
+                    <Button
+                        onClick={async () =>{
+                            await context.upDateStateOnLogOut();
+                            await context.upDatePublisherOnLogOut();
+                        }}
+                    >
                         Logout
                     </Button>
 
@@ -145,7 +146,7 @@ export default function PersonalProfile() {
                 {profileOptions.accountSettings?<UpdatePersonalInformation/>:""}
                 {profileOptions.researcherProfile?<UpdateResearcherInformation/>:""}
                 {profileOptions.articles?<ProfileArticles/>:""}
-                {profileOptions.metrics?<Metrics/>:""}
+                {/*{profileOptions.metrics?<Metrics/>:""}*/}
                 {profileOptions.savedArticles?<SavedArticles />:""}
                 {profileOptions.profileResults?<ProfileResults settings={handleShow}/>:""}
             </div>
