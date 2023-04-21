@@ -36,5 +36,5 @@ export async function createPublisherProfile(data){
     });
     if(response.status===httpStatusConflict) return httpStatusConflict;
     if (!response.ok) return httpStatusInternalServerError;
-    return response.status;
+    return response.json();
 }

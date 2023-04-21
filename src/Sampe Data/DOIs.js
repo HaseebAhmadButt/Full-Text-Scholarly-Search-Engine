@@ -366,7 +366,7 @@ export const articleObjects = [
 // for(let key in keys){
 //    sendReferenceToController(key, references[key]).then()
 // }
-
+//
 // async function sendArticleToController(article, index) {
 //     const response = await fetch('http://localhost:8765/KNOWLEDGEVERSE-MYSQL-WRITING-ENTITY/saveUploadedArticle', {
 //         method: 'POST',
