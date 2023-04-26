@@ -8,12 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 @Repository
 public interface SavedArticlesRepository extends JpaRepository<SavedArticles, User> {
 //    @Modifying
-//    @Modifying
-//    @Query("DELETE FROM SavedArticles e WHERE e.user.id = :userId AND e.papers IN (SELECT p FROM Articles p WHERE p.Paper_DOI IN (:DOIs))")
-//    void removeSavedArticles(@Param("DOIs") Set<String> DOIs, @Param("userId") Long userId);
+    @Modifying
+    @Query("DELETE FROM SavedArticles e " +
+            "WHERE e.user.id = :userId AND e.paper.Paper_DOI IN (:DOIs)")
+    void removeSavedArticles(@Param("DOIs") List<String> DOIs, @Param("userId") Long userId);
 }

@@ -29,10 +29,19 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
 //            "GROUP BY pr.articleI2.Paper_DOI "
 //
 
+
+
+//    This is used to get all article topics
     @Query("SELECT art.topic.ResearchTopic FROM Articles ar JOIN ArticleTopics art on ar.Paper_DOI = art.paper.Paper_DOI " +
             "JOIN ResearchTopic rt on rt.ResearchTopicID = art.topic.ResearchTopicID WHERE ar.Paper_DOI = ?1" +
             " GROUP BY rt.ResearchTopic")
     List<String> getArticleTopics(String DOI);
+
+    @Query("SELECT pu.PublisherID, pu.PublisherName FROM Articles ar " +
+            "JOIN PaperAuthors pa on ar.Paper_DOI = pa.paper.Paper_DOI " +
+            "JOIN Publisher pu on pu.PublisherID = pa.author.PublisherID " +
+            "WHERE ar.Paper_DOI = ?1")
+    List<Object> getAllAcceptedArticlesAuthors(String DOI);
 
 
     @Query("SELECT ar.Paper_DOI ,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date " +
@@ -75,5 +84,25 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
             "AND ar.PAPER_UPDATE_TYPE = 'UPLOADED'" +
             "ORDER BY ar.createdDate DESC ")
     Page<List<Object>> getAllUploadedArticlesBySpecificPublisher(Long publisherID, Pageable pageable);
+
+//    This the method responsible for retrieving all accepted articles of a specific publisher
+//    @Query("SELECT ar.Paper_DOI, ar.Published_Date ,ar.PAPER_PDF, ar.Paper_Title, ar.Paper_Abstract, jr.journalName " +
+//            "FROM PaperAuthors pa " +
+//            "JOIN Publisher pu ON pa.author.PublisherID = pa.author.PublisherID " +
+//            "JOIN Articles ar on pa.paper.Paper_DOI = ar.Paper_DOI " +
+//            "JOIN Journal jr ON jr.id = ar.Paper_Journal.id " +
+//            "WHERE ar.Paper_STATUS = 'ACCEPTED' " +
+//            "AND pu.PublisherID = ?1" +
+//            "ORDER BY ar.createdDate DESC ")
+
+    @Query("SELECT ar.Paper_DOI, ar.Published_Date ,ar.PAPER_PDF, ar.Paper_Title, ar.Paper_Abstract, jr.journalName " +
+            "FROM PaperAuthors pa " +
+            "JOIN Publisher pu ON pa.author.PublisherID = pu.PublisherID AND pu.PublisherID = ?1 " +
+            "JOIN Articles ar on pa.paper.Paper_DOI = ar.Paper_DOI " +
+            "JOIN Journal jr ON jr.id = ar.Paper_Journal.id " +
+            "WHERE ar.Paper_STATUS = 'ACCEPTED'" +
+            "ORDER BY ar.createdDate DESC ")
+    Page<List<Object>> getAllAcceptedArticlesBySpecificPublisher(Long publisherID, Pageable pageable);
+
 }
 //

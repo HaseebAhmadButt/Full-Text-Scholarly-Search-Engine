@@ -4,6 +4,7 @@ import com.JPA.Entities.Beans.Articles;
 import com.JPA.Entities.Beans.User;
 import com.JPA.Entities.CompositBeans.SavedArticles;
 import com.Write.Service.RepositoryLayer.SavedArticlesRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +34,15 @@ public class SavedArticlesService {
         return "OK";
     }
 
-    public String removeSavedArticle(Set<String> DOI, Long userID){
-        System.out.println("Data Received");
-//        articlesRepository.removeSavedArticles(DOI,userID);
-        return "OK";
+    @Transactional
+    public String removeSavedArticle(List<String> DOI, Long userID){
+        try{
+            articlesRepository.removeSavedArticles(DOI, userID);
+            return "OK";
+        }
+        catch (Exception e){
+            return "Error";
+        }
     }
 
 }

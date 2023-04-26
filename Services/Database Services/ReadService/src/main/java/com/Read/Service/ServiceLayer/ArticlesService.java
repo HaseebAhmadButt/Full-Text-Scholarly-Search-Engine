@@ -37,6 +37,25 @@ public class ArticlesService {
             return null;
         }
     }
+    public Page<List<Object>> getAcceptedArticles(int pageNo, int PageSize, Long publisherID){
+        Pageable pageable = PageRequest.of(pageNo, PageSize);
+        try{
+            Page<List<Object>> lists = articlesRepository.getAllAcceptedArticlesBySpecificPublisher(publisherID, pageable);
+            return lists;
+        }
+        catch (Exception exception){
+            return null;
+        }
+    }
+    public List<Object> getArticleAuthors(String DOI){
+        try{
+            List<Object> lists = articlesRepository.getAllAcceptedArticlesAuthors(DOI);
+            return lists;
+        }
+        catch (Exception exception){
+            return null;
+        }
+    }
 
     public Page<Articles> getAllAcceptedArticles(int pageNo, int pageSize, Long userID) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -85,6 +104,12 @@ public class ArticlesService {
             maps.add(hashMap);
         }
         return maps;
+    }
+    public List<String> getArticleTopics(String DOIs){
+
+        List<String> ArticleTopics = articlesRepository.getArticleTopics(DOIs);
+
+        return ArticleTopics;
     }
 
     public List<Map<String, Object>> getSavedArticles(Long userID) {

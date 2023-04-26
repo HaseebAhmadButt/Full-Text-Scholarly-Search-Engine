@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLDataException;
 import java.util.*;
 
 @RestController
@@ -193,11 +192,10 @@ public class PublisherController {
     }
 
     @PostMapping("/removeArticle")
-    public String removeArticle(  @RequestBody Map<String, Object> stringObjectMap) {
-        savedArticlesService.removeSavedArticle(
-                (Set<String>) stringObjectMap.get("DOIs"),
-                Long.valueOf((Integer) stringObjectMap.get("userID")));
-        return "OK";
+    public ResponseEntity<Object> removeArticle(@RequestBody Map<String, Object> stringObjectMap) {
+     String status = savedArticlesService.removeSavedArticle((List<String>) stringObjectMap.get("DOIs"), Long.valueOf((Integer) stringObjectMap.get("userID")));
+     if(status.equals("OK")) {return ResponseEntity.ok().build();}
+     else { return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();}
     }
 
 
