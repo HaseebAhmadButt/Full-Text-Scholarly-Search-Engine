@@ -92,4 +92,37 @@ export async function getSavedArticles(userID){
     if (!response.ok) return httpStatusInternalServerError
     return response.json();
 }
+export async function getAcceptedPublishedArticles(publisherID){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getAllAcceptedArticlesBySpecificPublisher?publisherID=${publisherID}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
+export async function getTopics(DOI){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getArticleTopic?DOI=${DOI}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
+export async function getAuthors(DOI){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getArticleAuthors?DOI=${DOI}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
+export async function removeSavedArticles(data){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLWriting}/removeArticle`, {
+        method: post,
+        headers:requestHeaders,
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.status;
+}
 
