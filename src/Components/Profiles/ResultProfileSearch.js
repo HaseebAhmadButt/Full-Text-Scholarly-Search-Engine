@@ -2,7 +2,10 @@ import React from "react";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import {Button, Form} from "react-bootstrap";
 
-export default function ResultsShowingSearch() {
+export default function ResultsShowingSearch({journals}) {
+    // console.log(journals)
+    const options = journals.map(journal => (journal));
+    // console.log(options)
     return (
         <>
            <div className={"result-profile-filters"}>
@@ -11,16 +14,17 @@ export default function ResultsShowingSearch() {
                    <Button type="submit" className={"middle-search-button filter-search-button"}>Search</Button>
                    </Form.Group>
                <Form.Group className={"profile-filter-options"}>
-               <DropdownMultiselect
-                          className={"something"}
-                          placeholder="Select Co-Authors"
-                          options={["Australia", "Canada", "USA", "Poland", "Spain", "France"]}
-                          name="countries"
-                   />
+               {/*<DropdownMultiselect*/}
+               {/*           className={"something"}*/}
+               {/*           placeholder="Select Co-Authors"*/}
+               {/*           options={["Australia", "Canada", "USA", "Poland", "Spain", "France"]}*/}
+               {/*           name="countries"*/}
+               {/*    />*/}
+               {/*    // options={["Australia", "Canada", "USA", "Poland", "Spain", "France"]}*/}
                    <DropdownMultiselect
                        className={"something"}
                        placeholder="Top Journals"
-                       options={["Australia", "Canada", "USA", "Poland", "Spain", "France"]}
+                       options={options}
                        name="Journals"
                    />
                </Form.Group>

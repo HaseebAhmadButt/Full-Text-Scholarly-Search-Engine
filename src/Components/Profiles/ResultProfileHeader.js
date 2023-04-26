@@ -6,61 +6,7 @@ import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
 import {getPublisher} from "../../Services/AuthorProfileServices/PublisherDataService";
 
 export default function ResultProfileHeader(props) {
-    const {functionCalled} = props;
-
-    const [errors, setErrors] = useState({
-        serverError:false,
-        notFoundError:false
-    })
-    const context = useContext(User_Sign_In_Context)
-    const [profileObject, setProfileObject] = useState({
-        affiliationLink: "",
-        affiliationName:"",
-        publisherEmail: "",
-        publisherHIndex: 0,
-        publisherHMedian: 0,
-        publisherID:0,
-        publisherName: "",
-        publisherSite: "",
-        publisherStatus: "",
-        interests:[],
-        names:[]
-    })
-
-    useEffect(()=>{
-        async function fetchPublisher() {
-            if (context.userLogIn.isPublisher) {
-                const response = await getPublisher({"userID": context.userLogIn.user_id})
-                if (response === "Not Found") {
-                    await setErrors({...errors, notFoundError: true})
-                } else if (response === "Error") {
-                    await setErrors({...errors, serverError: true})
-                } else {
-                    const dataObject = {
-                        affiliationLink: response.Publisher.affiliationLink,
-                        affiliationName:response.Publisher.affiliationName,
-                        publisherEmail: response.Publisher.publisherEmail,
-                        publisherHIndex: response.Publisher.publisherHIndex,
-                        publisherHMedian: response.Publisher.publisherHMedian,
-                        publisherID:response.Publisher.publisherID,
-                        publisherName: response.Publisher.publisherName,
-                        publisherSite: response.Publisher.publisherSite,
-                        publisherStatus: response.Publisher.publisherStatus,
-                        interests: response.AreaofInterests,
-                        names: response.AuthorNames,
-                    }
-                    await context.upDataPublisher(dataObject)
-                    await setProfileObject(dataObject)
-
-
-                }
-            }
-        }
-        fetchPublisher().then(async ()=>{
-            // await context.upDataPublisher(profileObject)
-        });
-    }, [])
-    console.log("Publisher Data Updated: ", context.publisher)
+    const {functionCalled, affiliationLink, affiliationName, publisherName, names, interests, publisherEmail, publisherHIndex, publisherHMedian, publisherSite, publisherStatus, publisherID} = props;
     return (
         <>
             {<div className={"profile_div"}>
@@ -69,33 +15,28 @@ export default function ResultProfileHeader(props) {
                               className={"Profile_Image"} alt={"profile_image"}/>
                     <Card.Body clssName={"Card-Body"}>
                         <Card.Title className={"text-area"}>
-                            {profileObject.publisherName}
+                            {publisherName}
                         </Card.Title>
                         <Card.Subtitle className={"text-muted text-area"}>
                             <Card.Text>
-                                {profileObject.names.join(", ")}
+                                {names.length>0?<>other names are: {names.join(", ")}</>:""}
                             </Card.Text>
                         </Card.Subtitle>
                         <Card.Text className={"text-area"}>
-                            <b> Email: </b> {profileObject.publisherEmail}
+                            <b> Email: </b> {publisherEmail}
                         </Card.Text>
                         <Card.Text className={"text-area"}>
-                            <b> Affiliation: </b> {profileObject.affiliationName}
+                            {affiliationName !== ""?<><b> Affiliation: </b> <a href={affiliationLink}>{affiliationName}</a></>:""}
                         </Card.Text>
                         <Card.Text className={"text-area"}>
-                            <b>Research Areas:</b>
-                            {
-                                profileObject.interests.map((value)=>{
-                                    return(<a href={"#"} className={'interests'}><span>{value}</span></a>)
-                                })
-                            }
-                            {/*<a href={"#"} className={'interests'}><span>Natural Language Processing,</span></a>*/}
-                            {/*<a href={"#"} className={'interests'}><span>Data Science,</span></a>*/}
-                            {/*<a href={"#"} className={'interests'}><span>Computer Vision,</span></a>*/}
-                            {/*<a href={"#"} className={'interests'}><span>Artificial Intelligence,</span></a>*/}
-                            {/*<a href={"#"} className={'interests'}><span>Deep Learning,</span></a>*/}
-                            {/*<a href={"#"} className={'interests'}><span>Machine Learning</span></a>*/}
+                            {interests.length > 0?<><b>Research Areas:</b>{interests.map((value)=>{return(<a href={"#"} className={'interests'}><span>{value}</span></a>)})}</>:""}
                         </Card.Text>
+                        {/*<a href={"#"} className={'interests'}><span>Natural Language Processing,</span></a>*/}
+                        {/*<a href={"#"} className={'interests'}><span>Data Science,</span></a>*/}
+                        {/*<a href={"#"} className={'interests'}><span>Computer Vision,</span></a>*/}
+                        {/*<a href={"#"} className={'interests'}><span>Artificial Intelligence,</span></a>*/}
+                        {/*<a href={"#"} className={'interests'}><span>Deep Learning,</span></a>*/}
+                        {/*<a href={"#"} className={'interests'}><span>Machine Learning</span></a>*/}
                         {/*<ListGroup className={"profile-features"}>*/}
                         {/*    <a href={"#"} className={"profile-feature"}>*/}
                         {/*        <ListGroup.Item className={"feature"}>*/}
