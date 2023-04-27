@@ -16,7 +16,7 @@ import {
     updateAddedArticles,
     getAllRequiredArticles,
     getAllUploadedArticlesBySpecificPublisher, deleteAuthorPapers,
-    saveUploadArticle
+    saveUploadArticle, getTopics, getAuthors
 } from "../../../Services/AuthorProfileServices/PublisherDataService";
 import User_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
 import {httpStatusInternalServerError} from "../../../Services/apiConstants";
@@ -131,10 +131,8 @@ export default function ProfileArticles() {
         setData(result.content);
     };
     const handleUploadArticlePaginationClick = async (pageNumber) => {
-        if(pageNumber === findArticlePagination.activePage) return;
-        // setPagination(prevState => ({...prevState, activePage: pageNumber}))
-
-        const result = await getAllUploadedArticlesBySpecificPublisher(context.publisher.publisherID, (uploadedArticlePagination.activePage-1), uploadedArticlePagination.elementsPerPage);
+        if(pageNumber === uploadedArticlePagination.activePage) return;
+        const result = await getAllUploadedArticlesBySpecificPublisher(context.publisher.publisherID, (pageNumber-1), uploadedArticlePagination.elementsPerPage);
         let pages;
         if(result.totalPages > 10){
             pages = 10
@@ -166,7 +164,7 @@ export default function ProfileArticles() {
         uploadItems.push(
             <Pagination.Item
                 key={number}
-                active={number === findArticlePagination.activePage}
+                active={number === uploadedArticlePagination.activePage}
                 onClick={async () => await handleUploadArticlePaginationClick(number)}
             >
                 {number}
@@ -320,7 +318,11 @@ export default function ProfileArticles() {
                 removeAuthorNames(index)}} className={"close-button"}/></span>
         )
     })
-    const DataObjects = data.map((article)=>{
+    const DataObjects = data.map(async (article)=>{
+        const topics = await getTopics(article.paper_DOI);
+        console.log("Topics: ",topics)
+        const authors = await getAuthors(article.paper_DOI)
+        console.log("Authors: ",authors)
        return(
            <tr>
             <td>
@@ -338,16 +340,31 @@ export default function ProfileArticles() {
                     <div className={"result-detail"}>
                         <a href={"#"} className={"heading"}><h3>{article.paper_Title}</h3></a>
                         <p>{article.paper_Abstract}</p>
+                        <a href={"#"} className={article.paperPDF===null?"disabled":"tags"}>
+                            <span>Download PDF</span>
+                        </a>
+                        <Button
+                            className={"tags tags-button"}
+                            onClick={() => {
+                                window.open(
+                                    "https://vasturiano.github.io/3d-force-graph/example/highlight/",
+                                    "_blank"
+                                );
+                            }}
+                        >
+                            View Graph
+                        </Button>
                     </div>
                     <div className={"result-metadata"}>
-                        <div>
+                        {authors.length>0?<div>
                             <h5 className={"heading"}>Authors: </h5>
-                            <span  style={{marginLeft: "1%"}}>{article.authors.join(", ")}</span>
-                            {/*className={"authors"}*/}
-                            {/*<a href={"#"}  className={"authors"}><span> Hafiz Haseeb Ahmad Butt,</span></a>*/}
-                            {/*<a href={"#"}  className={"authors"}><span> Waleed Ahmed Shahid,</span></a>*/}
-                            {/*<a href={"#"}  className={"authors"}><span> Sanaullah Kalasra</span></a>*/}
-                        </div>
+                            {authors.map((author) => (
+                                <a href={`/profile/${author[0]}`} className={'authors'}>
+                                    <span>{author[1]},</span>
+                                </a>
+                            ))}
+
+                        </div>:null}
                         <div>
                             <h5 className={"heading heading-extra"}>Published at: </h5>
                             {article.paper_Journal.journalName} - {article.published_Date}
@@ -356,19 +373,13 @@ export default function ProfileArticles() {
                         {/*    <h5 className={"heading"}>Cited By: </h5>*/}
                         {/*    <a href={"#"}  className={"authors"}><span>255</span></a>*/}
                         {/*</div>*/}
-                        {/*{topicsFetched?<div>*/}
-                        {/*    <h5 className={"heading heading-extra"}>Topics Covered: </h5>*/}
-                        {/*    /!*{Topics.map((topic)=>{*!/*/}
-                        {/*    /!*    return(*!/*/}
-                        {/*    /!*        <span className={'tags'}>{topic}</span>*!/*/}
-                        {/*    /!*    )*!/*/}
-                        {/*    /!*})}*!/*/}
-                        {/*    /!*<a href={"#"} className={'tags'}><span >Biotech</span></a>*!/*/}
-                        {/*    /!*<a href={"#"} className={'tags'}><span >NLP</span></a>*!/*/}
-                        {/*    /!*<a href={"#"} className={'tags'}><span >Biotech</span></a>*!/*/}
-                        {/*    /!*<a href={"#"} className={'tags'}><span >NLP</span></a>*!/*/}
-                        {/*    /!*<a href={"#"} className={'tags'}><span >Biotech</span></a>*!/*/}
-                        {/*</div>:""}*/}
+                        {topics.length>0?<div><h5 className={"heading heading-extra"}>Topics Covered: </h5>
+                            {topics.map((topic) => (
+                                <a href={'#'} className={'tags'}>
+                                    <span>{topic}</span>
+                                </a>
+                            ))}
+                        </div>:""}
                     </div>
                 </div>
             </td>

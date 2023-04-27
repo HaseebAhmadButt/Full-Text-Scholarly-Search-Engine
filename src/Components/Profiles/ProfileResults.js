@@ -4,7 +4,7 @@ import ResultsShowingSearch from "./ResultProfileSearch";
 import ResultsShowing from "../Result Page/ResultsShowing";
 import ResultsShowingSearchRecommendation from "./AuthorRecommendations";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
-import {getAcceptedPublishedArticles, getPublisher} from "../../Services/AuthorProfileServices/PublisherDataService";
+import {getAcceptedPublishedArticles, getPublisher, getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter} from "../../Services/AuthorProfileServices/PublisherDataService";
 import {Alert} from "react-bootstrap";
 export default function ProfileResults(props) {
     const {settings} = props;
@@ -52,7 +52,7 @@ export default function ProfileResults(props) {
                     }
                     await context.upDataPublisher(dataObject)
                     await setProfileObject(dataObject)
-                    const publisherArticles = await getAcceptedPublishedArticles(dataObject.publisherID)
+                    const publisherArticles = await getAcceptedPublishedArticles(0,10,dataObject.publisherID)
                     if(publisherArticles === 500){
                         setErrors({serverError: true, notFoundError: false})
                     }
@@ -66,6 +66,15 @@ export default function ProfileResults(props) {
 
             fetchPublisher().then(()=>{});
     }, [])
+    const fetchPaginationArticles = async (pageNo, pageSize)=>{
+        const articleData = await getAcceptedPublishedArticles(pageNo, pageSize, profileObject.publisherID)
+        await setPublisherData(articleData)
+    }
+    const fetchQueryArticles = async (pageNo, pageSize, query) =>{
+        const fetchResults = await getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter(pageNo, pageSize, profileObject.publisherID,query)
+        await setPublisherData(fetchResults)
+
+    }
     const addJournal = (journalName) => {
         setJournals(journals => {
             if (journals.includes(journalName)) {
@@ -94,12 +103,14 @@ export default function ProfileResults(props) {
                         interests= {profileObject.interests}
                         names= {profileObject.names}
                     />
-                    <ResultsShowingSearch
-                        journals={journals}
-                    />
+                    {/*<ResultsShowingSearch*/}
+                    {/*    journals={journals}*/}
+                    {/*/>*/}
                     <ResultsShowing
                         publisherData = {publisherData}
                         updatingJournals = {addJournal}
+                        loadNewPage = {fetchPaginationArticles}
+                        fetchSearchArticles = {fetchQueryArticles}
                     />
                 {/*<hr/>*/}
                 {/*<ResultsShowingSearchRecommendation />*/}

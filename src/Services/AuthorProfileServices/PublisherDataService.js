@@ -92,8 +92,8 @@ export async function getSavedArticles(userID){
     if (!response.ok) return httpStatusInternalServerError
     return response.json();
 }
-export async function getAcceptedPublishedArticles(publisherID){
-    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getAllAcceptedArticlesBySpecificPublisher?publisherID=${publisherID}`, {
+export async function getAcceptedPublishedArticles(pageNo, pageSize,publisherID){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getAllAcceptedArticlesBySpecificPublisher?pageNo=${pageNo}&pageSize=${pageSize}&publisherID=${publisherID}`, {
         method: httpGet,
         headers:requestHeaders,
     });
@@ -110,6 +110,14 @@ export async function getTopics(DOI){
 }
 export async function getAuthors(DOI){
     const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getArticleAuthors?DOI=${DOI}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
+export async function getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter(pageNo, pageSize, publisherID, query){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter?pageNo=${pageNo}&pageSize=${pageSize}&publisherID=${publisherID}&q=${query}`, {
         method: httpGet,
         headers:requestHeaders,
     });

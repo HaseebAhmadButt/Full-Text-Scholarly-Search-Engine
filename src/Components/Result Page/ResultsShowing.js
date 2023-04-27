@@ -1,40 +1,32 @@
 import React, {useEffect, useState} from "react";
 import '../../Styles/Result Page/ResultShowing.css';
-import {Button} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
-import {getTopics, getAuthors, getAllArticles} from "../../Services/AuthorProfileServices/PublisherDataService"
+import {getTopics, getAuthors} from "../../Services/AuthorProfileServices/PublisherDataService"
+// /getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter
 
 
-export default function ResultsShowing({publisherData, updatingJournals}) {
-    console.log(publisherData)
+export default function ResultsShowing({publisherData, updatingJournals, loadNewPage, fetchSearchArticles}) {
     const [findArticlePagination, setFindArticlePagination] = useState({
         activePage:1,
-        totalPages: 1,
-        totalElements:publisherData.totalElements,
-        elementsPerPage:publisherData.size
+        totalPages: 0,
+        totalElements: 0,
+        elementsPerPage:0
     })
+    const [articlesStat, setArticlesState] = useState([])
+    const [formState, setFormStat] = useState("")
+    const [searchPagination, setSearchPagination] = useState(false)
     const handleFindArticlePaginationClick = async (pageNumber) => {
         if(pageNumber === findArticlePagination.activePage) return;
-        // const result = await getAllArticles(context.userLogIn.user_id, (pageNumber-1), findArticlePagination.elementsPerPage);
-        //
-        // let pages;
-        // if(result.totalPages > 10){
-        //     pages = 10
-        // }
-        // else{
-        //     pages = result.totalPages
-        // }
-        // setFindArticlePagination(prevState => ({
-        //     ...prevState,
-        //     totalPages: pages,
-        //     totalElements: result.totalElements,
-        //     activePage: (result.pageable.pageNumber)+1,
-        //     elementsPerPage: result.size
-        //
-        // }))
-        // setData(result.content);
+        if(!searchPagination){
+            loadNewPage((pageNumber - 1), findArticlePagination.elementsPerPage)
+        }
+        else{
+            await fetchSearchArticles((pageNumber - 1), findArticlePagination.elementsPerPage, formState)
+        }
     };
     let items = [];
+    let list = []
     for (let number = 1; number <= findArticlePagination.totalPages; number++) {
         items.push(
             <Pagination.Item
@@ -46,8 +38,22 @@ export default function ResultsShowing({publisherData, updatingJournals}) {
             </Pagination.Item>,
         );
     }
-    const [articlesStat, setArticlesState] = useState([])
     useEffect(() => {
+        let pages;
+        if(publisherData.totalPages > 10){
+            pages = 10
+        }
+        else{
+            pages = publisherData.totalPages
+        }
+        setFindArticlePagination({
+            activePage: publisherData.pageable ? publisherData.pageable.pageNumber + 1 : 1,
+            totalPages: pages,
+            totalElements: publisherData.totalElements,
+            elementsPerPage: publisherData.size
+        });
+
+
         if (publisherData && publisherData.content) {
             const articlesContent = publisherData.content.map(async (article) => {
                 updatingJournals(article[5]);
@@ -68,13 +74,10 @@ export default function ResultsShowing({publisherData, updatingJournals}) {
                                     <h3>{article[3]}</h3>
                                 </a>
                                 <p>{article[4]}</p>
-                                {article[2] === null ? (
-                                    ""
-                                ) : (
-                                    <a href={"#"} className={"tags"}>
+                                    <a href={"#"} className={article[2] === null?"disabled":"tags"}>
                                         <span>Download PDF</span>
                                     </a>
-                                )}
+
                                 <Button
                                     className={"tags tags-button"}
                                     onClick={() => {
@@ -126,6 +129,30 @@ export default function ResultsShowing({publisherData, updatingJournals}) {
     }, [publisherData]);
     return (
         <>
+            <div className={"result-profile-filters"}>
+                <Form.Group controlId="formBasicDate" className={"middle-search-form advance-form-group filter-search-group"}>
+                    <Form.Control
+                        type="text"
+                        placeholder="Search Paper Title OR Abstract"
+                        className={"middle-search-input filter-search"}
+                        onChange={async (e)=>{ await setFormStat(e.target.value)}}
+                        value={formState}
+                    />
+                    <Button
+                        type="submit"
+                        onClick={async ()=>{
+                            if(formState.trim()===""){
+                                loadNewPage(0, 10)
+                                await setSearchPagination(false)
+                            }
+                            else{
+                                await fetchSearchArticles(0,10, formState)
+                                await setSearchPagination(true)
+                            }
+                        }}
+                        className={"middle-search-button filter-search-button"}>Search</Button>
+                </Form.Group>
+            </div>
             <div className={"results-showing"}>
                 {articlesStat}
                 <Pagination size="sm">{items}</Pagination>
