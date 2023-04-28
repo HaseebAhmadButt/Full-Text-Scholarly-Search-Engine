@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import ResultProfileHeader from "./ResultProfileHeader";
-import ResultsShowingSearch from "./ResultProfileSearch";
 import ResultsShowing from "../Result Page/ResultsShowing";
-import ResultsShowingSearchRecommendation from "./AuthorRecommendations";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
 import {getAcceptedPublishedArticles, getPublisher, getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter} from "../../Services/AuthorProfileServices/PublisherDataService";
 import {Alert} from "react-bootstrap";
