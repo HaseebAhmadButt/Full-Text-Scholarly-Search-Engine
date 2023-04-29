@@ -45,3 +45,20 @@
     color: black;
     opacity: 1;
 }
+
+@media (max-width: 767px) {
+    /* CSS styles for small screens */
+    .recent-papers{
+        width: 80%;
+    }
+    .recent-papers .recent-papers-heading h2{
+        text-align: center;
+    }
+    .recent-papers-div{
+        grid-template-columns: repeat(1,1fr);
+        grid-gap: 1rem;
+    }
+    .more-recent-papers{
+        width: 100%;
+    }
+  }
