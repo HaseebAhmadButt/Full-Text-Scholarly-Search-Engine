@@ -1,3 +1,5 @@
+
+
 .footer{
     /*margin-top: 0.5%;*/
     background-color: #006699;
@@ -84,22 +86,22 @@ text-decoration: underline;
     /**/
 }
 
-@media screen and (max-width: 426px){
+@media screen and (max-width: 743px){
     .footer{
-        padding: 20px;
+        padding:2 0px;
     }
     .footer-detail{
         flex-direction: column;
     }
     .categories, .suggestions{
         width: 100%;
-        /*text-align: center;*/
+        text-align: left;
     }
     .purpose p{
-        text-align: center;
+        text-align: left;
     }
     .categories ul{
-        text-align: center;
+        text-align: left;
     }
     .purpose h2, .suggestions h2, .categories h2{
         text-align: center;
