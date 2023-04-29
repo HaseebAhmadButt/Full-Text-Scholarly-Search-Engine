@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Button, Collapse} from "react-bootstrap";
 import AdminPersonalInformation from "./Admin-Personal-Information";
 import AdminResearcherUpdate from "./Admin-Researcher-Update";
@@ -6,8 +6,11 @@ import AdminDeleteArticles from "./Admin-Delete-Articles";
 import AdminAddArticle from "./Admin-Add-Article";
 import AdminMetrics from "./Admin-Metrics";
 import {useNavigate} from "react-router-dom";
+import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
 
 export default function AdminBar() {
+    const context = useContext(User_Sign_In_Context);
+
     const navigator = useNavigate();
     const [open, setOpen] = useState(false);
     const [openArticle, setOpenArticle] = useState(false);
@@ -123,8 +126,8 @@ export default function AdminBar() {
                 </Button>
 
                 <Button
-                    onClick={() => {
-                        alert("Logout");
+                    onClick={async () => {
+                        await context.upDateStateOnLogOut();
                     }}>
                     Logout
                 </Button>
