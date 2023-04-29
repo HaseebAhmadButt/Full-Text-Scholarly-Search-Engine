@@ -1,11 +1,16 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Button, Form, FormCheck, InputGroup, Pagination, Table} from "react-bootstrap";
-import {getAllAddedArticles, getAllAddedArticlesWithQuery, downloadPDF} from "../../Services/AdminService/DataRetrievalMethods";
+import {
+    downloadPDF,
+    getAllAddedRejectedArticles,
+    getAllAddedRejectedArticlesWithQuery
+} from "../../Services/AdminService/DataRetrievalMethods";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
-import {AcceptUploadedArticle,  RejectUploadedArticle, } from "../../Services/AdminService/DataWriteService"
+import {AcceptUploadedArticle} from "../../Services/AdminService/DataWriteService";
 
-export default function AdminAddArticle() {
+export default function AdminDeletedArticle() {
     const context = useContext(User_Sign_In_Context)
+
     const [acceptedArticles, setAcceptedArticles] = useState([])
     const [findAuthorPagination, setFindAuthorPagination] = useState({
         activePage:1,
@@ -16,7 +21,7 @@ export default function AdminAddArticle() {
     const [searchQuery, setSearchQuery] = useState("")
     const [paginationStat, setPaginationStat] = useState(false)
     const getArticles = async (pageNo, pageSize) =>{
-        const data = await getAllAddedArticles(pageNo, pageSize);
+        const data = await getAllAddedRejectedArticles(pageNo, pageSize);
         let pages;
         if(data.totalPages > 10){
             pages = 10
@@ -34,7 +39,7 @@ export default function AdminAddArticle() {
         await setAcceptedArticles(data.content);
     }
     const getArticlesWithQuery = async (pageNo, pageSize, query) =>{
-        const data = await getAllAddedArticlesWithQuery(pageNo, pageSize, query);
+        const data = await getAllAddedRejectedArticlesWithQuery(pageNo, pageSize, query);
         let pages;
         if(data.totalPages > 10){
             pages = 10
@@ -57,6 +62,7 @@ export default function AdminAddArticle() {
         if(paginationStat) await getArticlesWithQuery((pageNumber-1), findAuthorPagination.elementsPerPage, searchQuery)
         else await getArticles((pageNumber-1), findAuthorPagination.elementsPerPage)
     };
+
     let items = [];
     for (let number = 1; number <= findAuthorPagination.totalPages; number++) {
         items.push(
@@ -69,11 +75,26 @@ export default function AdminAddArticle() {
             </Pagination.Item>,
         );
     }
+
     useEffect(()=>{
         getArticles(0, 10).then()
     },[])
-
-
+    const handlePublisherStatusChange = async (doi, status) =>{
+        if(status === "REJECTED") return;
+        if(status === "ACCEPTED"){
+            const body = {
+                DOI: doi,
+                adminID: context.userLogIn.user_id,
+            }
+            await AcceptUploadedArticle(body)
+        }
+        else{
+            alert("Select Appropriate Option")
+            return
+        }
+        if(paginationStat) await getArticlesWithQuery(0, findAuthorPagination.elementsPerPage, searchQuery)
+        else await getArticles(0, findAuthorPagination.elementsPerPage);
+    }
     const handleDownloadPDF = async (pdfAddress) => {
         try {
             const blob = await downloadPDF(pdfAddress);
@@ -84,59 +105,33 @@ export default function AdminAddArticle() {
             console.log(error);
         }
     };
-    const handlePublisherStatusChange = async (doi, status) =>{
-        if(status === "IN-PROGRESS") return;
-            if(status === "ACCEPTED"){
-            const body = {
-                DOI: doi,
-                adminID: context.userLogIn.user_id
-            }
-            await AcceptUploadedArticle(body)
-        }
-        else{
-            const reason = prompt("Provide Reason to Reject this article:")
-                if(reason.trim()===""){
-                    alert("No Reason Provided. Can't Reject the Article")
-                    return;
-                }
-            const body = {
-                DOI: doi,
-                adminID: context.userLogIn.user_id,
-                Reason: reason
-            }
-            await RejectUploadedArticle(body)
-        }
-        if(paginationStat) await getArticlesWithQuery(0, findAuthorPagination.elementsPerPage, searchQuery)
-        else await getArticles(0, findAuthorPagination.elementsPerPage);
-    }
     const articles = acceptedArticles.map((article, index)=>{
         const handleStatusChange = (event) => {
-            const updatedArticles = { ...article, paper_STATUS: event.target.value };
+            const updatedArticles = { ...article[0], paper_STATUS: event.target.value };
             const updatedArticleList = [...acceptedArticles];
-            updatedArticleList[index] = updatedArticles;
+            updatedArticleList[index][0] = updatedArticles;
             setAcceptedArticles(updatedArticleList);
         };
         return (
             <tr>
-                <td>{article.published_Date}</td>
-                <td>{article.paper_Title}</td>
-                <td>{article.paper_Journal.journalName}</td>
+                <td>{article[0]?.published_Date}</td>
+                <td>{article[0]?.paper_Title}</td>
                 <td><button
                     className={article.paper_PDF===null?"disabled_pdf":"downloadButton"}
-                    onClick={async ()=>{await handleDownloadPDF(article.paper_PDF)}
+                    onClick={async ()=>{await handleDownloadPDF(article[0].paper_PDF)}
                     }>Download PDF</button></td>
+                <td>{article[1]}</td>
                 <td>
                     <InputGroup>
-                        <Form.Select value={article.paper_STATUS} onChange={handleStatusChange}>
-                            <option value="ACCEPTED">Accept</option>
-                            <option value="REJECTED">Reject</option>
-                            <option value="IN-PROGRESS">In-Progress</option>
+                        <Form.Select value={article[0].paper_STATUS} onChange={handleStatusChange}>
+                            <option value="ACCEPTED">Accepted</option>
+                            <option value="REJECTED">Rejected</option>
                         </Form.Select>
                         <Button
                             variant="primary"
                             id="button-addon2"
                             onClick={async () => {
-                                await handlePublisherStatusChange(article.paper_DOI, article.paper_STATUS)
+                                await handlePublisherStatusChange(article[0].paper_DOI, article[0].paper_STATUS)
                             }}
                         >
                             Update
@@ -175,8 +170,8 @@ export default function AdminAddArticle() {
                     <tr>
                         <th>Year of Publish</th>
                         <th>Title</th>
-                        <th>Journal</th>
                         <th>PDF</th>
+                        <th>Reason</th>
                         <th>Status</th>
                     </tr>
                     </thead>

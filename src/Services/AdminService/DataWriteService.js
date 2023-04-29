@@ -24,3 +24,21 @@ export async function removeBlockAuthor(body){
     if (!response.ok) return httpStatusInternalServerError
     return response.status;
 }
+export async function AcceptUploadedArticle(body){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLWriting}/addArticles`, {
+        method: post,
+        headers:requestHeaders,
+        body: JSON.stringify(body)
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.status;
+}
+export async function  RejectUploadedArticle(body){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLWriting}/rejectArticles`, {
+        method: post,
+        headers:requestHeaders,
+        body: JSON.stringify(body)
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.status;
+}

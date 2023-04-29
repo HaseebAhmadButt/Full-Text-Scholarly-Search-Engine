@@ -7,6 +7,8 @@ import AdminAddArticle from "./Admin-Add-Article";
 import AdminMetrics from "./Admin-Metrics";
 import {useNavigate} from "react-router-dom";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
+import AdminAcceptArticle from "./Admin-Accept-Article";
+import AdminDeletedArticle from "./Admin-Deleted-Article";
 
 export default function AdminBar() {
     const context = useContext(User_Sign_In_Context);
@@ -17,6 +19,7 @@ export default function AdminBar() {
     const [profileOptions, setProfileOptions] = useState({
         accountSettings: true,
         add_articles: false,
+        accepted_articles:false,
         remove_articles: false,
         authors_find: false,
         update_authors: false,
@@ -34,6 +37,8 @@ export default function AdminBar() {
                             update_authors: false,
                             authors_find: false,
                             remove_articles: false,
+                            accepted_articles:false,
+
                         })
                     }}
                 >
@@ -60,9 +65,7 @@ export default function AdminBar() {
                                     update_authors: true,
                                     authors_find: false,
                                     remove_articles: false,
-
-
-
+                                    accepted_articles:false,
                                 })
                             }}
                         >
@@ -80,11 +83,29 @@ export default function AdminBar() {
                             onClick={() => {
                                 setProfileOptions({
                                     accountSettings: false,
+                                    add_articles: false,
+                                    stats: false,
+                                    update_authors: false,
+                                    authors_find: false,
+                                    remove_articles: false,
+                                    accepted_articles:true,
+
+                                })
+                            }}
+                        >
+                            Accepted Article
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                setProfileOptions({
+                                    accountSettings: false,
                                     add_articles: true,
                                     stats: false,
                                     update_authors: false,
                                     authors_find: false,
                                     remove_articles: false,
+                                    accepted_articles:false,
+
 
                                 })
                             }}
@@ -100,11 +121,13 @@ export default function AdminBar() {
                                     update_authors: false,
                                     authors_find: false,
                                     remove_articles: true,
+                                    accepted_articles:false,
+
 
                                 })
                             }}
                         >
-                            Delete Article
+                            Deleted Article
                         </Button>
                     </div>
                 </Collapse>
@@ -136,7 +159,8 @@ export default function AdminBar() {
             {profileOptions.accountSettings?<AdminPersonalInformation />:""}
             {profileOptions.update_authors?<AdminResearcherUpdate />:""}
             {profileOptions.add_articles?<AdminAddArticle />:""}
-            {profileOptions.remove_articles?<AdminDeleteArticles />:""}
+            {profileOptions.accepted_articles?<AdminAcceptArticle />:""}
+            {profileOptions.remove_articles?<AdminDeletedArticle />:""}
             {profileOptions.stats?<AdminMetrics />:""}
 
         </div>

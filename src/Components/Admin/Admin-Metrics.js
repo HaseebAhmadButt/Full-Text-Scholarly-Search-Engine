@@ -1,99 +1,88 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import AdminCharts from "./Admin-Charts";
-import LineChart from "../Profiles/User Profile/Charts";
 import ListGroup from "react-bootstrap/ListGroup";
-import {Button, Form, InputGroup, Table} from "react-bootstrap";
-
+import {Table} from "react-bootstrap";
+import {getStats} from "../../Services/AdminService/DataRetrievalMethods"
 export default function AdminMetrics() {
+    const [stats, setStats] = useState({
+        acceptedArticles:0,
+        rejectedArticles:0,
+        InprogressArticles:0,
+        BlockedAuthors:0,
+        ActiveAuthors:0,
+        articleProps:[]
+    })
+    const [journal, setJournal] = useState([])
+    useEffect(()=>{
+        getStats().then(async (r)=> {
+            // await setArticleProps(prevState => ([]))
+            await setStats({
+                acceptedArticles:r.articleStats[0][1],
+                rejectedArticles:r.articleStats[1][1],
+                InprogressArticles:r.articleStats[2][1],
+                BlockedAuthors:r.publisherStats[1][1],
+                ActiveAuthors:r.publisherStats[0][1],
+                articleProps: r.articleYearData
+            })
+            await setJournal(r.journalStats)
+        })
+    },[])
+    console.log(stats)
+    const tableRow = journal.map((row)=>{
+        return(
+            <tr>
+                <td>{row[0]} </td>
+                <td>{row[1]}</td>
+            </tr>
+        )
+    })
     return(
         <>
             <div className={"profile-articles"}>
                 <ListGroup className={"profile-features"}>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                            <span className={"title"}>Publications </span>
-                            <h1>10</h1>
-                        </ListGroup.Item></a>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                        <span className={"title"}>Accepted Publications </span>
-                        <h1>10</h1>
-                    </ListGroup.Item></a>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                        <span className={"title"}>Rejected Publications </span>
-                        <h1>10</h1>
-                    </ListGroup.Item></a>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                        <span className={"title"}>Under-Verification Publication </span>
-                        <h1>10</h1>
-                    </ListGroup.Item></a>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                            <span className={"title"}>Authors </span>
-                            <h1>10</h1>
-                        </ListGroup.Item></a>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                            <span className={"title"}>Accepted Authors </span>
-                            <h1>10</h1>
-                        </ListGroup.Item></a>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                            <span className={"title"}>Rejected Authors </span>
-                            <h1>10</h1>
-                        </ListGroup.Item></a>
-                    <a href={"#"} className={"profile-feature"}>
-                        <ListGroup.Item className={"feature"}>
-                            <span className={"title"}>Under-Verification Authors </span>
-                            <h1>10</h1>
-                        </ListGroup.Item></a>
+                        <ListGroup.Item className={"profile-feature"}>
+                            <h6>Accepted Publications</h6>
+                            <h1>{stats.acceptedArticles}</h1>
+                    </ListGroup.Item>
+                        <ListGroup.Item className={"profile-feature"}>
+                            <h6>Rejected Publications</h6>
+                            <h1>{stats.rejectedArticles}</h1>
+                    </ListGroup.Item>
+                        <ListGroup.Item className={"profile-feature"}>
+                            <h6>In-Progress Publicaitons</h6>
+                            <h1>{stats.InprogressArticles}</h1>
+                    </ListGroup.Item>
+                        <ListGroup.Item className={"profile-feature"}>
+                            <h6>Accepted Authors</h6>
+                            <h1>{stats.ActiveAuthors}</h1>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className={"profile-feature"}>
+                            <h6>Rejected Authors</h6>
+                            <h1>{stats.BlockedAuthors}</h1>
+                        </ListGroup.Item>
                 </ListGroup>
-                <Table striped bordered hover>
-                    <thead>
-                    <tr>
-                        <th>Journal Name</th>
-                        <th>Total Publications</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>IEEE Journal </td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td>Some other journal </td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td>Some other journal </td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td>Some other journal </td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td>Some other journal </td>
-                        <td>90</td>
-                    </tr>
-                    </tbody>
-                </Table>
-
-
+                <div className={"table-of-contents"}>
+                    <Table className={"Table"} striped bordered hover>
+                        <thead>
+                        <tr>
+                            <th>Journal Name</th>
+                            <th>Total Publications</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {tableRow}
+                        </tbody>
+                    </Table>
+                </div>
                 <div className={"Admin-metrics-div"}>
                     <h4>Publications Stats</h4>
-                    <AdminCharts />
+                    <AdminCharts data = {stats.articleProps}/>
                 </div>
-                <div className={"Admin-metrics-div"}>
-                    <h4>Author Stats</h4>
-                    <AdminCharts />
-                </div>
-                <div className={"Admin-metrics-div"}>
-                    <h4>Top Journal Stats</h4>
-                    <LineChart />
-                </div>
+                {/*<div className={"Admin-metrics-div"}>*/}
+                {/*    <h4>Author Stats</h4>*/}
+                {/*    <AdminCharts />*/}
+                {/*</div>*/}
             </div>
         </>
     )

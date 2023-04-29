@@ -11,6 +11,7 @@ const User_Sign_In_State = ({ children }) => {
         isAdmin: false,
         isAuthenticated: false,
         isPublisher: false,
+        publisherStatus:false,
         publisherID: 0
 
     });
@@ -59,7 +60,8 @@ const User_Sign_In_State = ({ children }) => {
         picture,
         isAdmin,
         isAuthenticated,
-        isPublisher
+        isPublisher,
+        publisherStatus
     ) => {
         await setLogIn(()=>{
             const userData = {
@@ -70,6 +72,7 @@ const User_Sign_In_State = ({ children }) => {
                 isAdmin: isAdmin,
                 isAuthenticated: isAuthenticated,
                 isPublisher: isPublisher,
+                publisherStatus:publisherStatus
             };
 
             // console.log("Updating Local Storage")
@@ -85,6 +88,7 @@ const User_Sign_In_State = ({ children }) => {
         });
     };
     const updatePublisherField = async (value) =>{
+        if(!userLogIn.publisherStatus) return
         await setLogIn((prevState) => ({...prevState, isPublisher: value}))
     }
 

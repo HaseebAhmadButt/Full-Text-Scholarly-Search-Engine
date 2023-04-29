@@ -7,7 +7,6 @@ import SavedArticles from "./Saved Articles";
 import ProfileResults from "../ProfileResults";
 import {Button, Collapse, Offcanvas} from "react-bootstrap";
 import User_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
-import {DOIs, articleObjects } from "../../../Sampe Data/DOIs";
 
 export default function PersonalProfile() {
 
@@ -17,8 +16,8 @@ export default function PersonalProfile() {
     const handleShow = () => setShow(true);
     const [open, setOpen] = useState(false);
     const [profileOptions, setProfileOptions] = useState({
-        profileResults: context.userLogIn.isPublisher,
-        accountSettings: !context.userLogIn.isPublisher,
+        profileResults: context.userLogIn.isPublisher && context.userLogIn.publisherStatus,
+        accountSettings: !context.userLogIn.isPublisher || !context.userLogIn.publisherStatus,
         researcherProfile: false,
         articles: false,
         metrics: false,
@@ -40,7 +39,7 @@ export default function PersonalProfile() {
             <div className={"UserProfile"}>
                 <div className={"profile-options"}>
                     <Button
-                        className={context.userLogIn.isPublisher?"":"disabled_link"}
+                        className={context.userLogIn.isPublisher && context.userLogIn.publisherStatus?"":"disabled_link"}
                         onClick={() => {
                             handleButtonClick("profileResults")
                         }}
@@ -50,17 +49,21 @@ export default function PersonalProfile() {
                     <Button onClick={() => handleButtonClick("accountSettings")}>
                         Account Settings
                     </Button>
-                    <Button onClick={() => setOpen(!open)}>
+                    <Button
+                        className={context.userLogIn.publisherStatus?"":"disabled_link"}
+
+                        onClick={() => setOpen(!open)}>
                         Researcher Profile
                     </Button>
                     <Collapse in={open} >
                         <div className={"profile-detail-options profile-update-inner-buttons"}>
                             <Button
+                                className={context.userLogIn.publisherStatus?"":"disabled_link"}
                                 onClick={() => handleButtonClick("researcherProfile")}>
                                 Researcher Information
                             </Button>
                             <Button
-                                className={context.userLogIn.isPublisher?"simple":"disabled_link"}
+                                className={context.userLogIn.isPublisher && context.userLogIn.publisherStatus?"simple":"disabled_link"}
                                 onClick={() => handleButtonClick("articles")}>
                                 Articles
                             </Button>
@@ -101,7 +104,7 @@ export default function PersonalProfile() {
 
                             className={"profile-options profile-mobile-options"}>
                             <Button
-                                className={context.userLogIn.isPublisher?"":"disabled_link"}
+                                className={context.userLogIn.isPublisher && context.userLogIn.publisherStatus?"":"disabled_link"}
                                 onClick={() => {
                                     handleButtonClick("profileResults")
                                 }}
@@ -120,14 +123,14 @@ export default function PersonalProfile() {
                                         Researcher Information
                                     </Button>
                                     <Button
-                                        className={context.userLogIn.isPublisher?"":"disabled_link"}
+                                        className={context.userLogIn.isPublisher && context.userLogIn.publisherStatus?"":"disabled_link"}
                                         onClick={() => handleButtonClick("articles")}>
                                         Articles
                                     </Button>
                                 </div>
                             </Collapse>
                             <Button
-                                className={context.userLogIn.isPublisher?"":"disabled_link"}
+                                className={context.userLogIn.isPublisher && context.userLogIn.publisherStatus?"":"disabled_link"}
                                 onClick={() => handleButtonClick("metrics")}
                             >
                                 Profile Metrics

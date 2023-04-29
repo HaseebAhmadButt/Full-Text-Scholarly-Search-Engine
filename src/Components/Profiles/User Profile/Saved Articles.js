@@ -18,7 +18,6 @@ export default function SavedArticles() {
     })
     useEffect(() => {
         getSavedArticles(context.userLogIn.user_id).then((articles) => {
-            console.log(articles)
             const articlesContent = articles.map(async (article) => {
                 const topics = await getTopics(article.paperDOI);
                 const authors = await getAuthors(article.paperDOI);

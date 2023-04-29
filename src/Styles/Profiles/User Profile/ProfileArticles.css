@@ -26,6 +26,20 @@
 .remove-select{
     font-weight: bolder;
 }
+.table-of-contents{
+    width:98%;
+    height: 500px;
+    overflow-y: scroll;
+    margin: auto auto 2%;
+}
+.Table th {
+    padding: 12px;
+    text-align: center;
+    background-color: #1E90FF;
+    color: white;
+    position: sticky;
+    top: 0;
+}
 /*
 This class is only for saved articles. In the main development this will be separated
  */
