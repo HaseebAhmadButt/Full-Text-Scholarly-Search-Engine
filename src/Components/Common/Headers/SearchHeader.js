@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+// import React from "react";
 import {Button} from "react-bootstrap";
+import navigation from "./Images/navigation.png";
+
 
 export default function SearchHeader() {
+
+    const [isNavClicked, setIsNavClicked] = useState(true);
+
+    const handleNavigationClick = () => {
+      setIsNavClicked((prevIsNavClicked) => !prevIsNavClicked);
+    };
     return (
         <>
+        <div id="mobile">
+        <img  className="navigation-icon"
+          src={navigation}
+          alt="Navigation Icon"
+          onClick={handleNavigationClick}
+        />
+      </div>
             <header className="App-header">
                 <div className={"logo-div"}>
                 <a href={"/"}> <img src={process.env.PUBLIC_URL+"/Images/Logo/Logo.png"} alt={"logo"}/> </a>

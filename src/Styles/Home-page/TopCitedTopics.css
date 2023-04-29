@@ -15,3 +15,28 @@
     /* width: max-content; */
 }
 
+@media (max-width: 767px) {
+    /* CSS styles for small screens */
+    .Searched-topics{
+        width: 85%;
+        margin: 1.5% auto;
+    }
+    .Searched-topics h5{
+        text-align: center;
+        margin-bottom: 20px;     
+    }
+
+    .tags_wrapper{
+        margin-left: 30px;
+        width: 100%;
+        justify-content: left;
+    }
+    .tags_wrapper a{
+        margin-right: 20px !important;
+        margin-bottom: 20px;   
+    }
+    .tags_wrapper a span{
+        font-size: 15px;  
+    }
+
+  }
