@@ -1,6 +1,6 @@
 package com.JPA.Entities.CompositBeans;
 import com.JPA.Entities.Beans.Articles;
-import com.JPA.Entities.CompositKeyClasses.ReferencesID;
+//import com.JPA.Entities.CompositKeyClasses.ReferencesID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

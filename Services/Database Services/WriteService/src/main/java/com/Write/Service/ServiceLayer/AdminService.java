@@ -6,6 +6,8 @@ import com.JPA.Entities.Beans.Publisher;
 import com.JPA.Entities.Beans.User;
 import com.Write.Service.RepositoryLayer.AdminRepository;
 import com.Write.Service.RepositoryLayer.BlockedAuthorsRepository;
+import com.Write.Service.RepositoryLayer.PublisherRepository;
+import com.Write.Service.RepositoryLayer.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class AdminService {
 
     @Autowired
     private DeletedArticlesService deletedArticlesService;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PublisherRepository publisherRepository;
 
     public Admin saveAdmin(User userID){
         Admin admin = new Admin(userID);
@@ -36,19 +43,33 @@ public class AdminService {
     }
 
 //    To block publishers/authors
-    public void blockAuthors(Long AuthorID, Long AdminID){
-        Admin admin = adminRepository.findById(AdminID).get();
-        Publisher publisher = publisherService.getPublisher(AuthorID);
-        publisher.setPublisherStatus("BLOCKED");
-        publisherService.savePublisher(publisher.getPublisherName(), publisher.getPublisherID());
-        blockedAuthorService.setBlockedAuthorsRepository(publisher,admin);
+    public String blockAuthors(Long AuthorID, Long AdminID){
+        try{
+            User admin = userRepository.findById(AdminID).get();
+            Publisher publisher = publisherService.getPublisher(AuthorID);
+            publisher.setPublisherStatus("BLOCKED");
+            publisherRepository.save(publisher);
+            blockedAuthorService.setBlockedAuthorsRepository(publisher, admin);
+            return "OK";
+        }
+        catch (Exception e){
+            return "Error";
+        }
     }
 
-    public void removeBlockAuthor(Long AuthorID){
-        Publisher publisher = publisherService.getPublisher(AuthorID);
-        publisher.setPublisherStatus("ACTIVE");
-        publisherService.savePublisher(publisher.getPublisherName(), publisher.getPublisherID());
-        blockedAuthorService.removeBlockedAuthors(publisher);
+    public String removeBlockAuthor(Long AuthorID){
+        try{
+            Publisher publisher = publisherService.getPublisher(AuthorID);
+            publisher.setPublisherStatus("ACTIVE");
+            System.out.println("publisher = " + publisher);
+            Publisher publisher1 = publisherRepository.save(publisher);
+            System.out.println("publisher1 = " + publisher1);
+            blockedAuthorService.removeBlockedAuthors(publisher);
+            return "OK";
+        }
+        catch (Exception e){
+            return "Error";
+        }
     }
 
 //    On the Admin Control side. Under the "Update Articles" heading, whenever a user uploads a new article
@@ -62,7 +83,7 @@ public class AdminService {
 //    2. Added Articles ==> Articles which are accepted by the admin
 //    3. Deleted Articles => Articles which are rejected by the admin
     public void addedArticles(String DOI, Long AdminID){
-        Admin admin = adminRepository.findById(AdminID).get();
+        User admin = userRepository.findById(AdminID).get();
         Articles article = articlesService.getArticleByID(DOI);
         addedarticlesService.addArticles(admin,article);
         deletedArticlesService.removeArticlesFromRejected(DOI, AdminID);
@@ -70,10 +91,10 @@ public class AdminService {
     }
 
     public void rejectedArticles(String DOI, Long AdminID, String reason){
-        Admin admin = adminRepository.findById(AdminID).get();
+        User admin = userRepository.findById(AdminID).get();
         Articles article = articlesService.getArticleByID(DOI);
         deletedArticlesService.rejectArticles(admin,article,reason);
-        addedarticlesService.removeArticlesFromAdded(article,admin);
+//        addedarticlesService.removeArticlesFromAdded(article,admin);
         articlesService.UpdatePaperStatus(DOI, "REJECTED");
     }
 

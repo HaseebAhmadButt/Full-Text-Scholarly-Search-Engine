@@ -1,6 +1,6 @@
 package com.JPA.Entities.CompositBeans;
 import com.JPA.Entities.Beans.Publisher;
-import com.JPA.Entities.CompositKeyClasses.AuthorNamesCompositeKey;
+//import com.JPA.Entities.CompositKeyClasses.AuthorNamesCompositeKey;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

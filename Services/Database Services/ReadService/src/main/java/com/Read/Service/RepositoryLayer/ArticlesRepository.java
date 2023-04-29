@@ -44,7 +44,7 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
     List<Object> getAllAcceptedArticlesAuthors(String DOI);
 
 
-    @Query("SELECT ar.Paper_DOI ,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date " +
+    @Query("SELECT ar.Paper_DOI,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date, ar.PAPER_PDF " +
 //            ", COUNT(*) as Citations " +
             "FROM Articles ar JOIN Journal jr on jr.id = ar.Paper_Journal.id " +
             "JOIN SavedArticles sa on sa.paper.Paper_DOI = ar.Paper_DOI " +
@@ -55,8 +55,45 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
 //  "JOIN References pr ON pr.articleI2.Paper_DOI  = ar.Paper_DOI " +
 //  GROUP BY pr.articleI2.Paper_DOI
 
-    @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'IN-PROGRESS'")
+    @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'IN-PROGRESS' and ar.PAPER_UPDATE_TYPE = 'UPLOADED' ORDER BY ar.Published_Date ASC ")
     Page<Articles> getAllAddedArticles(Pageable pageable);
+
+    @Query("SELECT ar, da.reason FROM Articles ar " +
+            "JOIN DeletedArticles da ON da.DOI.Paper_DOI = ar.Paper_DOI " +
+            "WHERE ar.Paper_STATUS = 'REJECTED' " +
+            "AND ar.PAPER_UPDATE_TYPE = 'UPLOADED' ORDER BY ar.Published_Date ASC ")
+    Page<Object[]> getAllAddedRejectedArticles(Pageable pageable);
+
+    @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'ACCEPTED' and ar.PAPER_UPDATE_TYPE = 'UPLOADED' ORDER BY ar.Published_Date ASC ")
+    Page<Articles> getAllAddedAcceptedArticles(Pageable pageable);
+
+    /*
+    SELECT *
+    FROM articles ar
+    JOIN journal jr ON jr.journal_id = ar.journal_id
+    WHERE ar.paper_status = 'ACCEPTED'
+    AND ar.paper_update_type = 'UPLOADED'
+    AND (ar.paper_title LIKE '%learning%' OR jr.journal_name LIKE '%learning%');
+     */
+    @Query("SELECT ar " +
+            "FROM  Articles ar " +
+            "JOIN  Journal jr ON jr.id = ar.Paper_Journal.id " +
+            "WHERE ar.Paper_STATUS = 'ACCEPTED' AND ar.PAPER_UPDATE_TYPE = 'UPLOADED' " +
+            "AND  (ar.Paper_Title LIKE %?1% OR jr.journalName LIKE %?1%) ORDER BY ar.Published_Date ASC ")
+    Page<Articles> getAllAddedAcceptedArticlesWithParameters(String query,Pageable pageable);
+    @Query("SELECT ar " +
+            "FROM  Articles ar " +
+            "JOIN  Journal jr ON jr.id = ar.Paper_Journal.id " +
+            "WHERE ar.Paper_STATUS = 'IN-PROGRESS' and ar.PAPER_UPDATE_TYPE = 'UPLOADED' " +
+            "AND  (ar.Paper_Title LIKE %?1% OR jr.journalName LIKE %?1%) ORDER BY ar.Published_Date ASC")
+    Page<Articles> getAllAddedArticlesWithParameters(String query,Pageable pageable);
+    @Query("SELECT ar, da.reason " +
+            "FROM  Articles ar " +
+            "JOIN DeletedArticles da on da.DOI.Paper_DOI = ar.Paper_DOI " +
+            "JOIN  Journal jr ON jr.id = ar.Paper_Journal.id " +
+            "WHERE ar.Paper_STATUS = 'REJECTED' and ar.PAPER_UPDATE_TYPE = 'UPLOADED' " +
+            "AND  (ar.Paper_Title LIKE %?1% OR jr.journalName LIKE %?1%) ORDER BY ar.Published_Date ASC")
+    Page<Object[]> getAllAddedRejectedArticlesWithParameters(String query,Pageable pageable);
 
 
     @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'ACCEPTED' " +
@@ -79,21 +116,11 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
 
     @Query("SELECT ar.Paper_DOI ,ar.createdDate, ar.Paper_Title, ar.Paper_Abstract, ar.Paper_STATUS " +
             "FROM PaperAuthors pa " +
-            "JOIN Publisher pu ON pa.author.PublisherID = ?1 " +
+            "JOIN Publisher pu ON pa.author.PublisherID = pu.PublisherID AND pu.PublisherID = ?1 " +
             "JOIN Articles ar on pa.paper.Paper_DOI = ar.Paper_DOI " +
             "AND ar.PAPER_UPDATE_TYPE = 'UPLOADED'" +
             "ORDER BY ar.createdDate DESC ")
     Page<List<Object>> getAllUploadedArticlesBySpecificPublisher(Long publisherID, Pageable pageable);
-
-//    This the method responsible for retrieving all accepted articles of a specific publisher
-//    @Query("SELECT ar.Paper_DOI, ar.Published_Date ,ar.PAPER_PDF, ar.Paper_Title, ar.Paper_Abstract, jr.journalName " +
-//            "FROM PaperAuthors pa " +
-//            "JOIN Publisher pu ON pa.author.PublisherID = pa.author.PublisherID " +
-//            "JOIN Articles ar on pa.paper.Paper_DOI = ar.Paper_DOI " +
-//            "JOIN Journal jr ON jr.id = ar.Paper_Journal.id " +
-//            "WHERE ar.Paper_STATUS = 'ACCEPTED' " +
-//            "AND pu.PublisherID = ?1" +
-//            "ORDER BY ar.createdDate DESC ")
 
     @Query("SELECT ar.Paper_DOI, ar.Published_Date ,ar.PAPER_PDF, ar.Paper_Title, ar.Paper_Abstract, jr.journalName " +
             "FROM PaperAuthors pa " +
@@ -103,6 +130,28 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
             "WHERE ar.Paper_STATUS = 'ACCEPTED'" +
             "ORDER BY ar.createdDate DESC ")
     Page<List<Object>> getAllAcceptedArticlesBySpecificPublisher(Long publisherID, Pageable pageable);
+    @Query("SELECT ar.Paper_DOI, ar.Published_Date, ar.PAPER_PDF, ar.Paper_Title, ar.Paper_Abstract, jr.journalName " +
+            "FROM PaperAuthors pa " +
+            "JOIN Publisher pu ON pa.author.PublisherID = pu.PublisherID AND pu.PublisherID = ?1 " +
+            "JOIN Articles ar ON pa.paper.Paper_DOI = ar.Paper_DOI " +
+            "JOIN Journal jr ON jr.id = ar.Paper_Journal.id " +
+            "WHERE ar.Paper_STATUS = 'ACCEPTED' " +
+            "AND (ar.Paper_Title LIKE %?2% OR ar.Paper_Abstract LIKE %?2%) " +
+            "ORDER BY ar.createdDate DESC ")
+    Page<List<Object>> getAllAcceptedArticlesBySpecificPublisher(Long publisherID,  String query, Pageable pageable);
+
+
+    @Query("SELECT ar.Paper_STATUS, count(*)FROM Articles ar GROUP BY ar.Paper_STATUS")
+    List<Object[]> getArticlesStats();
+
+    @Query("SELECT jr.journalName, COUNT(*) FROM Articles ar " +
+            "JOIN Journal jr on ar.Paper_Journal.id = jr.id " +
+            "GROUP BY jr.journalName")
+    List<Object[]> getJournalStats();
+
+    @Query("SELECT ar.Published_Date, ar.Paper_STATUS, COUNT(*) FROM Articles ar " +
+            "GROUP BY ar.Published_Date, ar.Paper_STATUS")
+    List<Object[]> getArticleYearStats();
+
 
 }
-//

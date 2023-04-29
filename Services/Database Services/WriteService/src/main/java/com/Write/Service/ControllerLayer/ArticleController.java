@@ -87,6 +87,11 @@ public class ArticleController {
                 (String) stringObjectMap.get("Year"),
                 (String) stringObjectMap.get("Link"),
                 (String) stringObjectMap.get("JournalName"),
+                // This is the place where model will be called to generate topics of Paper and those will be added as List<String>
+                // to this Article
+                //TODO: Integrate Model With this Service and Generate Topics using Articles "Title" and "Abstract"
+                //TODO; Replace it with Authors List, like
+//                (List<String>) stringObjectMap.get("Authors")
                 (List<String>) stringObjectMap.get("Topics")
         );
     }
@@ -95,8 +100,6 @@ public class ArticleController {
     public String saveArticlesFromUser(
             @RequestBody Map<String, Object> stringObjectMap
     ){
-        System.out.println("stringObjectMap = " + stringObjectMap);
-        System.out.println("Received in Controller ");
        return articlesService.savePaperCompleteFromUser(
                 (String) stringObjectMap.get("DOI"),
                 (String) stringObjectMap.get("Title"),
@@ -104,6 +107,9 @@ public class ArticleController {
                 (String) stringObjectMap.get("Year"),
                 (String) stringObjectMap.get("Link"),
                 (String) stringObjectMap.get("JournalName"),
+               // This is the place where model will be called to generate topics of Paper and those will be added as List<String>
+               // to this Article
+               //TODO: Replace the below parameter and only accept list of authors
                 (List<String>) stringObjectMap.get("Topics"),
                 (List<String>) stringObjectMap.get("Authors")
         );
@@ -127,7 +133,7 @@ public class ArticleController {
             inputStream = multipartFile.getInputStream();
             byte[] buffer = new byte[inputStream.available()]; // Use a buffer to read from input stream
             int bytesRead;
-            fileOutputStream = new FileOutputStream(Upload_DIR + File.separator + doi.replaceAll("/","_") + multipartFile.getOriginalFilename());
+            fileOutputStream = new FileOutputStream(Upload_DIR + File.separator + doi.replaceAll("/","_") +"_"+ multipartFile.getOriginalFilename());
 
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 fileOutputStream.write(buffer, 0, bytesRead); // Write the data to the output stream
@@ -155,7 +161,7 @@ public class ArticleController {
         //  File Writing is completed.
         // Now Storing the complete information along with PDF File Name in Database
 
-       return articlesService.savePaperCompleteFromUserUpload(authorID, doi,title,abstractText,year,"This is random String for Link, which will be updated when URL for each Article will be created",Upload_DIR+ File.separator+ doi+multipartFile.getOriginalFilename(),journalName,authors);
+       return articlesService.savePaperCompleteFromUserUpload(authorID, doi,title,abstractText,year,"This is random String for Link, which will be updated when URL for each Article will be created",Upload_DIR + File.separator + doi.replaceAll("/","_") +"_"+ multipartFile.getOriginalFilename(),journalName,authors);
 
     }
 

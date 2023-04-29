@@ -84,7 +84,56 @@ public class ArticleController {
         headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
         return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
     }
+    @GetMapping("/getAllAddedAcceptedArticles")
+    public ResponseEntity<Page<Articles>> getAllAddedAcceptedArticles(@RequestParam(defaultValue = "0") int pageNo,
+                                                            @RequestParam(defaultValue = "10") int pageSize) {
+        Page<Articles> articlesPage = articlesService.getAllAddedAcceptedArticles(pageNo, pageSize);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+    @GetMapping("/getAllUploadRejectedArticles")
+    public ResponseEntity<Page<Object[]>> getAllUploadRejectedArticles(@RequestParam(defaultValue = "0") int pageNo,
+                                                            @RequestParam(defaultValue = "10") int pageSize) {
+        Page<Object[]> articlesPage = articlesService.getAllUploadedRejectedArticles(pageNo, pageSize);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/getAllArticlesWithParams")
+    public ResponseEntity<Page<Articles>> getAllProgressArticles(@RequestParam(defaultValue = "0") int pageNo,
+                                                            @RequestParam(defaultValue = "10") int pageSize,
+                                                                 @RequestParam(name = "query") String query) {
+        Page<Articles> articlesPage = articlesService.getAllAddedArticlesWithParameters(pageNo, pageSize,query);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+    @GetMapping("/getAllAddedAcceptedArticlesWithParams")
+    public ResponseEntity<Page<Articles>> getAllAcceptedArticles(@RequestParam(defaultValue = "0") int pageNo,
+                                                            @RequestParam(defaultValue = "10") int pageSize,
+                                                                 @RequestParam(name = "query") String query) {
+        Page<Articles> articlesPage = articlesService.getAllAddedAcceptedArticlesWithParams(pageNo, pageSize,query);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+    @GetMapping("/getAllAddedRejectedArticlesWithParams")
+    public ResponseEntity<Page<Object[]>> getAllRejectedArticles(@RequestParam(defaultValue = "0") int pageNo,
+                                                            @RequestParam(defaultValue = "10") int pageSize,
+                                                                 @RequestParam(name = "query") String query) {
+        Page<Object[]> articlesPage = articlesService.getAllUploadedRejectedArticlesWithParams(pageNo, pageSize,query);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
 
     @GetMapping("/getAllAcceptedArticles")
     public ResponseEntity<Page<Articles>> getAllAcceptedArticles(
@@ -129,6 +178,22 @@ public class ArticleController {
         return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
     }
 
+    @GetMapping("/getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter")
+    public ResponseEntity<Page<List<Object>>> getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(name="publisherID") Long ID,
+            @RequestParam(name="q") String query
+    ) {
+        Page<List<Object>> articlesPage = articlesService.getAcceptedArticles(pageNo, pageSize, ID, query);
+        if(articlesPage == null){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+
 
     @GetMapping("/getAllRequiredAcceptedArticles")
     public ResponseEntity<Page<Articles>> getAllAcceptedArticles(
@@ -153,5 +218,7 @@ public class ArticleController {
         headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
         return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
     }
+
+
 
 }

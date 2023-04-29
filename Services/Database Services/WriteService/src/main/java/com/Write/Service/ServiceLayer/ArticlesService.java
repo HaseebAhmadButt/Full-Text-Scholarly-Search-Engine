@@ -129,7 +129,9 @@ public class ArticlesService {
         return getString(Link, JournalName, articles, topics);
     }
 
-    public String savePaperCompleteFromUser(String DOI, String Title, String Abstract, String Year, String Link, String JournalName, List<String> topics, List<String> authors){
+    public String savePaperCompleteFromUser(String DOI, String Title, String Abstract, String Year, String Link, String JournalName,
+                                            List<String> topics,
+                                            List<String> authors){
 
         Articles articles = new Articles();
         articles.setPaper_DOI(DOI);
@@ -139,6 +141,10 @@ public class ArticlesService {
         articles.setPaper_STATUS("IN-PROGRESS");
         articles.setPAPER_UPDATE_TYPE("UPLOADED");
         articles.setAuthors(authors);
+        // This is the place where model will be called to generate topics of Paper and those will be added as List<String>
+        // to this Article
+        //TODO: Integrate Model With this Service and Generate Topics using Articles "Title" and "Abstract"
+//        List<String> topics = Arrays.asList("Topic 1", "Topic 2", "Topic 3");
         return getString(Link, JournalName, articles, topics);
     }
     public String savePaperCompleteFromUserUpload(Long authorID, String DOI, String Title, String Abstract, String Year, String Link, String pdf_name ,String JournalName, List<String> authors){

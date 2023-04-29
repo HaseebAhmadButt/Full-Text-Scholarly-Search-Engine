@@ -3,7 +3,7 @@ package com.JPA.Entities.CompositBeans;
 //import com.JPAEntities.Beans.Publisher;
 //import com.JPAEntities.CompositKeyClasses.AreasOfInterestID;
 import com.JPA.Entities.Beans.Publisher;
-import com.JPA.Entities.CompositKeyClasses.AreasOfInterestID;
+//import com.JPA.Entities.CompositKeyClasses.AreasOfInterestID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

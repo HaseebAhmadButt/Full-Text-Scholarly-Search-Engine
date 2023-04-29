@@ -3,11 +3,9 @@ package com.Write.Service.ControllerLayer;
 import com.JPA.Entities.Beans.Admin;
 import com.JPA.Entities.Beans.User;
 import com.Write.Service.ServiceLayer.AdminService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,14 +32,18 @@ public class AdminController {
     }
 
     @PostMapping("/blockPublisher")
-    public  void rejectPublisher(@RequestBody Map<String, Object> stringObjectMap){
-        adminService.blockAuthors(Long.valueOf((Integer) stringObjectMap.get("publisherID")), Long.valueOf((Integer) stringObjectMap.get("adminID")) );
+    public ResponseEntity<Object> rejectPublisher(@RequestBody Map<String, Object> stringObjectMap){
+        String status = adminService.blockAuthors(Long.valueOf((Integer) stringObjectMap.get("publisherID")), Long.valueOf((Integer) stringObjectMap.get("adminID")) );
+        if (status.equals("Error")) return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 
     @PostMapping("/activePublisher")
-    public void activePublisher(@RequestBody Map<String, Object> stringObjectMap){
-        adminService.removeBlockAuthor(Long.valueOf((Integer) stringObjectMap.get("publisherID")));
+    public ResponseEntity<Object> activePublisher(@RequestBody Map<String, Object> stringObjectMap){
+        String status = adminService.removeBlockAuthor(Long.valueOf((Integer) stringObjectMap.get("publisherID")));
+        if (status.equals("Error")) return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/addArticles")

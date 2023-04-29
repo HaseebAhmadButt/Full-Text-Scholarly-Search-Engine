@@ -1,7 +1,7 @@
 package com.JPA.Entities.CompositBeans;
 import com.JPA.Entities.Beans.Articles;
 import com.JPA.Entities.Beans.ResearchTopic;
-import com.JPA.Entities.CompositKeyClasses.ArticleTopicsID;
+//import com.JPA.Entities.CompositKeyClasses.ArticleTopicsID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

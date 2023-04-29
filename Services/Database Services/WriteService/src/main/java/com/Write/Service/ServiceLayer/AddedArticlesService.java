@@ -4,6 +4,7 @@ package com.Write.Service.ServiceLayer;
 import com.JPA.Entities.Beans.Admin;
 import com.JPA.Entities.Beans.Articles;
 import com.JPA.Entities.Beans.Publisher;
+import com.JPA.Entities.Beans.User;
 import com.JPA.Entities.CompositBeans.AddedArticles;
 import com.Write.Service.RepositoryLayer.AddedArticlesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class AddedArticlesService {
     @Autowired
     private AddedArticlesRepository articlesRepository;
 
-    public void addArticles(Admin admin, Articles articles){
+    public void addArticles(User admin, Articles articles){
         articlesRepository.save(new AddedArticles(admin, articles));
     }
 

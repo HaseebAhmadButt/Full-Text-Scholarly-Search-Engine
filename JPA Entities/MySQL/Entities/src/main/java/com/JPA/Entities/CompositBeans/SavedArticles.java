@@ -2,7 +2,7 @@ package com.JPA.Entities.CompositBeans;
 
 import com.JPA.Entities.Beans.Articles;
 import com.JPA.Entities.Beans.User;
-import com.JPA.Entities.CompositKeyClasses.SavedArticlesID;
+//import com.JPA.Entities.CompositKeyClasses.SavedArticlesID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

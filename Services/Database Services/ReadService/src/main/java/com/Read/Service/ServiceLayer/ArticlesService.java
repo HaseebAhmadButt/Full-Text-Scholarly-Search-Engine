@@ -25,6 +25,32 @@ public class ArticlesService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return articlesRepository.getAllAddedArticles(pageable);
     }
+    public Page<Object[]> getAllUploadedRejectedArticles(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return articlesRepository.getAllAddedRejectedArticles(pageable);
+    }
+    public Page<Articles> getAllAddedAcceptedArticles(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return articlesRepository.getAllAddedAcceptedArticles(pageable);
+    }
+    public Page<Articles> getAllAddedArticlesWithParameters(int pageNo, int pageSize, String query) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return articlesRepository.getAllAddedArticlesWithParameters(query,pageable);
+    }
+    public Page<Object[]> getAllUploadedRejectedArticlesWithParams(int pageNo, int pageSize, String query) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return articlesRepository.getAllAddedRejectedArticlesWithParameters(query,pageable);
+    }
+    public Page<Articles> getAllAddedAcceptedArticlesWithParams(int pageNo, int pageSize, String query) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return articlesRepository.getAllAddedAcceptedArticlesWithParameters(query, pageable);
+    }
+
+
+
+
+
+
 
 
     public Page<List<Object>> getUploadedArticles(int pageNo, int PageSize, Long publisherID){
@@ -41,6 +67,16 @@ public class ArticlesService {
         Pageable pageable = PageRequest.of(pageNo, PageSize);
         try{
             Page<List<Object>> lists = articlesRepository.getAllAcceptedArticlesBySpecificPublisher(publisherID, pageable);
+            return lists;
+        }
+        catch (Exception exception){
+            return null;
+        }
+    }
+    public Page<List<Object>> getAcceptedArticles(int pageNo, int PageSize, Long publisherID, String query){
+        Pageable pageable = PageRequest.of(pageNo, PageSize);
+        try{
+            Page<List<Object>> lists = articlesRepository.getAllAcceptedArticlesBySpecificPublisher(publisherID, query, pageable);
             return lists;
         }
         catch (Exception exception){
@@ -113,8 +149,13 @@ public class ArticlesService {
     }
 
     public List<Map<String, Object>> getSavedArticles(Long userID) {
+        System.out.println("userID = " + userID);
         List<Map<String, Object>> maps = new ArrayList<>();
         List<Object[]> articles = articlesRepository.getSavedArticles(userID);
+        System.out.println("articles:");
+        for (Object[] article : articles) {
+            System.out.println(Arrays.toString(article));
+        }
         for (Object[] article : articles) {
             Map<String, Object> hashMap = new HashMap<>();
             generatingArticleObject(maps, article, hashMap);
@@ -129,7 +170,7 @@ public class ArticlesService {
         hashMap.put("paperURL", article[3]);
         hashMap.put("paperJournal", article[4]);
         hashMap.put("paperYear", article[5]);
-//        hashMap.put("paperCitations", article[6]);
+        hashMap.put("paperPDF", article[6]);
         maps.add(hashMap);
     }
 

@@ -3,7 +3,7 @@ package com.JPA.Entities.CompositBeans;
 
 import com.JPA.Entities.Beans.Articles;
 import com.JPA.Entities.Beans.Publisher;
-import com.JPA.Entities.CompositKeyClasses.PaperAuthorID;
+//import com.JPA.Entities.CompositKeyClasses.PaperAuthorID;
 import jakarta.persistence.*;
 
 @Table(name = "PAPER_AUTHORS")

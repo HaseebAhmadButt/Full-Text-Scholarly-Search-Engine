@@ -22,7 +22,6 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         if(user == null) return null;
         if(user.getPassword().equals(Password)){
-//            await context.upDateStateOnLogIn(userLogInfo.id, userLogInfo.email, userLogInfo.name, userLogInfo.picture, userLogInfo.admin, true);
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("id",user.getId());
             hashMap.put("email",user.getEmail());
@@ -30,8 +29,16 @@ public class UserService {
             hashMap.put("picture",user.getPicture());
             hashMap.put("admin",user.isAdmin());
             Publisher publisher = publisherRepository.getPublisherThroughUserID(user.getId());
-            if(publisher != null) hashMap.put("publisher",true);
-            else hashMap.put("publisher",false);
+            if(publisher != null) {
+                hashMap.put("publisher", true);
+                boolean flag = false;
+                if(publisher.getPublisherStatus().equals("ACTIVE")) flag = true;
+                hashMap.put("publisherStatus", flag);
+            }
+            else {
+                hashMap.put("publisher", false);
+                hashMap.put("publisherStatus", true);
+            }
             return hashMap;
         }
         return null;

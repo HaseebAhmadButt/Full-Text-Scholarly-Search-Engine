@@ -27,6 +27,10 @@ public class PublisherService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return publisherRepository.findAll(pageable);
     }
+    public Page<Publisher> getPublishersWitEmail(int pageNo, int pageSize, String email){
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return publisherRepository.getAllPublisherWithEmail(email, pageable);
+    }
     public HashMap<String, Object> getPublisherByUserID(Long userID){
 //        Pageable pageable = PageRequest.of(pageNo, pageSize);
         Publisher publisher = publisherRepository.getPublisherThroughUserID(userID);
