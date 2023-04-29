@@ -1,6 +1,6 @@
 import {Alert, Button, CloseButton, Form} from "react-bootstrap";
 import React, {useState, useContext} from "react";
-import {createSimplePublisher, createPartialPublisher, createPublisherProfile} from '../../../Services/AuthorProfileServices/PublisherFormSubmissionService'
+import { createPublisherProfile} from '../../../Services/AuthorProfileServices/PublisherFormSubmissionService'
 import User_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
 
 export default function UpdateResearcherInformation() {

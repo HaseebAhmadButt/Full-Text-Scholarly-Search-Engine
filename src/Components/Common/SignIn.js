@@ -9,6 +9,7 @@ function SignIn() {
     const navigator = useNavigate();
     const context = useContext(User_Sign_In_Context)
 
+
     const [logInfo, setLogInfo] = useState({Email:"",Password:""})
     const [error, setError] = useState({
             emailNotFound:false,
@@ -46,10 +47,10 @@ function SignIn() {
                 "Password": `${password}`}
             );
             try{
-                console.log(userLogInfo);
                 if (userLogInfo === "Not Found") setError(prevState => ({...prevState, emailNotFound: true}))
                 else {
-                    await context.upDateStateOnLogIn(userLogInfo.id, userLogInfo.email, userLogInfo.name, userLogInfo.picture, userLogInfo.admin, true, userLogInfo.publisher);
+                    // const status = userLogInfo.publisherStatus === 'ACTIVE'
+                    await context.upDateStateOnLogIn(userLogInfo.id, userLogInfo.email, userLogInfo.name, userLogInfo.picture, userLogInfo.admin, true, userLogInfo.publisher, userLogInfo.publisherStatus);
                     setTimeout(() => {
                         if(userLogInfo.admin) navigator("/admin")
                         else navigator("/personalProfile")

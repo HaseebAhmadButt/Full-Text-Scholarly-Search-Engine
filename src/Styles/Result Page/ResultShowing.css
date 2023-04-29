@@ -79,8 +79,31 @@
     padding: 0.5% 2% 0.5% 2%;
     margin: 1% 1% 0 0;
     border: 1px solid lightgray;
+}
+.disabled_pdf{
+    pointer-events: none !important;
+    cursor: default;
+    color:Gray !important;
+    text-decoration: none;
+    text-align: center;
+    display:inline-block;
+    /*border-radius: 20px;*/
+    padding: 0.5% 2% 0.5% 2%;
+    margin: 1% 1% 0 0;
+    border: none;
+    background-color: unset;
+}
+.downloadButton{
+    border: none;
+    background-color: unset;
+    color: #006699;
 
 }
+.downloadButton:hover{
+    text-decoration: underline;
+    color: #006699;
+}
+
 @media screen and (max-width: 768px) {
     .results-showing h3, .result-metadata h5{
         font-size: 0.95rem !important;

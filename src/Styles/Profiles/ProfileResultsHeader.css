@@ -36,32 +36,49 @@
 .interests:hover{
     text-decoration: underline!important;
 }
-.profile-features{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 1% 1% 1% 0;
-    padding: unset !important;
+.work_details{
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr) ;
+    grid-gap: 2.5%;
+    height: max-content !important;
+
 }
-.profile-feature{
-    padding-right: 1%;
-    font-size: 0.8rem;
-    color: black;
-    width: 180px;
+
+
+.profile-feature h6{
+    font-size: 20px;
+    font-weight: bolder;
+    text-decoration: underline;
+    padding: 2% 0;
+    margin-left: 2%;
 }
-.feature h1{
+.detail_work_div h1{
+    padding: unset;
+    margin: auto;
     width: 100%;
     text-align: center;
+}
+.profile-features{
+    display: grid;
+    grid-template-columns: repeat(4 , 1fr) ;
+    grid-gap: 1.5%;
+    height: max-content !important;
+    margin-bottom: 2%;
+}
+.profile-feature{
+    height: 100% !important;
+    padding: 0 2%;
+    border-radius: 5px;
+    color: #1E90FF !important;
+    border: 1px solid #e1e4e8;
+    box-shadow: 8px 8px 5px rgba(0,0,0,.15);
+}
+.profile-feature h1{
+    padding: unset;
     margin: auto;
+    width: 100%;
+    text-align: center;
 }
-.feature{
-    padding: 2%;
-    border: 2px solid rgb(0,123,255) !important;
-    border-radius: 5px !important;
-}
-/*.feature:hover{*/
-/*      */
-/*}*/
 .feature h1, .feature span{
     color: rgb(0,123,255);
 }
