@@ -34,9 +34,9 @@ export const AuthorProfile = () =>{
     const {authorID} = useParams()
 
     // // || !/^0*\d{1,20}$/.test(authorID)
-    // if(authorID.length <= 20 ) {
-    //     navigator("/")
-    // }
+    if(!(authorID.length <= 20)) {
+        navigator("/")
+    }
 
     const [profileObject, setProfileObject] = useState({
         affiliationLink: "",

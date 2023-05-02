@@ -101,7 +101,7 @@ export const SinglePaperPage = () =>{
     const getArticles = async ()=>{
         const Data = {
             "pageNo":0,
-            "pageSize":1,
+            "pageSize":10,
             "DOIs": foundDOIs
         }
         return await getCitingArticles(Data)

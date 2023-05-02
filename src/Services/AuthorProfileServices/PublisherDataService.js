@@ -141,6 +141,22 @@ export async function getCitations(DOI){
     if (!response.ok) return httpStatusInternalServerError
     return response.json();
 }
+export async function getCitedPapers(DOI){
+    const response = await fetch(`${ApiGatewayURL}/${serviceGraphReading}/papers/cited/ID?paperId=${DOI}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
+export async function getCitedPaperTitles(DOI){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getArticleTitle?DOI=${DOI}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
 export async function removeSavedArticles(data){
     const response = await fetch(`${ApiGatewayURL}/${serviceSQLWriting}/removeArticle`, {
         method: post,
