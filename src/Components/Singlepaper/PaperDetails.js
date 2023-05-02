@@ -3,6 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {getArticle} from "../../Services/UserService/UserDataRetieval"
 import {getAuthors, getCitations, getTopics} from "../../Services/AuthorProfileServices/PublisherDataService";
 import {downloadPDF} from "../../Services/AdminService/DataRetrievalMethods";
+import {Button} from "react-bootstrap";
 
 
 export const PaperDetails = ({paper})=>{
@@ -49,6 +50,17 @@ export const PaperDetails = ({paper})=>{
                                     onClick={async ()=>{await handleDownloadPDF(paper.paper_PDF)}}>
                                     Download PDF
                                 </button>
+                                <Button
+                                    className={"tags tags-button"}
+                                    onClick={() => {
+                                        window.open(
+                                            `/graph/${encodeURIComponent(paper.paper_DOI)}`,
+                                            "_blank"
+                                        );
+                                    }}
+                                >
+                                    View Graph
+                                </Button>
                             </div>
                         </div>
                         {/*{topics.length>0? :null}*/}

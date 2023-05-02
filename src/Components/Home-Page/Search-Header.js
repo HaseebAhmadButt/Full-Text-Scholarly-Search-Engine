@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function SearchArea() {
-        const OpenSearchresuls = (e) => {
+        const OpenResearchable = (e) => {
             e.preventDefault();
             window.location.href = "/results";
         }
@@ -20,7 +20,7 @@ export default function SearchArea() {
                             <div className={"search-form"}>
                                 <Form className={"form"} >
                                         <Form.Control type="text" placeholder="Search for a paper, author, or topic" className={"search-input"}/>
-                                        <Button type="submit" className={"search-button"} onClick={OpenSearchresuls}><FontAwesomeIcon icon={faSearchengin}/></Button>
+                                        <Button type="submit" className={"search-button"} onClick={OpenResearchable}><FontAwesomeIcon icon={faSearchengin}/></Button>
                                 </Form>
                             </div>
                         </div>

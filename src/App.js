@@ -47,28 +47,40 @@ import ForgotPassword from "./Components/Common/ForgotPassword"
 import {articleObjects, sendArticleToController} from "./Sampe Data/DOIs";
 import {CitationsResultPages} from "./Components/Pages/CitationsResultPages";
 import {SinglePaperPage} from "./Components/Pages/SinglePaperPage";
+import {GraphDisplay} from "./Components/GraphDisplayComponent/Graphdisplay";
+import {GraphDisplayPage} from "./Components/Pages/GraphDisplayPage";
 
 function App() {
   return (
     <div className="App">
         <Routes >
-            <Route exact path={'/'} element={<><HomepageHeader/><SearchArea /><TopCitedTopic /><RecentPapers /><TopCitedpapers /><RecommendedPapers /><div className={'about-us-new-beginning'}><h1>A New Beginning</h1><div className={'about-us-paragraph'}><p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec
-                            tincidunt lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet
-                            mauris. Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
-                            aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
-                            lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
-                            Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
-                            aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
-                            lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
-                        </p></div></div><Footer /></>} />
-            <Route path={'/results/:citations'} element={
-                <>
+
+            <Route exact path={'/'} element={<>
+                    <HomepageHeader/>
+                    <SearchArea />
+                    <TopCitedTopic />
+                    <RecentPapers />
+                    <TopCitedpapers />
+                    {/*<RecommendedPapers />*/}
+                    <div className={'about-us-new-beginning'}>
+                        <h1>A New Beginning</h1>
+                        <div className={'about-us-paragraph'}><p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec
+                                tincidunt lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet
+                                mauris. Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
+                                aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
+                                lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
+                                Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
+                                aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
+                                lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
+                            </p></div>
+                    </div>
+                    <Footer />
+            </>} />
+            <Route path={'/results/:citations'} element={<>
                     <CitationsResultPages />
-                </>
-            } />
-            <Route path={'/results'} element={
-                <>
+                </>} />
+            <Route path={'/results'} element={<>
                     <SearchHeader />
                     <MiddleSearchArea />
                     <hr/>
@@ -81,17 +93,16 @@ function App() {
                 <Footer />
             </>} />
             <Route path={'/profile/:authorID'} element={<AuthorProfile />} />
+            <Route path={"/graph/:paperID"} element={<>
+                <GraphDisplayPage />
+            </>}/>
             <Route path={'/personalProfile'} element={<PersonalProfilePage />} />
             <Route path={'/admin'} element={<AdminPage />} />
             <Route path={'/signIn'} element={<SignIn />} />
             <Route path={'/signUp'} element={<SignUp />} />
             <Route path={'/contact'} element={<><SearchHeader /><Contact /><Footer /></>} />
             <Route path={'/aboutUs'} element={<><SearchHeader /><AboutUs /><Footer /></>} />
-            <Route path={'/changePassword'} element={<>
-                    <ForgotPassword />
-                </>} />
-
-
+            <Route path={'/changePassword'} element={<><ForgotPassword /></>} />
         </Routes>
     </div>
   );

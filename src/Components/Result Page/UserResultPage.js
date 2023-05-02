@@ -73,7 +73,7 @@ export default function UserResultPage({publisherData, updatingJournals, loadNew
                     return (
                         <div className={"result"} key={article.paper_DOI}>
                             <div className={"result-detail"}>
-                                <a href={`/singlePaper/${encodeURIComponent(article.paper_DOI)}`} className={"heading"}>
+                                <a href={`/singlePaper/${encodeURIComponent(article.paper_DOI)}`} className={"heading"} target={"_blank"}>
                                     <h3>{article.paper_Title}</h3>
                                 </a>
                                 <p>{article.paper_Abstract}</p>
@@ -87,7 +87,7 @@ export default function UserResultPage({publisherData, updatingJournals, loadNew
                                     className={"tags tags-button"}
                                     onClick={() => {
                                         window.open(
-                                            "https://vasturiano.github.io/3d-force-graph/example/highlight/",
+                                            `/graph/${encodeURIComponent(article.paper_DOI)}`,
                                             "_blank"
                                         );
                                     }}

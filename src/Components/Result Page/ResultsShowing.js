@@ -78,16 +78,17 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
             });
             Promise.all(articlesContent).then((results) => {
                 const articles = results.map(({ article, topics, authors, citations }) => {
+                    // console.log("ResultShowing Component: ", article)
                     return (
                         <div className={"result"} key={article[0]}>
                             <div className={"result-detail"}>
-                                <a href={`/singlePaper/${encodeURIComponent(article[0])}`} className={"heading"}>
+                                <a href={`/singlePaper/${encodeURIComponent(article[0])}`} className={"heading"} target={"_blank"}>
                                     <h3>{article[3]}</h3>
                                 </a>
                                 <p>{article[4]}</p>
                                 <button
-                                    className={article.paper_PDF===null || article.paper_PDF === "" || article.paper_PDF === undefined?"disabled_pdf":"downloadButton tags"}
-                                    onClick={async ()=>{await handleDownloadPDF(article.paper_PDF)}}>
+                                    className={article[2]===null || article[2] === "" || article[2] === undefined?"disabled_pdf":"downloadButton tags"}
+                                    onClick={async ()=>{await handleDownloadPDF(article[2])}}>
                                     Download PDF
                                 </button>
 
@@ -95,7 +96,7 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
                                     className={"tags tags-button"}
                                     onClick={() => {
                                         window.open(
-                                            "https://vasturiano.github.io/3d-force-graph/example/highlight/",
+                                            `/graph/${encodeURIComponent(article[0])}`,
                                             "_blank"
                                         );
                                     }}
@@ -108,7 +109,7 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
                                         <h5 className={"heading"}>Authors: </h5>
                                         {authors.map((author) => (
                                             <a
-                                                href={`/profile/${author[0]}`}
+                                                href={`/profile/${encodeURIComponent(author[0])}`}
                                                 className={"authors"}
                                                 key={author[0]}
                                             >
