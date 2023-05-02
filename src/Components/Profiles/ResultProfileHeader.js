@@ -6,7 +6,8 @@ import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
 import {getPublisher} from "../../Services/AuthorProfileServices/PublisherDataService";
 
 export default function ResultProfileHeader(props) {
-    const {functionCalled, affiliationLink, affiliationName, publisherName, names, interests, publisherEmail, publisherHIndex, publisherHMedian, publisherSite, publisherStatus, publisherID} = props;
+    const {functionCalled, affiliationLink, affiliationName, publisherName,  names,interests, publisherEmail, publisherHIndex, publisherHMedian, publisherSite, publisherStatus} = props;
+    // names,
     return (
         <>
             {<div className={"profile_div"}>

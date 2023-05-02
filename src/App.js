@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
 import './Styles/Headers/Header.css';
@@ -32,7 +32,7 @@ import RecentPapers from "./Components/Home-Page/Recent-Papers"
 import ResultsShowing from "./Components/Result Page/ResultsShowing"
 import MiddleSearchArea from "./Components/Result Page/Search-Area";
 import ProfileResults from "./Components/Profiles/ProfileResults";
-import {PersonalProfilePage} from "./Components/Pages/PersonalProfilePage";
+import {PersonalProfilePage, AuthorProfile} from "./Components/Pages/PersonalProfilePage";
 import SignIn from "./Components/Common/SignIn";
 import SignUp from "./Components/Common/SignUp";
 import Contact from "./Components/ContactUs/Contact";
@@ -41,9 +41,12 @@ import TopCitedTopic from "./Components/Home-Page/TopCitedTopic";
 import TopCitedpapers from "./Components/Home-Page/TopCitedpapers";
 import RecommendedPapers from "./Components/Home-Page/RecommendedPapers";
 import RecommendedAuthors from "./Components/Profiles/AuthorRecommendations";
-import Details from "./Components/Singlepaper/details";
+import {PaperDetails} from "./Components/Singlepaper/PaperDetails";
 import {Routes,Route} from "react-router-dom";
 import ForgotPassword from "./Components/Common/ForgotPassword"
+import {articleObjects, sendArticleToController} from "./Sampe Data/DOIs";
+import {CitationsResultPages} from "./Components/Pages/CitationsResultPages";
+import {SinglePaperPage} from "./Components/Pages/SinglePaperPage";
 
 function App() {
   return (
@@ -59,13 +62,25 @@ function App() {
                             aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
                             lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
                         </p></div></div><Footer /></>} />
-            <Route path={'/results'} element={<><SearchHeader /><MiddleSearchArea /><hr/><ResultsShowing /><Footer /></>} />
-            <Route path={'/singlePaper'} element={<>
+            <Route path={'/results/:citations'} element={
+                <>
+                    <CitationsResultPages />
+                </>
+            } />
+            <Route path={'/results'} element={
+                <>
+                    <SearchHeader />
+                    <MiddleSearchArea />
+                    <hr/>
+                    <ResultsShowing />
+                    <Footer />
+            </>} />
+            <Route path={'/singlePaper/:paperDOI'} element={<>
                 <SearchHeader />
-                <Details />
-                <h1 style={{marginLeft:'30px', paddingLeft:'70px'}}>Citations</h1>
-                <hr style={{width:'85%',margin:'auto'}}/><ResultsShowing /><RecommendedPapers /><Footer /></>} />
-            <Route path={'/profile'} element={<><SearchHeader /><ProfileResults /><RecommendedAuthors /><Footer /></>} />
+                <SinglePaperPage />
+                <Footer />
+            </>} />
+            <Route path={'/profile/:authorID'} element={<AuthorProfile />} />
             <Route path={'/personalProfile'} element={<PersonalProfilePage />} />
             <Route path={'/admin'} element={<AdminPage />} />
             <Route path={'/signIn'} element={<SignIn />} />

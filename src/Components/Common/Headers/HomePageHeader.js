@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import navigation from "./Images/navigation.png";
 
 export default function HomepageHeader() {
-  const [isNavClicked, setIsNavClicked] = useState(true);
+  const [isNavClicked, setIsNavClicked] = useState(false);
 
   const handleNavigationClick = () => {
     setIsNavClicked((prevIsNavClicked) => !prevIsNavClicked);
@@ -11,7 +11,15 @@ export default function HomepageHeader() {
 
   return (
     <>
-      
+    <div id="mobile">
+      <text>KnowledgeVerse</text>
+      <img  className="navigation-icon"
+            src={navigation}
+            alt="Navigation Icon"
+            onClick={handleNavigationClick}
+      />
+
+        </div>
       <header className={`App-header Home-Page-Header ${isNavClicked ? "nav-clicked" : ""}`}>
         <div className={"header-options"}>
           <ul>

@@ -8,6 +8,7 @@ import {
     getTopics,
     removeSavedArticles
 } from "../../../Services/AuthorProfileServices/PublisherDataService";
+import {downloadPDF} from "../../../Services/AdminService/DataRetrievalMethods";
 export default function SavedArticles() {
     const context = useContext(User_Sign_In_Context)
     const [savedArticles, setSavedArticles] = useState([])
@@ -16,6 +17,17 @@ export default function SavedArticles() {
         success:false,
         error:false,
     })
+    const handleDownloadPDF = async (pdfAddress) => {
+        try {
+            const blob = await downloadPDF(pdfAddress);
+            // const blob = await response.blob();
+            const pdfUrl = URL.createObjectURL(blob);
+            window.open(pdfUrl, '_blank'); // Open PDF in a new tab
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         getSavedArticles(context.userLogIn.user_id).then((articles) => {
             const articlesContent = articles.map(async (article) => {
@@ -50,9 +62,14 @@ export default function SavedArticles() {
                                             <h3>{article.paperTitle}</h3>
                                         </a>
                                         <p>{article.paperAbstract}</p>
-                                        <a href={"#"} className={article.paperPDF===null?"disabled":"tags"}>
-                                            <span>Download PDF</span>
-                                        </a>
+                                        {/*<a href={"#"} className={article.paperPDF===null?"disabled":"tags"}>*/}
+                                        {/*    <span>Download PDF</span>*/}
+                                        {/*</a>*/}
+                                        <button
+                                            className={article.paper_PDF===null?"disabled_pdf":"downloadButton tags"}
+                                            onClick={async ()=>{await handleDownloadPDF(article.paper_PDF)}}>
+                                            Download PDF
+                                        </button>
                                         <Button
                                             className={"tags tags-button"}
                                             onClick={() => {

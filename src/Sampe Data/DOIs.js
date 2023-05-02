@@ -366,27 +366,27 @@ export const articleObjects = [
 // for(let key in keys){
 //    sendReferenceToController(key, references[key]).then()
 // }
-
-async function sendArticleToController(article, index) {
-    const response = await fetch('http://localhost:8765/KNOWLEDGEVERSE-MYSQL-WRITING-ENTITY/saveUploadedArticle', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            DOI: DOIs[index],
-            Title: article.Title,
-            Abstract: article.Abstract,
-            Year: article.Year,
-            Link: article.Link,
-            JournalName: article.JournalName,
-            Topics: article.Topics,
-            Authors: article.Authors
-        })
-    });
-    // const data = await response.json();
-}
-
-articleObjects.map(async (article, index) => {
-    await sendArticleToController(article, index);
-});
+//
+// export async function sendArticleToController(article, index) {
+//     const response = await fetch('http://localhost:8765/KNOWLEDGEVERSE-MYSQL-WRITING-ENTITY/saveUploadedArticle', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             DOI: DOIs[index],
+//             Title: article.Title,
+//             Abstract: article.Abstract,
+//             Year: article.Year,
+//             Link: article.Link,
+//             JournalName: article.JournalName,
+//             Topics: article.Topics,
+//             Authors: article.Authors
+//         })
+//     });
+//     // const data = await response.json();
+// }
+//
+// articleObjects.map(async (article, index) => {
+//     await sendArticleToController(article, index);
+// });
