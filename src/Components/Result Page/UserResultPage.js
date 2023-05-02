@@ -7,7 +7,8 @@ import {downloadPDF} from "../../Services/AdminService/DataRetrievalMethods";
 // /getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter
 
 
-export default function ResultsShowing({publisherData, updatingJournals, loadNewPage, fetchSearchArticles}) {
+export default function UserResultPage({publisherData, updatingJournals, loadNewPage, fetchSearchArticles}) {
+    console.log(publisherData)
     const [findArticlePagination, setFindArticlePagination] = useState({
         activePage:1,
         totalPages: 0,
@@ -15,19 +16,11 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
         elementsPerPage:0
     })
     const [articlesStat, setArticlesState] = useState([])
-    const [formState, setFormStat] = useState("")
-    const [searchPagination, setSearchPagination] = useState(false)
     const handleFindArticlePaginationClick = async (pageNumber) => {
         if(pageNumber === findArticlePagination.activePage) return;
-        if(!searchPagination){
-            loadNewPage((pageNumber - 1), findArticlePagination.elementsPerPage)
-        }
-        else{
-            await fetchSearchArticles((pageNumber - 1), findArticlePagination.elementsPerPage, formState)
-        }
+            await fetchSearchArticles((pageNumber - 1), findArticlePagination.elementsPerPage)
     };
     let items = [];
-    let list = []
     for (let number = 1; number <= findArticlePagination.totalPages; number++) {
         items.push(
             <Pagination.Item
@@ -65,10 +58,9 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
         });
         if (publisherData && publisherData.content) {
             const articlesContent = publisherData.content.map(async (article) => {
-                // updatingJournals(article[5]);
-                const topics = await getTopics(article[0]);
-                const authors = await getAuthors(article[0]);
-                const citations = await getCitations(article[0])
+                const topics = await getTopics(article.paper_DOI);
+                const authors = await getAuthors(article.paper_DOI);
+                const citations = await getCitations(article.paper_DOI)
                 return {
                     article,
                     topics,
@@ -79,12 +71,12 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
             Promise.all(articlesContent).then((results) => {
                 const articles = results.map(({ article, topics, authors, citations }) => {
                     return (
-                        <div className={"result"} key={article[0]}>
+                        <div className={"result"} key={article.paper_DOI}>
                             <div className={"result-detail"}>
-                                <a href={`/singlePaper/${encodeURIComponent(article[0])}`} className={"heading"}>
-                                    <h3>{article[3]}</h3>
+                                <a href={`/singlePaper/${encodeURIComponent(article.paper_DOI)}`} className={"heading"}>
+                                    <h3>{article.paper_Title}</h3>
                                 </a>
-                                <p>{article[4]}</p>
+                                <p>{article.paper_Abstract}</p>
                                 <button
                                     className={article.paper_PDF===null || article.paper_PDF === "" || article.paper_PDF === undefined?"disabled_pdf":"downloadButton tags"}
                                     onClick={async ()=>{await handleDownloadPDF(article.paper_PDF)}}>
@@ -105,25 +97,26 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
                             </div>
                             <div className={"result-metadata"}>
                                 {authors.length > 0 ? (<div>
-                                        <h5 className={"heading"}>Authors: </h5>
-                                        {authors.map((author) => (
-                                            <a
-                                                href={`/profile/${author[0]}`}
-                                                className={"authors"}
-                                                key={author[0]}
-                                            >
-                                                <span>{author[1]}</span>
-                                            </a>
-                                        ))}
-                                    </div>) : null}
+                                    <h5 className={"heading"}>Authors: </h5>
+                                    {authors.map((author) => (
+                                        <a
+                                            href={`/profile/${author[0]}`}
+                                            className={"authors"}
+                                            key={author[0]}
+                                        >
+                                            <span>{author[1]}</span>
+                                        </a>
+                                    ))}
+                                </div>) : null}
                                 <div>
                                     <h5 className={"heading heading-extra"}>Published at: </h5>
-                                    <span className={"publication-site"}>{article[5]} - {article[1]}</span>
+                                    <span className={"publication-site"}>{article.paper_Journal.journalName} - {article.published_Date}</span>
                                 </div>
-                                <div>
-                                    <h5 className={"heading heading-extra"}>Citations: </h5>
-                                    <a href={`results/${encodeURIComponent(article[0])}`} className={"publication-site"} target={"_blank"}>{citations[0].length}</a>
-                                </div>
+                                <h5 className={"heading heading-extra"}>Citations: </h5>
+                                {citations[0].length !==0 ?<div>
+                                    <a href={`/results/${encodeURIComponent(article.paper_DOI)}`}
+                                       className={"publication-site"} target={"_blank"}>{citations[0].length}</a>
+                                </div>:<><a className={"publication-site"} >{citations[0].length} </a></>}
                                 <div>
                                     <h5 className={"heading heading-extra"}>Topics Covered: </h5>
                                     {topics.map((topic) => (
@@ -142,30 +135,6 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
     }, [publisherData]);
     return (
         <>
-            <div className={"result-profile-filters"}>
-                <Form.Group controlId="formBasicDate" className={"middle-search-form advance-form-group filter-search-group"}>
-                    <Form.Control
-                        type="text"
-                        placeholder="Search Paper Title OR Abstract"
-                        className={"middle-search-input filter-search"}
-                        onChange={async (e)=>{ await setFormStat(e.target.value)}}
-                        value={formState}
-                    />
-                    <Button
-                        type="submit"
-                        onClick={async ()=>{
-                            if(formState.trim()===""){
-                                loadNewPage(0, 10)
-                                await setSearchPagination(false)
-                            }
-                            else{
-                                await fetchSearchArticles(0,10, formState)
-                                await setSearchPagination(true)
-                            }
-                        }}
-                        className={"middle-search-button filter-search-button"}>Search</Button>
-                </Form.Group>
-            </div>
             <div className={"results-showing"}>
                 {articlesStat}
                 <Pagination size="sm">{items}</Pagination>

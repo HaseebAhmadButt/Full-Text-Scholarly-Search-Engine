@@ -6,6 +6,7 @@ export const httpDelete = "DELETE"
 export const requestHeaders = {"Content-Type":"application/json", "Accept": "application/json"}
 export const ApiGatewayURL = "http://localhost:8765"
 export const serviceSQLReading = "KNOWLEDGEVERSE-MYSQL-READING-ENTITY"
+export const serviceGraphReading = "GRAPH-READ-SERVICE"
 export const serviceSQLWriting = "KNOWLEDGEVERSE-MYSQL-WRITING-ENTITY"
 
 export const httpStatusOk = 200;

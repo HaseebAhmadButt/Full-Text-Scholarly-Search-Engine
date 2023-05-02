@@ -1,25 +1,30 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
-    Nav,
-    Button,
-    Form,
-    Table,
-    InputGroup,
-    FormCheck,
-    Pagination,
     Alert,
+    Button,
     CloseButton,
-    FormGroup
+    Form,
+    FormCheck,
+    FormGroup,
+    InputGroup,
+    Nav,
+    Pagination,
+    Table
 } from "react-bootstrap";
 import {
+    deleteAuthorPapers,
     getAllArticles,
-    updateAddedArticles,
     getAllRequiredArticles,
-    getAllUploadedArticlesBySpecificPublisher, deleteAuthorPapers,
-    saveUploadArticle, getTopics, getAuthors
+    getAllUploadedArticlesBySpecificPublisher,
+    getAuthors,
+    getTopics,
+    saveUploadArticle,
+    updateAddedArticles
 } from "../../../Services/AuthorProfileServices/PublisherDataService";
 import User_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
 import {httpStatusInternalServerError} from "../../../Services/apiConstants";
+import {downloadPDF} from "../../../Services/AdminService/DataRetrievalMethods";
+
 export default function ProfileArticles() {
 
     const context = useContext(User_Sign_In_Context)
@@ -38,6 +43,8 @@ export default function ProfileArticles() {
         findArticle: false,
     });
     const [fileUploadForm, setFileUploadForm] = useState(false);
+    const [articlesStat, setArticlesState] = useState([])
+
     // Below state variable is responsible for retrieving Data for Find Articles Tab
     const [data, setData] = useState([])
     // For Personal Articles State
@@ -74,7 +81,6 @@ export default function ProfileArticles() {
 
     const getArticlesAll = async () =>{
         const result = await getAllArticles(context.userLogIn.user_id, (findArticlePagination.activePage-1), findArticlePagination.elementsPerPage);
-        console.log("Result: ",result)
         let pages;
         if(result.totalPages > 10){
             pages = 10
@@ -89,9 +95,8 @@ export default function ProfileArticles() {
             activePage: (result.pageable.pageNumber)+1,
             elementsPerPage: result.size
         }))
-        setData(result.content);
+        await setData(result.content);
     }
-
     const getAllUploadedArticlesByPublisher = async () =>{
         const result = await getAllUploadedArticlesBySpecificPublisher(context.publisher.publisherID, (uploadedArticlePagination.activePage-1), uploadedArticlePagination.elementsPerPage);
         let pages;
@@ -181,7 +186,8 @@ export default function ProfileArticles() {
                 console.error(error);
             }
         };
-        fetchData().then();
+
+        fetchData().then(()=>{});
     }, []);
     useEffect(() => {
         const fetchData = async () => {
@@ -194,29 +200,144 @@ export default function ProfileArticles() {
         };
         fetchData().then();
     }, [context.publisher.publisherID]);
+    useEffect(()=>{
+        if (data.length>0) {
+            const articlesContent = data.map(async (article) => {
+                // updatingJournals(article[5]);
+                const topics = await getTopics(article.paper_DOI);
+                const authors = await getAuthors(article.paper_DOI);
+                return {
+                    article,
+                    topics,
+                    authors,
+                };
+            });
+            Promise.all(articlesContent).then((results) => {
+                const articles = results.map(({ article, topics, authors }) => {
+                    return (
+                        <tr key={article.paper_DOI}>
+                            <td>
+                                <Form.Check
+                                    type={"checkbox"}
+                                    onChange={async (e) => {
+                                        await handleSelectedArticles(e, "find");
+                                    }}
+                                    className={"remove-select"}
+                                    value={article.paper_DOI}
+                                    checked={selectedArticles.includes(article.paper_DOI)}
+                                    name={"selectedArticles"}
+                                />
+                            </td>
+                            <td>
+                                <div className={"result"}>
+                                    <div className={"result-detail"}>
+                                        <a href={"#"} className={"heading"}>
+                                            <h3>{article.paper_Title}</h3>
+                                        </a>
+                                        <p>{article.paper_Abstract}</p>
+                                        <button
+                                            className={article.paper_PDF === null || article.paper_PDF  === ""? "disabled_pdf" : "downloadButton tags"}
+                                            onClick={async () => {
+                                                await handleDownloadPDF(article.paper_PDF);
+                                            }}
+                                        >
+                                            Download PDF
+                                        </button>
+                                        <Button
+                                            className={"tags tags-button"}
+                                            onClick={() => {
+                                                window.open("https://vasturiano.github.io/3d-force-graph/example/highlight/", "_blank");
+                                            }}
+                                        >
+                                            View Graph
+                                        </Button>
+                                    </div>
+                                    <div className={"result-metadata"}>
+                                        {authors.length > 0 ? (
+                                            <div>
+                                                <h5 className={"heading"}>Authors: </h5>
+                                                {authors.map((author) => (
+                                                    <a href={`/profile/${author[0]}`} className={"authors"} key={author[0]}>
+                                                        <span>{author[1]},</span>
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        ) : null}
+                                        <div>
+                                            <h5 className={"heading heading-extra"}>Published at: </h5>
+                                            {article.paper_Journal.journalName} - {article.published_Date}
+                                        </div>
+                                        {topics.length > 0 ? (
+                                            <div>
+                                                <h5 className={"heading heading-extra"}>Topics Covered: </h5>
+                                                {topics.map((topic, i) => (
+                                                    <a href={"#"} className={"tags"} key={i}>
+                                                        <span>{topic}</span>
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    );
+                });
+                setArticlesState(articles);
+            });
+        }
+
+    }, [data])
     const updateSearchParameter = async (e) =>{
         setSearchParameter({query: e.target.value})
     }
-    const handleSelectedArticles = async (e, flag) =>{
-        if(flag === "find"){
+    const handleSelectedArticles = async (e, flag) => {
+        if (flag === "find") {
             let updatedList = [...selectedArticles];
+
             if (e.target.checked) {
                 updatedList = [...selectedArticles, e.target.value];
             } else {
                 updatedList.splice(selectedArticles.indexOf(e.target.value), 1);
             }
-            await setSelectedArticles(updatedList)
-        }
-        else if(flag === "upload"){
+
+            await setSelectedArticles(updatedList);
+            e.target.checked = updatedList.includes(e.target.value);
+        } else if (flag === "upload") {
             let updatedList = [...uploadedArticles];
+
             if (e.target.checked) {
                 updatedList = [...uploadedArticles, e.target.value];
             } else {
                 updatedList.splice(uploadedArticles.indexOf(e.target.value), 1);
             }
-            await setUploadedArticles(updatedList)
+
+            await setUploadedArticles(updatedList);
+            e.target.checked = updatedList.includes(e.target.value);
         }
-    }
+    };
+
+    // const handleSelectedArticles = async (e, flag) =>{
+    //     if(flag === "find"){
+    //         let updatedList = [...selectedArticles];
+    //
+    //         if (e.target.checked) {
+    //             updatedList = [...selectedArticles, e.target.value];
+    //         } else {
+    //             updatedList.splice(selectedArticles.indexOf(e.target.value), 1);
+    //         }
+    //         await setSelectedArticles(updatedList)
+    //     }
+    //     else if(flag === "upload"){
+    //         let updatedList = [...uploadedArticles];
+    //         if (e.target.checked) {
+    //             updatedList = [...uploadedArticles, e.target.value];
+    //         } else {
+    //             updatedList.splice(uploadedArticles.indexOf(e.target.value), 1);
+    //         }
+    //         await setUploadedArticles(updatedList)
+    //     }
+    // }
     const getSearchedData = async () =>{
         if(search.query.trim() === "") return
         setSelectedArticles([])
@@ -256,8 +377,10 @@ export default function ProfileArticles() {
                 success: true,
                 error: false
             })
-            setSelectedArticles([])
-           await getArticlesAll()
+            await setSelectedArticles([])
+            await setData([])
+            await getArticlesAll();
+
 
         }
         else {
@@ -320,160 +443,96 @@ export default function ProfileArticles() {
                 removeAuthorNames(index)}} className={"close-button"}/></span>
         )
     })
-    // async function fetchData() {
-    //     const DataObjects = await Promise.all(data.map(async (article) => {
-    //         const topics = await getTopics(article.paper_DOI);
-    //         const authors = await getAuthors(article.paper_DOI);
-    //
-    //         return (
-    //             <tr>
-    //                 <td>
-    //                     <Form.Check
-    //                         type={"checkbox"}
-    //                         onChange={async (e) => {
-    //                             await handleSelectedArticles(e, "find");
-    //                         }}
-    //                         className={"remove-select"}
-    //                         value={article.paper_DOI}
-    //                         checked={selectedArticles.includes(article.paper_DOI)}
-    //                         name={"selectedArticles"}
-    //                     />
-    //                 </td>
-    //                 <td>
-    //                     <div className={"result"}>
-    //                         <div className={"result-detail"}>
-    //                             <a href={"#"} className={"heading"}>
-    //                                 <h3>{article.paper_Title}</h3>
-    //                             </a>
-    //                             <p>{article.paper_Abstract}</p>
-    //                             <a
-    //                                 href={"#"}
-    //                                 className={article.paperPDF === null ? "disabled" : "tags"}
-    //                             >
-    //                                 <span>Download PDF</span>
-    //                             </a>
-    //                             <Button
-    //                                 className={"tags tags-button"}
-    //                                 onClick={() => {
-    //                                     window.open(
-    //                                         "https://vasturiano.github.io/3d-force-graph/example/highlight/",
-    //                                         "_blank"
-    //                                     );
-    //                                 }}
-    //                             >
-    //                                 View Graph
-    //                             </Button>
-    //                         </div>
-    //                         <div className={"result-metadata"}>
-    //                             {authors.length > 0 ? (
-    //                                 <div>
-    //                                     <h5 className={"heading"}>Authors: </h5>
-    //                                     {authors.map((author) => (
-    //                                         <a href={`/profile/${author[0]}`} className={"authors"}>
-    //                                             <span>{author[1]},</span>
-    //                                         </a>
-    //                                     ))}
-    //                                 </div>
-    //                             ) : null}
-    //                             <div>
-    //                                 <h5 className={"heading heading-extra"}>Published at: </h5>
-    //                                 {article.paper_Journal.journalName} - {article.published_Date}
+    const handleDownloadPDF = async (pdfAddress) => {
+        try {
+            const blob = await downloadPDF(pdfAddress);
+            // const blob = await response.blob();
+            const pdfUrl = URL.createObjectURL(blob);
+            window.open(pdfUrl, '_blank'); // Open PDF in a new tab
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // const getDataObjects = async (data) => {
+    //     return await Promise.all(
+    //         data.map(async (article) =>
+    //         {
+    //             const topics = await getTopics(article.paper_DOI);
+    //             const authors = await getAuthors(article.paper_DOI);
+    //             return (
+    //                 <tr key={article.paper_DOI}>
+    //                     <td>
+    //                         <Form.Check
+    //                             type={"checkbox"}
+    //                             onChange={async (e) => {
+    //                                 await handleSelectedArticles(e, "find");
+    //                             }}
+    //                             className={"remove-select"}
+    //                             value={article.paper_DOI}
+    //                             checked={selectedArticles.includes(article.paper_DOI)}
+    //                             name={"selectedArticles"}
+    //                         />
+    //                     </td>
+    //                     <td>
+    //                         <div className={"result"}>
+    //                             <div className={"result-detail"}>
+    //                                 <a href={"#"} className={"heading"}>
+    //                                     <h3>{article.paper_Title}</h3>
+    //                                 </a>
+    //                                 <p>{article.paper_Abstract}</p>
+    //                                 <button
+    //                                     className={article.paper_PDF === null ? "disabled_pdf" : "downloadButton tags"}
+    //                                     onClick={async () => {
+    //                                         await handleDownloadPDF(article.paper_PDF);
+    //                                     }}
+    //                                 >
+    //                                     Download PDF
+    //                                 </button>
+    //                                 <Button
+    //                                     className={"tags tags-button"}
+    //                                     onClick={() => {
+    //                                         window.open("https://vasturiano.github.io/3d-force-graph/example/highlight/", "_blank");
+    //                                     }}
+    //                                 >
+    //                                     View Graph
+    //                                 </Button>
     //                             </div>
-    //                             {/*<div>*/}
-    //                             {/*    <h5 className={"heading"}>Cited By: </h5>*/}
-    //                             {/*    <a href={"#"}  className={"authors"}><span>255</span></a>*/}
-    //                             {/*</div>*/}
-    //                             {topics.length > 0 ? (
+    //                             <div className={"result-metadata"}>
+    //                                 {authors.length > 0 ? (
+    //                                     <div>
+    //                                         <h5 className={"heading"}>Authors: </h5>
+    //                                         {authors.map((author) => (
+    //                                             <a href={`/profile/${author[0]}`} className={"authors"} key={author[0]}>
+    //                                                 <span>{author[1]},</span>
+    //                                             </a>
+    //                                         ))}
+    //                                     </div>
+    //                                 ) : null}
     //                                 <div>
-    //                                     <h5 className={"heading heading-extra"}>Topics Covered: </h5>
-    //                                     {topics.map((topic) => (
-    //                                         <a href={"#"} className={"tags"}>
-    //                                             <span>{topic}</span>
-    //                                         </a>
-    //                                     ))}
+    //                                     <h5 className={"heading heading-extra"}>Published at: </h5>
+    //                                     {article.paper_Journal.journalName} - {article.published_Date}
     //                                 </div>
-    //                             ) : (
-    //                                 ""
-    //                             )}
+    //                                 {topics.length > 0 ? (
+    //                                     <div>
+    //                                         <h5 className={"heading heading-extra"}>Topics Covered: </h5>
+    //                                         {topics.map((topic, i) => (
+    //                                             <a href={"#"} className={"tags"} key={i}>
+    //                                                 <span>{topic}</span>
+    //                                             </a>
+    //                                         ))}
+    //                                     </div>
+    //                                 ) : null}
+    //                             </div>
     //                         </div>
-    //                     </div>
-    //                 </td>
-    //             </tr>
-    //         );
-    //     }));
-    //
-    //     return DataObjects;
-    // }
-    //
-    // fetchData().then((DataObjects) => {
-    //     // Use DataObjects here
-    // });
+    //                     </td>
+    //                 </tr>
+    //             );
+    //         })
+    //     );
+    // };
 
-
-    const DataObjects = data.map(async (article)=>{
-        const topics = await getTopics(article.paper_DOI);
-        const authors = await getAuthors(article.paper_DOI)
-       return(<tr>
-            <td>
-                <Form.Check
-                    type={'checkbox'}
-                    onChange={async (e)=>{ await handleSelectedArticles(e, "find")}}
-                    className={"remove-select"}
-                    value={article.paper_DOI}
-                    checked={selectedArticles.includes(article.paper_DOI)}
-                    name={"selectedArticles"}
-                />
-            </td>
-            <td>
-                <div className={"result"}>
-                    <div className={"result-detail"}>
-                        <a href={"#"} className={"heading"}><h3>{article.paper_Title}</h3></a>
-                        <p>{article.paper_Abstract}</p>
-                        <a href={"#"} className={article.paperPDF===null?"disabled":"tags"}>
-                            <span>Download PDF</span>
-                        </a>
-                        <Button
-                            className={"tags tags-button"}
-                            onClick={() => {
-                                window.open(
-                                    "https://vasturiano.github.io/3d-force-graph/example/highlight/",
-                                    "_blank"
-                                );
-                            }}
-                        >
-                            View Graph
-                        </Button>
-                    </div>
-                    <div className={"result-metadata"}>
-                        {authors.length>0?<div>
-                            <h5 className={"heading"}>Authors: </h5>
-                            {authors.map((author) => (
-                                <a href={`/profile/${author[0]}`} className={'authors'}>
-                                    <span>{author[1]},</span>
-                                </a>
-                            ))}
-
-                        </div>:null}
-                        <div>
-                            <h5 className={"heading heading-extra"}>Published at: </h5>
-                            {article.paper_Journal.journalName} - {article.published_Date}
-                        </div>
-                        {/*<div>*/}
-                        {/*    <h5 className={"heading"}>Cited By: </h5>*/}
-                        {/*    <a href={"#"}  className={"authors"}><span>255</span></a>*/}
-                        {/*</div>*/}
-                        {topics.length>0?<div><h5 className={"heading heading-extra"}>Topics Covered: </h5>
-                            {topics.map((topic) => (
-                                <a href={'#'} className={'tags'}>
-                                    <span>{topic}</span>
-                                </a>
-                            ))}
-                        </div>:""}
-                    </div>
-                </div>
-            </td>
-        </tr>)
-    })
+// Call the asynchronous function outside of the table component
     const addArticleData = tableData.map((articleData)=>{
         return(
             <tr>
@@ -492,7 +551,7 @@ export default function ProfileArticles() {
             </tr>
         )
     })
-    console.log(DataObjects)
+    // console.log(DataObjects)
     const updateFormState = async (e) =>{
         const fieldName = e.target.name
         await setFormState(prevState => ({...prevState, [fieldName]:e.target.value}))
@@ -836,9 +895,7 @@ export default function ProfileArticles() {
                                     <h5>Articles Selected: {selectedArticles.length}</h5>
                                 </Form.Group>
                             <Table className={"profile-articles-finding-table"}>
-                                {async ()=>{
-                                    return await DataObjects
-                                }}
+                                {articlesStat}
                             </Table>
                                 <Pagination size="sm">{items}</Pagination>
                                 <Button

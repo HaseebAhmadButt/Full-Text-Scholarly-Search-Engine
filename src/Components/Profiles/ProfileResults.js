@@ -95,7 +95,7 @@ export default function ProfileResults(props) {
                         publisherHIndex= {profileObject.publisherHIndex}
                         publisherHMedian= {profileObject.publisherHMedian}
                         publisherID= {profileObject.publisherID}
-                        publisherName= {profileObject.affiliationName}
+                        publisherName= {profileObject.publisherName}
                         publisherSite= {profileObject.publisherSite}
                         publisherStatus= {profileObject.publisherStatus}
                         interests= {profileObject.interests}

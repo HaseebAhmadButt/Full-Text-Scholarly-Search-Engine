@@ -67,8 +67,14 @@ function SignIn() {
                 error.passwordDifferent = true
             }
         }
-        setErrors(error)
-        if (!errors.emailRequired && !errors.incorrectEmail && !errors.nameRequired && !errors.passwordRequired && !errors.passwordLength && !errors.confirmRequired && !errors.passwordDifferent) {
+        await setErrors(error)
+        if (!error.emailRequired
+            && !error.incorrectEmail
+            && !error.nameRequired
+            && !error.passwordRequired
+            && !error.passwordLength
+            && !error.confirmRequired
+            && !error.passwordDifferent) {
             const sha1 = require("sha1")
             const password = sha1(formValues.password)
             const data = {
@@ -84,7 +90,6 @@ function SignIn() {
                 }
                 else {
                     setTimeout(() => {
-                        console.log(context.userLogIn)
                         if(context.userLogIn.isAdmin) navigator("/admin");
                         else navigator("/signIn");
                     }, 2000);

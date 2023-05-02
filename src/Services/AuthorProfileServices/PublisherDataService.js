@@ -5,7 +5,7 @@ import {
     post,
     httpGet,
     httpStatusNotFound,
-    serviceSQLWriting, httpStatusInternalServerError
+    serviceSQLWriting, httpStatusInternalServerError, serviceGraphReading
 } from "../apiConstants"
 export async function getPublisher(data){
     const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getPublisher`, {
@@ -15,6 +15,15 @@ export async function getPublisher(data){
     });
     if(response.status===httpStatusNotFound) return "Not Found";
     if (!response.ok) return "Error"
+    return response.json();
+}
+export async function getPublisherWithPublisherID(publisherID){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getPublisherWithPublisherID?publisherID=${publisherID}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if(response.status===httpStatusNotFound) return httpStatusNotFound;
+    if (!response.ok) return httpStatusInternalServerError
     return response.json();
 }
 
@@ -124,6 +133,14 @@ export async function getAllAcceptedArticlesBySpecificPublisherHavingQueryParame
     if (!response.ok) return httpStatusInternalServerError
     return response.json();
 }
+export async function getCitations(DOI){
+    const response = await fetch(`${ApiGatewayURL}/${serviceGraphReading}/papers/citing?paperId=${DOI}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
 export async function removeSavedArticles(data){
     const response = await fetch(`${ApiGatewayURL}/${serviceSQLWriting}/removeArticle`, {
         method: post,
@@ -132,5 +149,14 @@ export async function removeSavedArticles(data){
     });
     if (!response.ok) return httpStatusInternalServerError
     return response.status;
+}
+export async function getCitingArticles(data){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getAllCitingArticles`, {
+        method: post,
+        headers:requestHeaders,
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
 }
 
