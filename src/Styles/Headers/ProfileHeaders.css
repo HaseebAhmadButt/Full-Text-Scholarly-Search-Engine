@@ -5,3 +5,6 @@
 .profile-pic-div{
     /*align-items: ;*/
 }
+.header-image:hover{
+    cursor: pointer;
+}

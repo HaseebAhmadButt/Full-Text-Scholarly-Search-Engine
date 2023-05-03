@@ -16,10 +16,10 @@
     margin: 0 40% ;
 }
 .PersonalArticles tr, .profile-articles-finding-table tr{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
     gap: 1em;
     margin-bottom: 2%;
 }

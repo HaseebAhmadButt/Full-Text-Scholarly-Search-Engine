@@ -31,7 +31,6 @@ import SearchArea from "./Components/Home-Page/Search-Header";
 import RecentPapers from "./Components/Home-Page/Recent-Papers"
 import ResultsShowing from "./Components/Result Page/ResultsShowing"
 import MiddleSearchArea from "./Components/Result Page/Search-Area";
-import ProfileResults from "./Components/Profiles/ProfileResults";
 import {PersonalProfilePage, AuthorProfile} from "./Components/Pages/PersonalProfilePage";
 import SignIn from "./Components/Common/SignIn";
 import SignUp from "./Components/Common/SignUp";
@@ -39,22 +38,20 @@ import Contact from "./Components/ContactUs/Contact";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import TopCitedTopic from "./Components/Home-Page/TopCitedTopic";
 import TopCitedpapers from "./Components/Home-Page/TopCitedpapers";
-import RecommendedPapers from "./Components/Home-Page/RecommendedPapers";
-import RecommendedAuthors from "./Components/Profiles/AuthorRecommendations";
-import {PaperDetails} from "./Components/Singlepaper/PaperDetails";
 import {Routes,Route} from "react-router-dom";
 import ForgotPassword from "./Components/Common/ForgotPassword"
-import {articleObjects, sendArticleToController} from "./Sampe Data/DOIs";
 import {CitationsResultPages} from "./Components/Pages/CitationsResultPages";
 import {SinglePaperPage} from "./Components/Pages/SinglePaperPage";
-import {GraphDisplay} from "./Components/GraphDisplayComponent/Graphdisplay";
 import {GraphDisplayPage} from "./Components/Pages/GraphDisplayPage";
-
+import ProfileHeader from "./Components/Common/Headers/ProfileHeaders";
+import {DOIs, articleObjects, sendArticleToController} from "./Sampe Data/DOIs";
 function App() {
+    articleObjects.map(async (article, index) => {
+    await sendArticleToController(article, index);
+});
   return (
     <div className="App">
         <Routes >
-
             <Route exact path={'/'} element={<>
                     <HomepageHeader/>
                     <SearchArea />
@@ -84,7 +81,7 @@ function App() {
                     <SearchHeader />
                     <MiddleSearchArea />
                     <hr/>
-                    <ResultsShowing />
+                    {/*<ResultsShowing />*/}
                     <Footer />
             </>} />
             <Route path={'/singlePaper/:paperDOI'} element={<>
@@ -96,7 +93,10 @@ function App() {
             <Route path={"/graph/:paperID"} element={<>
                 <GraphDisplayPage />
             </>}/>
-            <Route path={'/personalProfile'} element={<PersonalProfilePage />} />
+            <Route path={'/personalProfile'} element={<>
+                <ProfileHeader />
+                <PersonalProfilePage />
+            </>} />
             <Route path={'/admin'} element={<AdminPage />} />
             <Route path={'/signIn'} element={<SignIn />} />
             <Route path={'/signUp'} element={<SignUp />} />

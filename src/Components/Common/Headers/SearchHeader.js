@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 // import React from "react";
 import {Button} from "react-bootstrap";
 import navigation from "./Images/navigation.png";
+import user_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
+import {useNavigate} from "react-router-dom";
 
 
 export default function SearchHeader() {
+    const context = useContext(user_Sign_In_Context)
+    const navigator = useNavigate()
+
 
     const [isNavClicked, setIsNavClicked] = useState(true);
 
@@ -32,11 +37,33 @@ export default function SearchHeader() {
                         <li className={"Laptop-LogIn"}><a href={"/signIn"}>Login</a></li>
                     </ul>
                 </div>
-                <div className={"login-Div"}>
-                    <ul>
-                        <li><a href={"/signIn"}><Button> Login</Button></a></li>
-                    </ul>
-                </div>
+                {context.userLogIn.isAuthenticated?
+                    <div className={`login-Div ${isNavClicked ? "nav-clicked" : ""}` }>
+                        <ul>
+                            <li>
+                                <img
+                                    onClick={()=>{navigator("/personalProfile")}}
+                                    src={process.env.PUBLIC_URL+"/Images/Profile_Images/download.png"}
+                                    className={"header-image"}/>
+                            </li>
+                        </ul>
+                    </div>
+                    :
+                    <div className={`login-Div ${isNavClicked ? "nav-clicked" : ""}` }>
+                        <ul>
+                            <li>
+                                <Button
+                                    onClick={()=>{navigator("/signIn")}}
+                                > Login</Button>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                {/*<div className={"login-Div"}>*/}
+                {/*    <ul>*/}
+                {/*        <li><a href={"/signIn"}><Button> Login</Button></a></li>*/}
+                {/*    </ul>*/}
+                {/*</div>*/}
 
             </header>
         </>
