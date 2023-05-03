@@ -9,12 +9,9 @@ import {
     getAcceptedPublishedArticles, getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter,
     getPublisherWithPublisherID
 } from "../../Services/AuthorProfileServices/PublisherDataService"
-import ProfileResults from "../Profiles/ProfileResults";
-import RecommendedAuthors from "../Profiles/AuthorRecommendations";
 import {Alert} from "react-bootstrap";
 import ResultProfileHeader from "../Profiles/ResultProfileHeader";
 import ResultsShowing from "../Result Page/ResultsShowing";
-import ResultsShowingSearch from "../Profiles/ResultProfileSearch";
 import {httpStatusInternalServerError, httpStatusNotFound} from "../../Services/apiConstants";
 export const PersonalProfilePage = ()=>{
     const navigator = useNavigate();
@@ -27,7 +24,7 @@ export const PersonalProfilePage = ()=>{
 
 
 
-    return(<><ProfileHeader /><PersonalProfile /><Footer /></>)
+    return(<><PersonalProfile /><Footer /></>)
 }
 export const AuthorProfile = () =>{
     const navigator = useNavigate()
@@ -121,12 +118,11 @@ export const AuthorProfile = () =>{
     };
 
 
-    return(<><SearchHeader />
+    return(<>
             <div className={"main-user-profile"}>
                 {errors.notFoundError?<Alert variant={"danger"}>No data Found</Alert>:""}
                 {errors.serverError?<Alert variant={"danger"}>Error in Fetching Data from Server</Alert>:""}
                 <ResultProfileHeader
-                    functionCalled = "{settings}"
                     affiliationLink= {profileObject.affiliationLink}
                     affiliationName= {profileObject.affiliationName}
                     publisherEmail=  {profileObject.publisherEmail}
