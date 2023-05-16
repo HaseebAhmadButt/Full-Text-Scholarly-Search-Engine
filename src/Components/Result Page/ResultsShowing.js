@@ -4,10 +4,13 @@ import {Button, Form} from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
 import {getTopics, getAuthors, getCitations} from "../../Services/AuthorProfileServices/PublisherDataService"
 import {downloadPDF} from "../../Services/AdminService/DataRetrievalMethods";
+import {useNavigate} from "react-router-dom";
 // /getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter
 
 
 export default function ResultsShowing({publisherData, updatingJournals, loadNewPage, fetchSearchArticles}) {
+    const navigator = useNavigate()
+
     const [findArticlePagination, setFindArticlePagination] = useState({
         activePage:1,
         totalPages: 0,
@@ -82,10 +85,15 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
                     return (
                         <div className={"result"} key={article[0]}>
                             <div className={"result-detail"}>
-                                <a href={`/singlePaper/${encodeURIComponent(article[0])}`} className={"heading"} target={"_blank"}>
-                                    <h3>{article[3]}</h3>
+                                <a className={"heading"} target={"_blank"}>
+                                    <h3
+                                        target={"_blank"}
+                                        onClick={()=>{
+                                            navigator(`/singlePaper/${encodeURIComponent(article[0])}`)
+                                        }}
+                                    >{article[3]}</h3>
                                 </a>
-                                <p>{article[4]}</p>
+                                <p>{article[4].slice(0,255)}</p>
                                 <button
                                     className={article[2]===null || article[2] === "" || article[2] === undefined?"disabled_pdf":"downloadButton tags"}
                                     onClick={async ()=>{await handleDownloadPDF(article[2])}}>
@@ -123,13 +131,21 @@ export default function ResultsShowing({publisherData, updatingJournals, loadNew
                                 </div>
                                 <div>
                                     <h5 className={"heading heading-extra"}>Citations: </h5>
-                                    <a href={`results/${encodeURIComponent(article[0])}`} className={"publication-site"} target={"_blank"}>{citations[0].length}</a>
+                                    {citations[0].length !==0 ?<span onClick={()=>{
+                                        navigator(`/results/${encodeURIComponent(article[0])}`)
+                                    }} className={"publication-site"} target={"_blank"}
+                                          style={{cursor: "pointer", color: "skyblue"}}
+                                    >{citations[0].length}</span>:0}
                                 </div>
                                 <div>
                                     <h5 className={"heading heading-extra"}>Topics Covered: </h5>
                                     {topics.map((topic) => (
-                                        <a href={"/results"} className={"tags"} key={topic}>
-                                            <span>{topic}</span>
+                                        <a>
+                                            <span
+                                                className={"tags"}
+                                                key={topic}
+                                                onClick={()=>{ navigator(`/search/results/${topic}`)}}
+                                            >{topic}</span>
                                         </a>
                                     ))}
                                 </div>

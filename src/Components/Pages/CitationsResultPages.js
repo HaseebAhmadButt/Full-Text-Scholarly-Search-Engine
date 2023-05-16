@@ -20,6 +20,10 @@ export const CitationsResultPages = () =>{
     const [foundDOIs, setDOIs] = useState([])
     const [publisherData, setPublisherData] = useState({})
     const [journals, setJournals] = useState([])
+    const [query, setQuery] = useState("")
+
+
+
     const fetchPaginationArticles = async (pageNo, pageSize)=>{
         // const articleData = await getAcceptedPublishedArticles(pageNo, pageSize, profileObject.publisherID)
         // await setPublisherData(articleData)
@@ -84,14 +88,19 @@ export const CitationsResultPages = () =>{
                     <Form.Group controlId="UserSearch" className={"middle-search-form"}>
                         <Form.Control
                             type="text"
-                            // value={formValues.search}
-                            // onChange={async (e) => {
-                            //     await setFormValues((prev) => ({...prev, search: e.target.value}))
-                            //}}
+                            value={query}
+                            onChange={async (e) => {
+                                await setQuery(e.target.value)
+                            }}
                             placeholder="Search for a paper, author, or topic"
                             className={"middle-search-input"}/>
                         <Button type="submit" className={"middle-search-button"}
-                                // onClick={OpenSearchresuls}
+                                onClick={
+                                    async () =>{
+                                        if(query.trim().length===0) return
+                                        navigate(`/search/results/${query}`)
+                                    }
+                        }
                         ><FontAwesomeIcon icon={faSearchengin}/></Button>
                     </Form.Group>
                 </Form>

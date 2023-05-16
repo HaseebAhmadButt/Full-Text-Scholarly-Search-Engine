@@ -113,7 +113,6 @@ export default function AdminAcceptArticle() {
     };
 
     const articles = acceptedArticles.map((article, index)=>{
-        console.log(article)
 
         const handleStatusChange = (event) => {
             const updatedArticles = { ...article, paper_STATUS: event.target.value };

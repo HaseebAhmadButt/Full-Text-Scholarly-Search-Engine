@@ -23,6 +23,12 @@
     gap: 1em;
     margin-bottom: 2%;
 }
+.result-page{
+    /*margin: 2%;*/
+}
+.Pagination{
+    margin-left: 5%;
+}
 .remove-select{
     font-weight: bolder;
 }

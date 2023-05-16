@@ -1,10 +1,8 @@
-import ProfileHeader from "../Common/Headers/ProfileHeaders";
 import PersonalProfile from "../Profiles/User Profile/PersonalProfile";
 import Footer from "../Common/Footer";
 import React, {useContext, useEffect, useState} from "react";
 import {useParams,useNavigate} from "react-router-dom";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
-import SearchHeader from "../Common/Headers/SearchHeader";
 import {
     getAcceptedPublishedArticles, getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter,
     getPublisherWithPublisherID
@@ -34,7 +32,6 @@ export const AuthorProfile = () =>{
     if(!(authorID.length <= 20)) {
         navigator("/")
     }
-
     const [profileObject, setProfileObject] = useState({
         affiliationLink: "",
         affiliationName:"",

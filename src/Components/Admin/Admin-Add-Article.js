@@ -2,7 +2,11 @@ import React, {useContext, useEffect, useState} from "react";
 import {Button, Form, FormCheck, InputGroup, Pagination, Table} from "react-bootstrap";
 import {getAllAddedArticles, getAllAddedArticlesWithQuery, downloadPDF} from "../../Services/AdminService/DataRetrievalMethods";
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
-import {AcceptUploadedArticle,  RejectUploadedArticle, } from "../../Services/AdminService/DataWriteService"
+import {
+    AcceptUploadedArticle,
+    RejectSingleArticle,
+    RejectUploadedArticle,
+} from "../../Services/AdminService/DataWriteService"
 
 export default function AdminAddArticle() {
     const context = useContext(User_Sign_In_Context)
@@ -104,7 +108,7 @@ export default function AdminAddArticle() {
                 adminID: context.userLogIn.user_id,
                 Reason: reason
             }
-            await RejectUploadedArticle(body)
+            await RejectSingleArticle(body)
         }
         if(paginationStat) await getArticlesWithQuery(0, findAuthorPagination.elementsPerPage, searchQuery)
         else await getArticles(0, findAuthorPagination.elementsPerPage);

@@ -30,7 +30,7 @@ export default function ResultProfileHeader(props) {
                             {affiliationName !== ""?<><b> Affiliation: </b> <a href={affiliationLink}>{affiliationName}</a></>:""}
                         </Card.Text>
                         <Card.Text className={"text-area"}>
-                            {interests.length > 0?<><b>Research Areas:</b>{interests.map((value)=>{return(<a href={"#"} className={'interests'}><span>{value}</span></a>)})}</>:""}
+                            {interests.length > 0?<><b>Research Areas:</b>{interests.map((value)=>{return(<a href={`/search/results/${value}`} target={"_blank"} className={'interests'}><span>{value}</span></a>)})}</>:""}
                         </Card.Text>
                         {/*<a href={"#"} className={'interests'}><span>Natural Language Processing,</span></a>*/}
                         {/*<a href={"#"} className={'interests'}><span>Data Science,</span></a>*/}

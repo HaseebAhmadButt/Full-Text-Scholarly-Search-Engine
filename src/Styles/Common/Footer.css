@@ -21,6 +21,9 @@
 .purpose, .suggestions,.categories{
     flex: 25%;
 }
+.suggestionTitle, .suggestionMessage{
+    margin-bottom: 2%;
+}
 .purpose h2, .suggestions h2, .categories h2{
     font-size:24px;
     text-align: left;

@@ -82,7 +82,7 @@ export async function getStats(){
 export async function downloadPDF(pdfAddress){
     const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/downloadPDF?pdfAddress=${pdfAddress}`, {
         method: httpGet,
-        headers:{"Content-Type":"application/json", "Accept": "application/pdf"},
+        // headers:{"Content-Type":"application/json", "Accept": "application/pdf"},
         // mode: 'cors',
         credentials: 'include'
     });

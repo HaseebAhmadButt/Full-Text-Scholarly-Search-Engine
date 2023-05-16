@@ -74,6 +74,7 @@ export default function AdminPersonalInformation() {
 
             const sha1 = require("sha1");
             const Password = sha1(formValues.password);
+            console.log(formValues.password, Password)
             const passData = {
                 Email: `${context.userLogIn.user_email}`,
                 Password: `${Password}`
@@ -83,8 +84,6 @@ export default function AdminPersonalInformation() {
                 ID: context.userLogIn.user_id,
                 Name: `${formValues.name}`
             };
-
-
             try{
                 const results = await Promise.all([changeName(nameData), changePassword(passData)])
                 if(results.every(value => value === 200)) {

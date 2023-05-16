@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import {Button, Collapse} from "react-bootstrap";
 export default function RecentPapers(){
     const [showMore, setShowMore] = React.useState(false);
+
     return (
         <>
             <div className={"recent-papers"}>

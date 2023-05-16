@@ -1,7 +1,7 @@
 .contact-form{
     width: 80vw;
     height: 80vh;
-    margin:2% auto ;
+    margin:5% auto ;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -41,6 +41,7 @@
 .form_contact{
     width: 80%;
     height: 80%;
+    /*margin-bottom: 2%;*/
     vertical-align: middle;
     horiz-align: center;
     display: flex;

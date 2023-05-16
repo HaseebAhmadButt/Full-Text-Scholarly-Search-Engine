@@ -117,7 +117,7 @@ export default function AdminDeletedArticle() {
                 <td>{article[0]?.published_Date}</td>
                 <td>{article[0]?.paper_Title}</td>
                 <td><button
-                    className={article.paper_PDF===null?"disabled_pdf":"downloadButton"}
+                    className={article.paper_PDF===null||article.paper_PDF===undefined?"disabled_pdf":"downloadButton"}
                     onClick={async ()=>{await handleDownloadPDF(article[0].paper_PDF)}
                     }>Download PDF</button></td>
                 <td>{article[1]}</td>

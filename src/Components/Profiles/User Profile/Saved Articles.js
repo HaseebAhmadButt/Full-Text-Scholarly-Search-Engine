@@ -9,7 +9,10 @@ import {
     removeSavedArticles
 } from "../../../Services/AuthorProfileServices/PublisherDataService";
 import {downloadPDF} from "../../../Services/AdminService/DataRetrievalMethods";
+import {useNavigate} from "react-router-dom";
 export default function SavedArticles() {
+    const navigator = useNavigate()
+
     const context = useContext(User_Sign_In_Context)
     const [savedArticles, setSavedArticles] = useState([])
     const [selectedArticles, setSelectedArticles] = useState([])
@@ -28,9 +31,11 @@ export default function SavedArticles() {
         }
     };
 
-    useEffect(() => {
+    const updateSavedArticlesWithNewArticles=async ()=>{
+        let savedArticleIDs = []
         getSavedArticles(context.userLogIn.user_id).then((articles) => {
             const articlesContent = articles.map(async (article) => {
+                savedArticleIDs.push(article.paperDOI)
                 const topics = await getTopics(article.paperDOI);
                 const authors = await getAuthors(article.paperDOI);
                 const citations = await getCitations(article[0])
@@ -43,6 +48,7 @@ export default function SavedArticles() {
 
                 };
             });
+            console.log(savedArticleIDs, "Context values are: ", context)
             Promise.all(articlesContent).then((results) => {
                 const articles = results.map(({ article, topics, authors, citations }) => {
                     return (
@@ -62,16 +68,17 @@ export default function SavedArticles() {
                             <td>
                                 <div className={'result'}>
                                     <div className={'result-detail'}>
-                                        <a href={`/singlePaper/${encodeURIComponent(article.paperDOI)}`}
-                                           className={"heading"}
-                                           target={"_blank"}
+                                        <a
+                                            className={"heading"}
+                                            target={"_blank"}
                                         >
-                                            <h3>{article.paperTitle}</h3>
+                                            <h3
+                                                onClick={()=>{
+                                                    navigator(`/singlePaper/${encodeURIComponent(article.paperDOI)}`)
+                                                }}
+                                            >{article.paperTitle}</h3>
                                         </a>
-                                        <p>{article.paperAbstract}</p>
-                                        {/*<a href={"#"} className={article.paperPDF===null?"disabled":"tags"}>*/}
-                                        {/*    <span>Download PDF</span>*/}
-                                        {/*</a>*/}
+                                        <p>{article.paperAbstract.slice(0, 255)}</p>
                                         <button
                                             className={article.paperPDF===null || article.paperPDF === "" || article.paperPDF === undefined?"disabled_pdf":"downloadButton tags"}
                                             onClick={async ()=>{await handleDownloadPDF(article.paperPDF)}}>
@@ -112,8 +119,12 @@ export default function SavedArticles() {
                                             <div>
                                                 <h5 className={'heading heading-extra'}>Topics Covered: </h5>
                                                 {topics.map((topic) => (
-                                                    <a href={'#'} className={'tags'}>
-                                                        <span>{topic}</span>
+                                                    <a>
+                                                        <span
+                                                            key={topic}
+                                                            className={"tags"}
+                                                            onClick={()=>{handleNavigation(topic)}}
+                                                        >{topic}</span>
                                                     </a>
                                                 ))}
                                             </div>
@@ -125,39 +136,57 @@ export default function SavedArticles() {
                     );
                 });
                 setSavedArticles(articles);
+                context.addSavedArticleIDs(savedArticleIDs)
             });
         });
-    }, []);
-    const handleSelectedArticles = async (e) =>{
-            let updatedList = [...selectedArticles];
-            if (e.target.checked) {
-                updatedList = [...selectedArticles, e.target.value];
-            } else {
-                updatedList.splice(selectedArticles.indexOf(e.target.value), 1);
-            }
-            await setSelectedArticles(updatedList)
     }
-    const handleRemoveArticles = async () =>{
-        if(selectedArticles.length <= 0){
-            alert("No Article Selected.")
-        }
-        else{
-            const data = {
-                DOIs: selectedArticles,
-                userID: context.userLogIn.user_id
-            }
 
-            const response = await removeSavedArticles(data)
-            if(response === 200){
-                await getSavedArticles(context.userLogIn.user_id).then(r => setSavedArticles(r))
-                await setAlerts({success: true, error: false})
-                await setSelectedArticles([])
+    const handleNavigation = (topic)=>{
+        navigator(`/search/results/${topic}`)
+    }
+    useEffect(() => {
+      updateSavedArticlesWithNewArticles().then()
+
+    }, [selectedArticles]);
+    // updatedList = [...selectedArticles, e.target.value];
+    // updatedList.splice(selectedArticles.indexOf(e.target.value), 1);
+    // let updatedList = [...selectedArticles];
+
+
+
+    const handleSelectedArticles = async (e) => {
+        if (e.target.checked) {
+            await setSelectedArticles(prevState => [...prevState, e.target.value]);
+        } else {
+            await setSelectedArticles(prevState => prevState.filter(item => item !== e.target.value));
+        }
+    };
+
+        const handleRemoveArticles = async () =>{
+            if(selectedArticles.length <= 0){
+                alert("No Article Selected.")
             }
-            else {
-                await setAlerts({success: false, error: true})
+            else{
+                const data = {
+                    DOIs: selectedArticles,
+                    userID: context.userLogIn.user_id
+                }
+
+                const response = await removeSavedArticles(data)
+                if(response === 200){
+                    await updateSavedArticlesWithNewArticles()
+                    await setAlerts({success: true, error: false})
+                    await setSelectedArticles([])
+                    selectedArticles.map(async (articleID)=>{
+                        await context.deleteSavedArticle(articleID)
+                    })
+
+                }
+                else {
+                    await setAlerts({success: false, error: true})
+                }
             }
         }
-    }
     return(
         <div className={"PersonalArticles saved-articles"}>
             {alerts.success?<Alert variant={"success"}>Saved Articles List Updated Successfully.</Alert>:""}

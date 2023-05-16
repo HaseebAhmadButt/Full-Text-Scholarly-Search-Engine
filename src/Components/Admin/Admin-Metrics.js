@@ -15,13 +15,14 @@ export default function AdminMetrics() {
     const [journal, setJournal] = useState([])
     useEffect(()=>{
         getStats().then(async (r)=> {
+            console.log(r)
             // await setArticleProps(prevState => ([]))
             await setStats({
-                acceptedArticles:r.articleStats[0][1],
-                rejectedArticles:r.articleStats[1][1],
-                InprogressArticles:r.articleStats[2][1],
-                BlockedAuthors:r.publisherStats[1][1],
-                ActiveAuthors:r.publisherStats[0][1],
+                acceptedArticles:(r.articleStats[0] && r.articleStats[0][1]) || 0,
+                rejectedArticles:(r.articleStats[1] && r.articleStats[1][1]) || 0,
+                InprogressArticles:(r.articleStats[2] && r.articleStats[2][1]) || 0,
+                BlockedAuthors:(r.publisherStats[1] && r.publisherStats[1][1]) || 0,
+                ActiveAuthors:(r.publisherStats[0] && r.publisherStats[0][1]) || 0,
                 articleProps: r.articleYearData
             })
             await setJournal(r.journalStats)

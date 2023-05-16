@@ -83,6 +83,7 @@ export default function UpdateResearcherInformation() {
         {
             Object.emptyFields = true
             setAlerts(Object)
+            return;
         }
             const data = {
                 email: `${formValues.professionalEmail}`,
@@ -162,7 +163,7 @@ export default function UpdateResearcherInformation() {
             </Form.Group>
             <Form.Group controlId="UserSearch"  className={"personal-profile-update-fields"}>
                 <Form.Label>
-                    E-Mail for Verification <span className={"important-star"}>*</span>
+                    Researcher E-Mail <span className={"important-star"}>*</span>
                 </Form.Label>
                 <Form.Control
                     type="text"
