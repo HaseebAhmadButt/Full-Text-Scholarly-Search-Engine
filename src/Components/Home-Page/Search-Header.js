@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import BackgroundImage from "../../Background Images/Home-Background.png";
 import {Form, Button, InputGroup} from "react-bootstrap";
 import {faSearchengin} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {getResults} from "../../Services/UserService/UserSearchService";
+import {useNavigate} from "react-router-dom";
 
 
 export default function SearchArea() {
-        const OpenResearchable = (e) => {
+
+    const navigator = useNavigate()
+    const [searchQuery, setSearchQuery] = useState("")
+        const OpenResearchable =async (e) => {
             e.preventDefault();
-            window.location.href = "/results";
+            if (searchQuery.trim().length===0) return;
+            navigator(`/search/results/${searchQuery}`)
         }
         return (
             <>
@@ -19,7 +25,11 @@ export default function SearchArea() {
                             <h3>A free, AI-powered research tool for scientific literature</h3>
                             <div className={"search-form"}>
                                 <Form className={"form"} >
-                                        <Form.Control type="text" placeholder="Search for a paper, author, or topic" className={"search-input"}/>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Search for a paper, author, or topic"
+                                            onChange={async (e)=>{await setSearchQuery(e.target.value)}}
+                                            className={"search-input"}/>
                                         <Button type="submit" className={"search-button"} onClick={OpenResearchable}><FontAwesomeIcon icon={faSearchengin}/></Button>
                                 </Form>
                             </div>

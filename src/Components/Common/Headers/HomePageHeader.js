@@ -6,13 +6,20 @@ import {useNavigate} from "react-router-dom";
 
 export default function HomepageHeader() {
   const context = useContext(user_Sign_In_Context)
-  console.log(context)
-
   const navigator = useNavigate()
   const [isNavClicked, setIsNavClicked] = useState(false);
   const handleNavigationClick = () => {
     setIsNavClicked((prevIsNavClicked) => !prevIsNavClicked);
   };
+
+  const handleNavigation = ()=>{
+    if(context.userLogIn.isAdmin){
+      navigator("/admin")
+    }
+    else{
+      navigator("/personalProfile")
+    }
+  }
 
   return (
     <>
@@ -28,14 +35,18 @@ export default function HomepageHeader() {
       <header className={`App-header Home-Page-Header ${isNavClicked ? "nav-clicked" : ""}`}>
         <div className={"header-options"}>
           <ul>
-            <li>
-              <a href={"/"}>
-                Home
-              </a>
-            </li>
-            <li><a href={"/aboutUs"}>About</a></li>
-            <li><a href={"/contact"}>Contact</a></li>
-            <li className={"Laptop-LogIn"}><a href={"/signIn"}>Login</a></li>
+            <li><a
+                style={{cursor:"pointer"}}
+                onClick={()=>{navigator("/")}}>Home</a></li>
+            <li><a
+                style={{cursor:"pointer"}}
+                onClick={()=>{navigator("/aboutUs")}}>About</a></li>
+            <li><a
+                style={{cursor:"pointer"}}
+                onClick={()=>{navigator("/contact")}}>Contact</a></li>
+            <li
+                style={{cursor:"pointer"}}
+                className={"Laptop-LogIn"}><a onClick={()=>{navigator("/signIn")}}>Login</a></li>
           </ul>
         </div>
         {context.userLogIn.isAuthenticated?
@@ -43,7 +54,7 @@ export default function HomepageHeader() {
               <ul>
                 <li>
                   <img
-                      onClick={()=>{navigator("/personalProfile")}}
+                      onClick={()=>{handleNavigation()}}
                       src={process.env.PUBLIC_URL+"/Images/Profile_Images/download.png"}
                       className={"header-image"}/>
                 </li>

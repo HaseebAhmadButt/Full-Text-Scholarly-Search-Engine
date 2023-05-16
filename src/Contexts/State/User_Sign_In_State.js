@@ -12,10 +12,10 @@ const User_Sign_In_State = ({ children }) => {
         isAuthenticated: false,
         isPublisher: false,
         publisherStatus:false,
-        publisherID: 0
+        publisherID: 0,
+        savedArticles: []
 
     });
-
     const [publisher, setPublisher] = useState({
         affiliationLink: "",
         affiliationName:"",
@@ -36,9 +36,9 @@ const User_Sign_In_State = ({ children }) => {
         const updateState  = async () =>{
         // Check if there is any user log-in information available in local storage
         const userLogInStorage = localStorage.getItem("userLogIn");
+        const publisherStorage = localStorage.getItem("publisherStorage");
         if (userLogInStorage) {
             const JsonData = JSON.parse(userLogInStorage);
-
             await setLogIn({
                 user_id: JsonData.user_id,
                 user_email: JsonData.user_email,
@@ -47,12 +47,65 @@ const User_Sign_In_State = ({ children }) => {
                 isAdmin: JsonData.isAdmin,
                 isAuthenticated: JsonData.isAuthenticated,
                 isPublisher: JsonData.isPublisher,
-                publisherID: 0
+                publisherStatus:JsonData.publisherStatus,
+                publisherID: JsonData.publisherID,
+                savedArticles: JsonData.savedArticles
+
             });
+        }
+        if(publisherStorage){
+            await setPublisher({
+                affiliationLink: publisherStorage.affiliationLink,
+                affiliationName:publisherStorage.affiliationName,
+                publisherEmail: publisherStorage.publisherEmail,
+                publisherHIndex: publisherStorage.publisherHIndex,
+                publisherHMedian: publisherStorage.publisherHMedian,
+                publisherID:publisherStorage.publisherID,
+                publisherName: publisherStorage.publisherName,
+                publisherSite: publisherStorage.publisherSite,
+                publisherStatus: publisherStorage.publisherStatus,
+                interests:publisherStorage.interests,
+                names:publisherStorage.names
+
+            })
         }
         }
         updateState().then()
     }, []);
+    const addSavedArticle = (article) => {
+        setLogIn(prevState => ({
+            ...prevState,
+            savedArticles: [...prevState.savedArticles, article]
+        }));
+    }
+    const addSavedArticleIDs = async (article) => {
+        await setLogIn(prevState => ({
+            ...prevState,
+            savedArticles: article
+        }));
+        localStorage.setItem("userLogIn", JSON.stringify(userLogIn));
+
+    }
+
+    const deleteSavedArticle = (articleId) => {
+        setLogIn(prevState => ({
+            ...prevState,
+            savedArticles: prevState.savedArticles.filter(article => article !== articleId)
+        }));
+    }
+
+    const deleteSavedArticles = (articleIds) => {
+        setLogIn(prevState => {
+            const newSavedArticles = prevState.savedArticles.filter(article => !articleIds.includes(article));
+            return {
+                ...prevState,
+                savedArticles: newSavedArticles
+            };
+        });
+    };
+
+
+
     const upDateStateOnLogIn = async (
         id,
         email,
@@ -72,9 +125,19 @@ const User_Sign_In_State = ({ children }) => {
                 isAdmin: isAdmin,
                 isAuthenticated: isAuthenticated,
                 isPublisher: isPublisher,
-                publisherStatus:publisherStatus
+                publisherStatus:publisherStatus,
+                savedArticles: []
             };
 
+            // user_id: JsonData.user_id,
+            //                 user_email: JsonData.user_email,
+            //                 user_name: JsonData.user_name,
+            //                 user_picture: JsonData.user_picture,
+            //                 isAdmin: JsonData.isAdmin,
+            //                 isAuthenticated: JsonData.isAuthenticated,
+            //                 isPublisher: JsonData.isPublisher,
+            //                 publisherStatus:JsonData.publisherStatus,
+            //                 publisherID: JsonData.publisherID
             // console.log("Updating Local Storage")
             // Save the updated user log-in information in local storage
             // Save the updated user log-in information in local storage
@@ -98,6 +161,8 @@ const User_Sign_In_State = ({ children }) => {
 
     const upDataPublisher = async (publisherData) =>{
         await setPublisher(publisherData)
+        localStorage.setItem("publisherStorage", JSON.stringify(publisherData));
+
     }
 
     const upDateStateOnLogOut = () => {
@@ -128,12 +193,18 @@ const User_Sign_In_State = ({ children }) => {
             interests:[],
             names:[]
         })
+        localStorage.removeItem('userLogIn');
+        localStorage.removeItem('publisherStorage');
+
     };
 
 
     return (
         <User_Sign_In_Context.Provider
-            value={{ userLogIn, publisher, upDateStateOnLogIn, upDateStateOnLogOut, upDatePublisherOnLogOut, updatePublisherField, upDataPublisher }}
+            value={{ userLogIn, publisher, upDateStateOnLogIn,
+                     upDateStateOnLogOut, upDatePublisherOnLogOut, updatePublisherField,
+                     upDataPublisher, addSavedArticle, deleteSavedArticle, addSavedArticleIDs,
+                     deleteSavedArticles}}
         >
             {children}
         </User_Sign_In_Context.Provider>

@@ -125,6 +125,14 @@ export async function getAuthors(DOI){
     if (!response.ok) return httpStatusInternalServerError
     return response.json();
 }
+export async function getPDF(DOI){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getArticlePDFWithID?DOI=${DOI}`, {
+        method: httpGet,
+        headers:requestHeaders,
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.json();
+}
 export async function getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter(pageNo, pageSize, publisherID, query){
     const response = await fetch(`${ApiGatewayURL}/${serviceSQLReading}/getAllAcceptedArticlesBySpecificPublisherHavingQueryParameter?pageNo=${pageNo}&pageSize=${pageSize}&publisherID=${publisherID}&q=${query}`, {
         method: httpGet,

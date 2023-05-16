@@ -24,9 +24,11 @@ import {
 import User_Sign_In_Context from "../../../Contexts/Context/User_Sign_In_Context";
 import {httpStatusInternalServerError} from "../../../Services/apiConstants";
 import {downloadPDF} from "../../../Services/AdminService/DataRetrievalMethods";
+import {useNavigate} from "react-router-dom";
 
 export default function ProfileArticles() {
 
+    const navigator = useNavigate()
     const context = useContext(User_Sign_In_Context)
     const [findArticlePagination, setFindArticlePagination] = useState({
         activePage:1,
@@ -76,9 +78,11 @@ export default function ProfileArticles() {
         fileSelected:false
     })
     const [authorName, setAuthorNames] = useState([]);
+    const [paginationState, setPaginationState] = useState(false)
+
+
     let items = [];
     let uploadItems = [];
-
     const getArticlesAll = async () =>{
         const result = await getAllArticles(context.userLogIn.user_id, (findArticlePagination.activePage-1), findArticlePagination.elementsPerPage);
         let pages;
@@ -116,9 +120,14 @@ export default function ProfileArticles() {
         setTableData(result.content);
     }
     const handleFindArticlePaginationClick = async (pageNumber) => {
-        if(pageNumber === findArticlePagination.activePage) return;
-        const result = await getAllArticles(context.userLogIn.user_id, (pageNumber-1), findArticlePagination.elementsPerPage);
-
+        if(pageNumber === findArticlePagination.activePage) {return;}
+        let result
+        if(!paginationState || search.query.trim()==="") {
+            result = await getAllArticles(context.userLogIn.user_id, (pageNumber - 1), findArticlePagination.elementsPerPage);
+        }
+        else{
+            result = await getAllRequiredArticles(search.query, context.userLogIn.user_id, (pageNumber-1), findArticlePagination.elementsPerPage);
+        }
         let pages;
         if(result.totalPages > 10){
             pages = 10
@@ -134,7 +143,7 @@ export default function ProfileArticles() {
             elementsPerPage: result.size
 
         }))
-        setData(result.content);
+        await setData(result.content);
     };
     const handleUploadArticlePaginationClick = async (pageNumber) => {
         if(pageNumber === uploadedArticlePagination.activePage) return;
@@ -199,14 +208,16 @@ export default function ProfileArticles() {
             }
         };
         fetchData().then();
-    }, [context.publisher.publisherID]);
+    }, [context.publisher.publisherID, tableData]);
+
+    const handleNavigation = (topic)=>{}
     useEffect(()=>{
         if (data.length>0) {
             const articlesContent = data.map(async (article) => {
                 // updatingJournals(article[5]);
                 const topics = await getTopics(article.paper_DOI);
                 const authors = await getAuthors(article.paper_DOI);
-                const citations = await getCitations(article[0])
+                const citations = await getCitations(article.paper_DOI)
                 return {
                     article,
                     topics,
@@ -217,7 +228,6 @@ export default function ProfileArticles() {
             });
             Promise.all(articlesContent).then((results) => {
                 const articles = results.map(({ article, topics, authors, citations }) => {
-                    console.log("Profile Articles Component: ", article)
                     return (
                         <tr key={article.paper_DOI}>
                             <td>
@@ -235,13 +245,17 @@ export default function ProfileArticles() {
                             <td>
                                 <div className={"result"}>
                                     <div className={"result-detail"}>
-                                        <a href={`/singlePaper/${encodeURIComponent(article.paper_DOI)}`}
+                                        <a
                                            className={"heading"}
                                            target={"_blank"}
                                         >
-                                            <h3>{article.paper_Title}</h3>
+                                            <h3
+                                                onClick={()=>{
+                                                    navigator(`/singlePaper/${encodeURIComponent(article.paper_DOI)}`)
+                                                }}
+                                            >{article.paper_Title}</h3>
                                         </a>
-                                        <p>{article.paper_Abstract}</p>
+                                        <p>{article.paper_Abstract.slice(0,255)}</p>
                                         <button
                                             className={article.paper_PDF === null || article.paper_PDF  === ""|| article.paper_PDF  === undefined? "disabled_pdf" : "downloadButton tags"}
                                             onClick={async () => {
@@ -276,14 +290,19 @@ export default function ProfileArticles() {
                                         </div>
                                         <div>
                                             <h5 className={"heading heading-extra"}>Citations: </h5>
-                                            <a href={`results/${encodeURIComponent(article[0])}`} className={"publication-site"} target={"_blank"}>{citations[0].length}</a>
+                                            <a href={`results/${encodeURIComponent(article.paper_DOI)}`} className={"publication-site"} target={"_blank"}>{citations[0].length}</a>
                                         </div>
                                         {topics.length > 0 ? (
                                             <div>
                                                 <h5 className={"heading heading-extra"}>Topics Covered: </h5>
                                                 {topics.map((topic, i) => (
-                                                    <a href={"#"} className={"tags"} key={i}>
-                                                        <span>{topic}</span>
+                                                    <a
+                                                         className={"tags"} key={i}>
+                                                        <span
+                                                            onClick={()=>{
+                                                                navigator(`/search/results/${topic}`)
+                                                            }}
+                                                        >{topic}</span>
                                                     </a>
                                                 ))}
                                             </div>
@@ -298,37 +317,40 @@ export default function ProfileArticles() {
             });
         }
 
-    }, [data])
+    }, [data, selectedArticles])
     const updateSearchParameter = async (e) =>{
         setSearchParameter({query: e.target.value})
     }
     const handleSelectedArticles = async (e, flag) => {
+        // if (e.target.checked) {
+        //     await setSelectedArticles(prevState => [...prevState, e.target.value]);
+        // } else {
+        //     await setSelectedArticles(prevState => prevState.filter(item => item !== e.target.value));
+        // }
         if (flag === "find") {
             let updatedList = [...selectedArticles];
 
             if (e.target.checked) {
-                updatedList = [...selectedArticles, e.target.value];
+                await setSelectedArticles(prevState => [...prevState, e.target.value]);
             } else {
-                updatedList.splice(selectedArticles.indexOf(e.target.value), 1);
+                await setSelectedArticles(prevState => prevState.filter(item => item !== e.target.value));
             }
-
-            await setSelectedArticles(updatedList);
-            e.target.checked = updatedList.includes(e.target.value);
+            // await setSelectedArticles(updatedList);
         } else if (flag === "upload") {
             let updatedList = [...uploadedArticles];
-
             if (e.target.checked) {
-                updatedList = [...uploadedArticles, e.target.value];
+                updatedList.push(e.target.value);
             } else {
                 updatedList.splice(uploadedArticles.indexOf(e.target.value), 1);
             }
-
             await setUploadedArticles(updatedList);
             e.target.checked = updatedList.includes(e.target.value);
         }
     };
     const getSearchedData = async () =>{
-        if(search.query.trim() === "") return
+        if(search.query.trim() === "") {
+            setPaginationState(false)
+        }
         setSelectedArticles([])
         const result = await getAllRequiredArticles(search.query, context.userLogIn.user_id, (findArticlePagination.activePage-1), findArticlePagination.elementsPerPage);
         let pages
@@ -347,6 +369,7 @@ export default function ProfileArticles() {
         }))
         await setData(result.content)
     }
+
     const updateArticles = async () =>{
         if(selectedArticles.length === 0){
             alert("No article Selected")
@@ -455,14 +478,13 @@ export default function ProfileArticles() {
                     onChange={async (e)=>{ await handleSelectedArticles(e, "upload")}}
 
                 /></td>
-                <td>{articleData[1] === null ? "": articleData[0]}</td>
+                <td>{articleData[1] === null ? "": articleData[1].split("T")[0]}</td>
                 <td>{articleData[2]}</td>
                 <td>{articleData[3].slice(0, 250)+"...."}</td>
                 <td>{articleData[4]}</td>
             </tr>
         )
     })
-    // console.log(DataObjects)
     const updateFormState = async (e) =>{
         const fieldName = e.target.name
         await setFormState(prevState => ({...prevState, [fieldName]:e.target.value}))
@@ -513,7 +535,6 @@ export default function ProfileArticles() {
             await getAllUploadedArticlesByPublisher();
         }
     }
-
     return(
         <div className={"profile-articles"}>
             <h3>Research Work Information</h3>
@@ -793,6 +814,7 @@ export default function ProfileArticles() {
                                 <Button
                                     variant={"primary"}
                                     onClick={async ()=>{
+                                        await setPaginationState(true)
                                         await getSearchedData()
                                     }}
                                     className={"search-button-finding"}

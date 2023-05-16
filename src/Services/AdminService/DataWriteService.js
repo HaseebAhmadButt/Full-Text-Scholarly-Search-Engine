@@ -42,3 +42,12 @@ export async function  RejectUploadedArticle(body){
     if (!response.ok) return httpStatusInternalServerError
     return response.status;
 }
+export async function  RejectSingleArticle(body){
+    const response = await fetch(`${ApiGatewayURL}/${serviceSQLWriting}/rejectSingleArticle`, {
+        method: post,
+        headers:requestHeaders,
+        body: JSON.stringify(body)
+    });
+    if (!response.ok) return httpStatusInternalServerError
+    return response.status;
+}

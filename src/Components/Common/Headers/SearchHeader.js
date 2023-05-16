@@ -16,6 +16,14 @@ export default function SearchHeader() {
     const handleNavigationClick = () => {
       setIsNavClicked((prevIsNavClicked) => !prevIsNavClicked);
     };
+    const handleNavigation = ()=>{
+        if(context.userLogIn.isAdmin){
+            navigator("/admin")
+        }
+        else{
+            navigator("/personalProfile")
+        }
+    }
     return (
         <>
         <div id="mobile">
@@ -27,14 +35,27 @@ export default function SearchHeader() {
       </div>
             <header className="App-header">
                 <div className={"logo-div"}>
-                <a href={"/"}> <img src={process.env.PUBLIC_URL+"/Images/Logo/Logo.png"} alt={"logo"}/> </a>
+                <img
+                    onClick={()=>{
+                        navigator("/")
+                    }}
+
+                    src={process.env.PUBLIC_URL+"/Images/Logo/Logo.png"} alt={"logo"}/>
                 </div>
                 <div className={"header-options"}>
                     <ul>
-                        <li><a href={"/"}>Home</a></li>
-                        <li><a href={"/aboutUs"}>About</a></li>
-                        <li><a href={"/contact"}>Contact</a></li>
-                        <li className={"Laptop-LogIn"}><a href={"/signIn"}>Login</a></li>
+                        <li><a
+                            style={{cursor:"pointer"}}
+                            onClick={()=>{navigator("/")}}>Home</a></li>
+                        <li><a
+                            style={{cursor:"pointer"}}
+                            onClick={()=>{navigator("/aboutUs")}}>About</a></li>
+                        <li><a
+                            style={{cursor:"pointer"}}
+                            onClick={()=>{navigator("/contact")}}>Contact</a></li>
+                        <li
+                            style={{cursor:"pointer"}}
+                            className={"Laptop-LogIn"}><a onClick={()=>{navigator("/signIn")}}>Login</a></li>
                     </ul>
                 </div>
                 {context.userLogIn.isAuthenticated?
@@ -42,7 +63,7 @@ export default function SearchHeader() {
                         <ul>
                             <li>
                                 <img
-                                    onClick={()=>{navigator("/personalProfile")}}
+                                    onClick={()=>{handleNavigation()}}
                                     src={process.env.PUBLIC_URL+"/Images/Profile_Images/download.png"}
                                     className={"header-image"}/>
                             </li>

@@ -7,6 +7,7 @@ import {Button} from "react-bootstrap";
 
 
 export const PaperDetails = ({paper})=>{
+    const navigator = useNavigate()
     const [paperToShow, setPaperToShow] = useState()
     const handleDownloadPDF = async (pdfAddress) => {
         try {
@@ -78,16 +79,15 @@ export const PaperDetails = ({paper})=>{
                                 <h1 style={{marginTop:'5px'}}>Authors</h1>
                                 {authors.length > 0 ? (<div>
                                     {authors.map((author) => (
-                                        <a
-                                            href={`/profile/${author[0]}`}
+                                        <span
                                             className={"authors"}
                                             key={author[0]}
-                                        >
-                                            <span>{author[1]}</span>
-                                        </a>
+                                            onClick={()=>{
+                                                navigator(`/profile/${author[0]}`)
+                                            }}
+                                        >{author[1]}</span>
                                     ))}
                                 </div>) : paper.authors.join(", ")}
-
                                 <h1 style={{marginTop:'5px'}}>Citations</h1>
                                 {citations[0].length !==0 ?<div>
                                     <h5 className={"heading heading-extra"}>Citations: </h5>

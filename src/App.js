@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
 import './Styles/Headers/Header.css';
@@ -44,11 +44,41 @@ import {CitationsResultPages} from "./Components/Pages/CitationsResultPages";
 import {SinglePaperPage} from "./Components/Pages/SinglePaperPage";
 import {GraphDisplayPage} from "./Components/Pages/GraphDisplayPage";
 import ProfileHeader from "./Components/Common/Headers/ProfileHeaders";
-import {DOIs, articleObjects, sendArticleToController} from "./Sampe Data/DOIs";
+// import {sampleJSON} from "./Sampe Data/paperData";
+// import { sendArticleToController, sendArticleReferences} from "./Sampe Data/DOIs";
+// import {citation_network} from "./Sampe Data/Final_Network";
+
+import {SearchResultPage} from "./Components/Pages/SearchResultPage";
+import User_Sign_In_Context from "./Contexts/Context/User_Sign_In_Context";
 function App() {
-    articleObjects.map(async (article, index) => {
-    await sendArticleToController(article, index);
-});
+//
+//     sampleJSON.map(async (article, index) => {
+//         if(index>5500){
+//
+//             if (index > 6000) return
+//             await sendArticleToController(article);
+//             console.log(index)
+//         }
+//         else{}
+// });
+
+// && index > 49
+//     useEffect(()=>{
+//             const loadnetwork = async ()=>{
+//                 const keys = Object.keys(citation_network);
+//                 keys.map((key, index) => {
+//                     if(index >6000 && index < 7000){
+//                         console.log(`Index: ${index}, Key: ${key}`);
+//                         return sendArticleReferences(key);
+//                     }
+//                     // else{return;}
+//
+//                 });
+//             }
+//             loadnetwork().then(r=>console.log("Done"))
+//     }, [])
+//     const context = useContext(User_Sign_In_Context)
+//     console.log(context)
   return (
     <div className="App">
         <Routes >
@@ -62,14 +92,7 @@ function App() {
                     <div className={'about-us-new-beginning'}>
                         <h1>A New Beginning</h1>
                         <div className={'about-us-paragraph'}><p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec
-                                tincidunt lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet
-                                mauris. Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
-                                aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
-                                lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
-                                Nullam euismod, nisl nec tincidunt lacinia, nunc est aliquam nisl, eu
-                                aliquet nisl nisl sit amet mauris. Nullam euismod, nisl nec tincidunt
-                                lacinia, nunc est aliquam nisl, eu aliquet nisl nisl sit amet mauris.
+                            Our vision is to create an ecosystem that fosters collaboration, innovation, and excellence in research. With this new beginning, we are committed to developing cutting-edge technologies that will enhance the user experience, streamline workflows, and enable more effective knowledge discovery. We believe that this new chapter will usher in a new era of scholarly excellence and transform the way we approach research and scholarly communication.
                             </p></div>
                     </div>
                     <Footer />
@@ -77,11 +100,9 @@ function App() {
             <Route path={'/results/:citations'} element={<>
                     <CitationsResultPages />
                 </>} />
-            <Route path={'/results'} element={<>
+            <Route path={'/search/results/:query'} element={<>
                     <SearchHeader />
-                    <MiddleSearchArea />
-                    <hr/>
-                    {/*<ResultsShowing />*/}
+                    <SearchResultPage />
                     <Footer />
             </>} />
             <Route path={'/singlePaper/:paperDOI'} element={<>
@@ -89,7 +110,12 @@ function App() {
                 <SinglePaperPage />
                 <Footer />
             </>} />
-            <Route path={'/profile/:authorID'} element={<AuthorProfile />} />
+            <Route path={'/profile/:authorID'} element={
+                <>
+                    <ProfileHeader />
+                <AuthorProfile />
+                </>
+            } />
             <Route path={"/graph/:paperID"} element={<>
                 <GraphDisplayPage />
             </>}/>

@@ -3,7 +3,9 @@ import {Table, Form, InputGroup, Button, Pagination} from "react-bootstrap";
 import {getAllAuthors, getAuthorsWithEmail} from "../../Services/AdminService/DataRetrievalMethods"
 import {blockAuthor, removeBlockAuthor} from "../../Services/AdminService/DataWriteService"
 import User_Sign_In_Context from "../../Contexts/Context/User_Sign_In_Context";
+import {useNavigate} from "react-router-dom";
 export default function AdminResearcherUpdate() {
+    const navigator = useNavigate()
     const context = useContext(User_Sign_In_Context)
     const [authorList, setAuthorList] = useState([]);
     const [findAuthorPagination, setFindAuthorPagination] = useState({
@@ -14,6 +16,7 @@ export default function AdminResearcherUpdate() {
     })
     const [authorEmail, setAuthorEmail] = useState("")
     const [paginationStat, setPaginationStat] = useState(false)
+    const [displayableAuthors, setDisplayableAuthors] = useState([])
     const getAuthors = async (pageNo, pageSize) =>{
         const data = await getAllAuthors(pageNo, pageSize);
         let pages;
@@ -23,15 +26,17 @@ export default function AdminResearcherUpdate() {
         else{
             pages = data.totalPages
         }
-        setFindAuthorPagination(prevState => ({
+        await setFindAuthorPagination(prevState => ({
             ...prevState,
             totalPages: pages,
             totalElements: data.totalElements,
             activePage: (data.pageable.pageNumber)+1,
             elementsPerPage: data.size
         }))
+        console.log("All authors Method: ", data)
         await setAuthorList(data.content);
     }
+    console.log(authorList)
     const authorWithEmail = async (pageNo, pageSize, authorEmail) =>{
         const data = await getAuthorsWithEmail(pageNo, pageSize,authorEmail);
         let pages;
@@ -41,7 +46,7 @@ export default function AdminResearcherUpdate() {
         else{
             pages = data.totalPages
         }
-        setFindAuthorPagination(prevState => ({
+        await setFindAuthorPagination(prevState => ({
             ...prevState,
             totalPages: pages,
             totalElements: data.totalElements,
@@ -73,7 +78,10 @@ export default function AdminResearcherUpdate() {
         getAuthors(0,10).then(r => {})
     }, []);
     const handlePublisherStatusChange = async (publisherID, status) =>{
+        console.log("Inside Status Change Handler")
         if(status === "BLOCKED"){
+            console.log("Author Blocked")
+
             const body = {
                 publisherID: publisherID,
                 adminID: context.userLogIn.user_id
@@ -81,13 +89,21 @@ export default function AdminResearcherUpdate() {
             await blockAuthor(body)
         }
         else{
+            console.log("Author Released")
+
             const body = {
                 publisherID: publisherID,
             }
             await removeBlockAuthor(body)
         }
-        if(paginationStat) await authorWithEmail(findAuthorPagination.activePage, findAuthorPagination.elementsPerPage, authorEmail)
-        else await getAuthors(findAuthorPagination.activePage, findAuthorPagination.elementsPerPage);
+        if(paginationStat) {
+            console.log("Pagination Stat is Set")
+            await authorWithEmail(findAuthorPagination.activePage, findAuthorPagination.elementsPerPage, authorEmail)
+        }
+        else {
+            console.log("Pagination Stat is not Set")
+            await getAuthors(findAuthorPagination.activePage, findAuthorPagination.elementsPerPage);
+        }
     }
 
 
@@ -118,7 +134,12 @@ export default function AdminResearcherUpdate() {
                         </a>
                     </td>
                     <td>
-                        <a href={`/profile/${author.publisherID}`}>Open Profile</a>
+                        <span
+                            style={{cursor:'pointer'}}
+                            onClick={()=>{navigator(`/profile/${author.publisherID}`)}}
+                        >
+                            Open Profile
+                        </span>
                     </td>
                     <td>
                         <InputGroup>
@@ -130,6 +151,7 @@ export default function AdminResearcherUpdate() {
                                 variant="primary"
                                 id="button-addon2"
                                 onClick={async () => {
+                                    console.log("Status Change Button Clicked")
                                    await handlePublisherStatusChange( author.publisherID, author.publisherStatus)
                                 }}
                             >
