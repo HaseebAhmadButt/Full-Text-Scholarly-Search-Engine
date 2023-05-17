@@ -25,7 +25,6 @@ export default function RecentPapers(){
                 await setErrors({noData: false, serverError: true});
             } else {
                 response.map((article, index)=>{
-                    console.log(article, article[3]===""|| article[3]===null|| article[3]===undefined)
                     if (index < 3){
                         setRecentArticles(prevState => ([...prevState, <a href={article[3]===""|| article[3]===null|| article[3]===undefined? `/singlePaper/${encodeURIComponent(article[4])}`: article[3]}
                             className={"paper-anchor"}>

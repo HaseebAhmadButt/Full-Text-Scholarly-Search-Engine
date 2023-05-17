@@ -73,7 +73,6 @@ export default function MiddleSearchArea(props) {
         window.location.reload();
 
     }
-    console.log(formValues.search.trim())
     return (
         <>
             <div className={"middle-search-area"}>
@@ -94,6 +93,7 @@ export default function MiddleSearchArea(props) {
                             <Button
                                 className={`${collapseDate ? " active search-option-button" : "search-option-button"}`}
                                 onClick={() => {
+
                                     setAdvancedSearch((prev) => false)
                                     setCollapseDate((prev) => !prev)
                                 }}
