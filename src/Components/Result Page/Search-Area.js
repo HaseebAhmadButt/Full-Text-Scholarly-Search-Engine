@@ -92,10 +92,12 @@ export default function MiddleSearchArea(props) {
                             <><Form.Group className={"search-options"}>
                             <Button
                                 className={`${collapseDate ? " active search-option-button" : "search-option-button"}`}
-                                onClick={() => {
-
-                                    setAdvancedSearch((prev) => false)
-                                    setCollapseDate((prev) => !prev)
+                                onClick={async () => {
+                                    await setAdvancedSearch((prev) => false)
+                                    await setCollapseDate((prev) => !prev)
+                                    if(!collapseDate){
+                                        await props.betweenArticlesMethod(false)
+                                    }
                                 }}
                                 aria-controls="date-collapse-text"
                                 inline
@@ -116,8 +118,6 @@ export default function MiddleSearchArea(props) {
                                 label={"Sort By Date"}
                             />
                             {/*// setFormValues((prev) => ({...prev, sortByDate: !prev.sortByDate}))*/}
-
-
                             <Form.Check
                                 inline
                                 // setFormValues((prev) => ({...prev, sortByCitations: !prev.sortByCitations}))
@@ -178,9 +178,10 @@ export default function MiddleSearchArea(props) {
                             label={"Sort By Citations"} />
                             <Button
                             className={`${collapseMobileDate?" mobile-active mobile-search-option-button":"mobile-search-option-button"}`}
-                            onClick={() => {
-                            setAdvancedMobileSearch((prev) => false)
-                            setCollapseMobileDate((prev) => !prev)
+                            onClick={async () => {
+                            await setAdvancedMobileSearch((prev) => false)
+                            await setCollapseMobileDate((prev) => !prev)
+
                         }}
                             aria-controls="date-collapse-text"
                             inline
