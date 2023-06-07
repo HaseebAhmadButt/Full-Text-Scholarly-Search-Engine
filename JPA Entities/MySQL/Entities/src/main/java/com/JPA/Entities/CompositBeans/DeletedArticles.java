@@ -1,6 +1,5 @@
 package com.JPA.Entities.CompositBeans;
 
-import com.JPA.Entities.Beans.Admin;
 import com.JPA.Entities.Beans.Articles;
 //import com.JPA.Entities.CompositKeyClasses.AddedArticlesID;
 import com.JPA.Entities.Beans.User;

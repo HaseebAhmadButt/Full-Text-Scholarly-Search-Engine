@@ -1,5 +1,4 @@
 package com.JPA.Entities.CompositBeans;
-import com.JPA.Entities.Beans.Admin;
 import com.JPA.Entities.Beans.Publisher;
 import com.JPA.Entities.Beans.User;
 //import com.JPA.Entities.CompositKeyClasses.BlockedAuthorID;

@@ -30,6 +30,7 @@ public class SavedArticles {
 //    public SavedArticles(){}
 
     public SavedArticles(User user, Articles articles){
-
+            this.user=user;
+            this.paper=articles;
     }
 }

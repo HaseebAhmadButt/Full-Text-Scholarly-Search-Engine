@@ -24,7 +24,7 @@ public class Articles {
 
     @Column(name = "PAPER_TITLE", nullable = false, length = 300)
     private String Paper_Title;
-    @Column(name = "PAPER_ABSTRACT", length = 1000)
+    @Column(name = "PAPER_ABSTRACT")
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     private String Paper_Abstract;
 
