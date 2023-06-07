@@ -16,8 +16,8 @@ public class Paper {
 	private String id;
 	private String title;
 	private String abstractText;
-	private String Published_Date;
+	private Long Published_Date;
+	private String journalName;
 	Set<String> authorList;
-
-	Set<String> Topics;
+	Set<String> topicsList;
 }

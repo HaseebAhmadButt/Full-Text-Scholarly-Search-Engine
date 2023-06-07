@@ -19,10 +19,10 @@ public class ResearchTopicService {
     private ResearchTopicRepository researchTopicRepository;
 
     public ResearchTopic FindOrCreateTopic(String topic){
-        ResearchTopic researchTopic = researchTopicRepository.findByResearchTopicContains(getTopicName(topic));
+        ResearchTopic researchTopic = researchTopicRepository.findByResearchTopicContains(getTopicName(topic.trim()));
         if (researchTopic == null) {
             researchTopic = new ResearchTopic();
-            researchTopic.setResearchTopic(getTopicName(topic));
+            researchTopic.setResearchTopic(topic);
             researchTopicRepository.save(researchTopic);
         }
         return researchTopic;

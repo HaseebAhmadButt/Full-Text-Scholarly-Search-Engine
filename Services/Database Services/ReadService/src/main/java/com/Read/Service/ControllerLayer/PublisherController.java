@@ -47,6 +47,16 @@ public class PublisherController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/getPublisherWithPublisherID")
+    public ResponseEntity<HashMap<String, Object>> getPublisherbyID(@RequestParam(name = "publisherID") Long PublisherID) {
+        HashMap<String, Object> publisher = publisherService.getPublisher(PublisherID);
+        if(publisher != null){
+            return ResponseEntity.ok().body(publisher);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 
@@ -62,23 +72,40 @@ public class PublisherController {
         return ResponseEntity.ok().headers(headers).build();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
-    @GetMapping(value = "/downloadPDF", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<byte[]> downloadPDF(@RequestParam("pdfAddress") String pdfAddress) throws IOException {
-        File file = new File(pdfAddress);
-        InputStream inputStream = new FileInputStream(file);
-        byte[] bytes = IOUtils.toByteArray(inputStream);
+//    @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+//    @GetMapping(value = "/downloadPDF", produces = MediaType.APPLICATION_PDF_VALUE)
+//    public ResponseEntity<byte[]> downloadPDF(@RequestParam("pdfAddress") String pdfAddress) throws IOException {
+//        File file = new File(pdfAddress);
+//        InputStream inputStream = new FileInputStream(file);
+//        byte[] bytes = IOUtils.toByteArray(inputStream);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_PDF);
+//        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
+//        headers.setContentLength(bytes.length);
+//        headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
+//
+//        return ResponseEntity.ok()
+//                .headers(headers)
+//                .body(bytes);
+//    }
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@GetMapping(value = "/downloadPDF", produces = MediaType.APPLICATION_PDF_VALUE)
+public ResponseEntity<byte[]> downloadPDF(@RequestParam("pdfAddress") String pdfAddress) throws IOException {
+    File file = new File(pdfAddress);
+    InputStream inputStream = new FileInputStream(file);
+    byte[] bytes = IOUtils.toByteArray(inputStream);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
-        headers.setContentLength(bytes.length);
-        headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_PDF);
+    headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
+    headers.setContentLength(bytes.length);
+    headers.add("Access-Control-Allow-Origin", "*");
 
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(bytes);
-    }
+    return ResponseEntity.ok()
+            .headers(headers)
+            .body(bytes);
+}
 
 
 

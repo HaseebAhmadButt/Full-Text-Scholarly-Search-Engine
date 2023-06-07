@@ -14,10 +14,11 @@ import java.util.List;
 
 @Repository
 public interface ArticlesRepository extends JpaRepository<Articles, String> {
-    @Query("SELECT rt.ResearchTopic, t.Paper_Title, t.Paper_Abstract, t.Paper_URL FROM ArticleTopics ats " +
+    @Query("SELECT rt.ResearchTopic, t.Paper_Title, t.Paper_Abstract, t.Paper_URL, t.Paper_DOI FROM ArticleTopics ats " +
             "JOIN Articles t on ats.paper.Paper_DOI = t.Paper_DOI " +
             "JOIN ResearchTopic rt on rt.ResearchTopicID = ats.topic.ResearchTopicID " +
-            "GROUP BY ats.topic.ResearchTopicID ORDER BY t.createdDate DESC LIMIT 10")
+            "WHERE t.Paper_STATUS = 'ACCEPTED'" +
+            "GROUP BY t.Paper_DOI ORDER BY t.createdDate DESC LIMIT 10")
     List<Object[]> findTop10ByOrderByPublicationDateDesc();
 
     @Query("SELECT ar.Paper_DOI,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date, COUNT(*) as Citations FROM Articles ar " +
@@ -25,35 +26,43 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
             "WHERE ar.Paper_DOI = ?1")
     Object[] getArticles(String DOI);
 
-//            "JOIN References pr ON pr.articleI2.Paper_DOI = ar.Paper_DOI " +
-//            "GROUP BY pr.articleI2.Paper_DOI "
-//
-
-
-
 //    This is used to get all article topics
     @Query("SELECT art.topic.ResearchTopic FROM Articles ar JOIN ArticleTopics art on ar.Paper_DOI = art.paper.Paper_DOI " +
             "JOIN ResearchTopic rt on rt.ResearchTopicID = art.topic.ResearchTopicID WHERE ar.Paper_DOI = ?1" +
             " GROUP BY rt.ResearchTopic")
     List<String> getArticleTopics(String DOI);
+    @Query("SELECT rt.ResearchTopicID, rt.ResearchTopic FROM Articles ar " +
+            "JOIN ArticleTopics art on ar.Paper_DOI = art.paper.Paper_DOI " +
+            "JOIN ResearchTopic rt on rt.ResearchTopicID = art.topic.ResearchTopicID WHERE ar.Paper_DOI = ?1" +
+            " GROUP BY rt.ResearchTopic")
+    List<Object> getArticleTopicsWithId(String DOI);
+    @Query("SELECT ar.PAPER_PDF FROM Articles ar " +
+            "WHERE ar.Paper_DOI = ?1")
+    String getArticlePdfStatusWithId(String DOI);
 
     @Query("SELECT pu.PublisherID, pu.PublisherName FROM Articles ar " +
             "JOIN PaperAuthors pa on ar.Paper_DOI = pa.paper.Paper_DOI " +
             "JOIN Publisher pu on pu.PublisherID = pa.author.PublisherID " +
-            "WHERE ar.Paper_DOI = ?1")
+            "WHERE ar.Paper_DOI = ?1 " +
+            "AND pu.PublisherStatus = 'ACTIVE'")
     List<Object> getAllAcceptedArticlesAuthors(String DOI);
 
 
     @Query("SELECT ar.Paper_DOI,ar.Paper_Title, ar.Paper_Abstract, ar.Paper_URL, jr.journalName, ar.Published_Date, ar.PAPER_PDF " +
-//            ", COUNT(*) as Citations " +
             "FROM Articles ar JOIN Journal jr on jr.id = ar.Paper_Journal.id " +
             "JOIN SavedArticles sa on sa.paper.Paper_DOI = ar.Paper_DOI " +
             "JOIN User u on u.id = sa.user.id " +
             "WHERE u.id = :userID " +
             "GROUP BY ar.Paper_DOI")
     List<Object[]> getSavedArticles(@Param("userID") Long userID);
-//  "JOIN References pr ON pr.articleI2.Paper_DOI  = ar.Paper_DOI " +
-//  GROUP BY pr.articleI2.Paper_DOI
+    @Query("SELECT ar.Paper_DOI " +
+            "FROM Articles ar JOIN Journal jr on jr.id = ar.Paper_Journal.id " +
+            "JOIN SavedArticles sa on sa.paper.Paper_DOI = ar.Paper_DOI " +
+            "JOIN User u on u.id = sa.user.id " +
+            "WHERE u.id = :userID " +
+            "GROUP BY ar.Paper_DOI")
+    List<String> getSavedArticleIDs(@Param("userID") Long userID);
+
 
     @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'IN-PROGRESS' and ar.PAPER_UPDATE_TYPE = 'UPLOADED' ORDER BY ar.Published_Date ASC ")
     Page<Articles> getAllAddedArticles(Pageable pageable);
@@ -110,6 +119,9 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
             " WHERE pu.PublisherID = ?2)")
     Page<Articles> getAllRequiredAcceptedArticles(String query, Long publisherID, Pageable pageable);
 
+
+
+
     @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'REJECTED'")
     Page<Articles> getAllRejectedArticles(Pageable pageable);
 
@@ -141,6 +153,7 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
     Page<List<Object>> getAllAcceptedArticlesBySpecificPublisher(Long publisherID,  String query, Pageable pageable);
 
 
+
     @Query("SELECT ar.Paper_STATUS, count(*)FROM Articles ar GROUP BY ar.Paper_STATUS")
     List<Object[]> getArticlesStats();
 
@@ -153,5 +166,10 @@ public interface ArticlesRepository extends JpaRepository<Articles, String> {
             "GROUP BY ar.Published_Date, ar.Paper_STATUS")
     List<Object[]> getArticleYearStats();
 
+    @Query("SELECT ar FROM Articles ar WHERE ar.Paper_STATUS = 'ACCEPTED' AND ar.Paper_DOI IN (:DOIs)")
+    Page<Articles> getAllCitingArticles(@Param("DOIs") List<String> DOIs, Pageable pageable);
+
+    @Query("SELECT ar.Paper_Title FROM Articles ar WHERE ar.Paper_DOI = ?1 ")
+    String getArticleTitle(String DOIs);
 
 }

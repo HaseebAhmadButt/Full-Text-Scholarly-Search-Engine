@@ -39,6 +39,10 @@ public class PaperEntity {
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
     private List<TopicEntity> topic;
 
+    public PaperEntity(String paperId) {
+        this.paperId = paperId;
+    }
+
     @Override
     public String toString() {
         return "PaperEntity{" +

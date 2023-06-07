@@ -27,7 +27,7 @@ class ServiceConfigurations{
 	public FilterRegistrationBean<CorsFilter> coresFilters(){
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.addAllowedOriginPattern("http://localhost:3000");
+		configuration.addAllowedOriginPattern("*");
 		configuration.addAllowedHeader("Content-Type");
 		configuration.addAllowedHeader("Accept");
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT", "OPTIONS"));

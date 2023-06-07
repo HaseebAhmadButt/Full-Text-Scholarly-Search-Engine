@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PublisherService {
@@ -41,6 +42,23 @@ public class PublisherService {
         hashMap.put("AuthorNames", names);
         hashMap.put("AreaofInterests", interests);
         return hashMap;
+//        return
+    }
+    public HashMap<String, Object> getPublisher(Long publisherID){
+//        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Optional<Publisher> publisher = publisherRepository.findById(publisherID);
+        if(publisher.isPresent()) {
+            List<String> names = authorNamesRepository.getAuthorNames(publisher.get().getPublisherID());
+            List<String> interests = areasOfInterestRepository.getAreasOfInterests(publisher.get().getPublisherID());
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("Publisher", publisher);
+            hashMap.put("AuthorNames", names);
+            hashMap.put("AreaofInterests", interests);
+            return hashMap;
+        }
+        else {
+            return null;
+        }
 //        return
     }
 

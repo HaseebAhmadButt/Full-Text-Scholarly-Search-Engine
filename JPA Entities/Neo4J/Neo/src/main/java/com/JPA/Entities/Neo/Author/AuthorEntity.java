@@ -26,4 +26,9 @@ public class AuthorEntity {
 
     @Relationship(type = "AUTHORED_BY", direction = Relationship.Direction.OUTGOING)
     private List<PaperEntity> papers;
+
+    public AuthorEntity(Long authorId, String name) {
+        this.authorId = authorId;
+        this.name = name;
+    }
 }

@@ -24,6 +24,7 @@ public class RefrencesServiceLayer {
             paper.put("paperAbstract", row[1]);
             paper.put("paperLink", row[2]);
             paper.put("totalCitations", row[3]);
+            paper.put("paper_DOi", row[4]);
             response.add(paper);
         }
 

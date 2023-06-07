@@ -30,6 +30,8 @@ public class ReferencesController {
     public void saveReferenceWithString(@RequestBody Map<String, Object> stringObjectMap){
         String articles = (String) stringObjectMap.get("citingArticle");
         List<String> articles1 = (List<String>) stringObjectMap.get("citedArticles");
+        System.out.println("articles = " + articles);
+        System.out.println("articles1 = " + articles1);
         refrencesServiceLayer.saveRefrence(articles,articles1);
     }
 

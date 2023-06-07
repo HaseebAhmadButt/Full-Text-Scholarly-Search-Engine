@@ -120,4 +120,12 @@ public class UserController {
         return map;
     }
 
+    @PostMapping("/api/contact")
+    public ResponseEntity<String> processContactForm(@RequestBody Map<String, String> formData) {
+        // Process the form data here
+        // ...
+
+        return ResponseEntity.ok("Form submitted successfully.");
+    }
+
 }

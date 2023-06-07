@@ -16,7 +16,7 @@ public class Journal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "JOURNAL_ID", nullable = false, updatable = false, length = 20, unique = true)
     private Long id;
-    @Column(name = "JOURNAL_NAME", nullable = false, length = 100, unique = true)
+    @Column(name = "JOURNAL_NAME", nullable = false, length = 500, unique = true)
     private String journalName;
 
 }

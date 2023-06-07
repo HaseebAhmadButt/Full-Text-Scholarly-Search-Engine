@@ -24,8 +24,12 @@ public class PaperAuthorController {
         Long author = Long.valueOf((Integer) stringObjectMap.get("publisherID"));
         List<String> articleIDs = (List<String>) stringObjectMap.get("articleIDs");
         String status = paperAuthorsService.saveAuthors(author, articleIDs);
-        if(status.equals("OK")) return ResponseEntity.ok().build();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        if(status.equals("OK")) {
+            return ResponseEntity.ok().build();
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     @PostMapping("/deleteAuthorPapers")
     public ResponseEntity<Object> deletePaperAuthors(@RequestBody Map<String, Object> stringObjectMap){

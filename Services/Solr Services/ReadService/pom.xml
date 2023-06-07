@@ -38,7 +38,14 @@
 				<artifactId>spring-boot-devtools</artifactId>
 				<scope>runtime</scope>
 			</dependency>
-			<dependency>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20230227</version>
+		</dependency>
+
+		<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<optional>true</optional>
@@ -53,11 +60,11 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<version>4.0.1</version>
 		</dependency>
-		<dependency>
-			<groupId>ch.pete.appconfig</groupId>
-			<artifactId>appconfig</artifactId>
-			<version>0.1.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>ch.pete.appconfig</groupId>-->
+<!--			<artifactId>appconfig</artifactId>-->
+<!--			<version>0.1.0</version>-->
+<!--		</dependency>-->
 	</dependencies>
 
 

@@ -18,7 +18,7 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ADMIN_ID", nullable = false, unique = true)
     @JdbcTypeCode(SqlTypes.BIGINT)
-    private Long id;
+    private Integer id;
 
 //    @Column(name = "ADMIN_NAME", nullable = true)
 //    @JdbcTypeCode(SqlTypes.VARCHAR)

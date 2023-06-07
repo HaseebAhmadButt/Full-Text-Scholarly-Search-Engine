@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d37fde50-17bc-4d77-8056-2957ecc63317" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Database Services/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Database Services/ReadService/libs/Neo.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/EmailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/Authors.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/EmailSenderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Graph_Read/libs/Neo.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Graph_Write/libs/Neo.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../API Gateway/API-Gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../API Gateway/API-Gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/out/artifacts/Entities_jar/Entities.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/libs/Entities.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/out/artifacts/Entities_jar2/Entities.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/libs/Entities.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/Beans/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/Beans/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/Beans/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/Beans/Articles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/Beans/Journal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/Beans/Journal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/AddedArticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/AddedArticles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/BlockedAuthors.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/BlockedAuthors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/DeletedArticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/DeletedArticles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/SavedArticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/MySQL/Entities/src/main/java/com/JPA/Entities/CompositBeans/SavedArticles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/main/java/com/JPA/Entities/Neo/Author/AuthorEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/main/java/com/JPA/Entities/Neo/Author/AuthorEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/main/java/com/JPA/Entities/Neo/Paper/PaperEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/main/java/com/JPA/Entities/Neo/Paper/PaperEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/main/java/com/JPA/Entities/Neo/Topic/TopicEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/main/java/com/JPA/Entities/Neo/Topic/TopicEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/test/java/com/JPA/Entities/Neo/NeoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA Entities/Neo4J/Neo/src/test/java/com/JPA/Entities/Neo/NeoApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Naming Server/naming-server/src/main/java/com/microservices/namingserver/NamingServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Naming Server/naming-server/src/main/java/com/microservices/namingserver/NamingServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Naming Server/naming-server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../Naming Server/naming-server/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ControllerLayer/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ControllerLayer/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ControllerLayer/PublisherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ControllerLayer/PublisherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/RepositoryLayer/ArticlesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/RepositoryLayer/ArticlesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/RepositoryLayer/RefrencesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/RepositoryLayer/RefrencesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/ArticlesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/ArticlesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/PublisherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/PublisherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/RefrencesServiceLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/RefrencesServiceLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/java/com/Read/Service/ServiceLayer/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/ReadService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/ReadService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/PaperAuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/PaperAuthorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/PublisherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/PublisherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/ReferencesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/ReferencesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ControllerLayer/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/RepositoryLayer/AddedArticlesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/RepositoryLayer/AddedArticlesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/RepositoryLayer/AdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/RepositoryLayer/AdminRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/RepositoryLayer/JournalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/RepositoryLayer/JournalRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/AddedArticlesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/AddedArticlesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/ArticlesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/ArticlesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/JournalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/PaperAuthorsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/PaperAuthorsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/RefrencesServiceLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/RefrencesServiceLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/ResearchTopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/ResearchTopicService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/SavedArticlesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/ServiceLayer/SavedArticlesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/WriteServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/java/com/Write/Service/WriteServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database Services/WriteService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Database Services/WriteService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Read/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Read/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Read/src/main/java/com/Service/Graph_Read/Controller/ControllerLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Read/src/main/java/com/Service/Graph_Read/Controller/ControllerLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Read/src/main/java/com/Service/Graph_Read/Repositories/PaperRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Read/src/main/java/com/Service/Graph_Read/Repositories/PaperRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Read/src/main/java/com/Service/Graph_Read/ServicesLayer/ServiceLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Read/src/main/java/com/Service/Graph_Read/ServicesLayer/ServiceLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Read/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Read/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Write/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Write/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/Controller/ControllerLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/Controller/ControllerLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/GraphWriteApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/GraphWriteApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/Repositories/PaperRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/Repositories/PaperRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/ServicesLayer/ServiceLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Write/src/main/java/com/Service/Graph_Write/ServicesLayer/ServiceLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph_Write/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Graph_Write/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/ReadService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/ReadService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadService/Component/SolrCloudClientFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadService/Component/SolrCloudClientFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadService/ServiceLayer/CloudServiceLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadService/ServiceLayer/CloudServiceLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadService/controller/paperController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadService/controller/paperController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/java/com/Solr/ReadServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/ReadService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/EntitiesApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/EntitiesApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/Component/SolrClientFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/Component/SolrClientFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/Component/SolrCloudClientFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/Component/SolrCloudClientFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/ServiceLayer/CloudServiceLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/ServiceLayer/CloudServiceLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/ServiceLayer/ServiceLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/ServiceLayer/ServiceLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/controller/paperController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/controller/paperController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/model/Paper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/java/com/Solr/WriteService/model/Paper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Solr Services/WriteService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Uploaded Files Storage Folder/10.1234_5678_scicero.pdf" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2PvjuQ39OLzMqp2280FvIv99iBd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "last_opened_file_path": "E:/FYP/Implementation/Complete Implementation With Branches/FYP/Services/Neo4J",
+    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d37fde50-17bc-4d77-8056-2957ecc63317" name="Changes" comment="" />
+      <created>1684344671784</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684344671784</updated>
+      <workItem from="1684344676620" duration="14000" />
+      <workItem from="1684469795665" duration="178000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -57,11 +57,12 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<version>4.0.1</version>
 		</dependency>
-		<dependency>
+				<dependency>
 			<groupId>com.JPA.Entities</groupId>
 			<artifactId>Neo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
+			<scope>system</scope>
+			<systemPath>${project.basedir}${file.separator}libs${file.separator}Neo.jar</systemPath>
 		</dependency>
 	</dependencies>
 

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,11 +42,13 @@ public class ArticleController {
     public List<Map<String, Object>> getSavedArticles(@RequestParam Long userID){
         return articlesService.getSavedArticles(userID);
     }
+    @GetMapping("/getSavedArticleIDs")
+    public List<String> getSavedArticleIDs(@RequestParam Long userID){
+        return articlesService.getSavedArticleIDs(userID);
+    }
     @PostMapping("/getArticles")
     public Map<String, Object> getArticles(@RequestBody Map<String, List<String>> DOIs){
         HashMap<String,  Object> hashMap = new HashMap<>();
-        System.out.println("Received Data: "+DOIs);
-        System.out.println((Arrays.toString(new List[]{DOIs.get("DOIs")})));
 
         List<Map<String, Object>> allArticles =  articlesService.getArticles(DOIs.get("DOIs"));
         hashMap.put("allArticles", allArticles);
@@ -69,11 +70,18 @@ public class ArticleController {
     public List<String> getArticleTopics (@RequestParam String DOI){
          return articlesService.getArticleTopics(DOI);
     }
+    @GetMapping("/getArticleTopicsWithID")
+    public List<Object> getArticleTopicsWithID (@RequestParam String DOI){
+         return articlesService.getArticleTopicsWithID(DOI);
+    }
+    @GetMapping("/getArticlePDFWithID")
+    public HashMap<String, String> getArticlePDFWithID (@RequestParam String DOI){
+         return articlesService.getArticlePDFWithID(DOI);
+    }
     @GetMapping("/getArticleAuthors")
     public List<Object> getArticleAuthors(@RequestParam(name="DOI") String ID) {
         return articlesService.getArticleAuthors(ID);
     }
-
 
     @GetMapping("/getAllArticles")
     public ResponseEntity<Page<Articles>> getAllProgressArticles(@RequestParam(defaultValue = "0") int pageNo,
@@ -208,6 +216,25 @@ public class ArticleController {
         headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
         return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
     }
+    @PostMapping("/getAllCitingArticles")
+    public ResponseEntity<Page<Articles>> getAllAcceptedArticles(@RequestBody Map<String, Object> stringObjectMap) {
+        Page<Articles> articlesPage = articlesService.getCitingArticles(
+                (Integer) stringObjectMap.get("pageNo"),
+                (Integer) stringObjectMap.get("pageSize"),
+                (List<String>) stringObjectMap.get("DOIs")
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
+        return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
+    }
+    @GetMapping("/getArticleTitle")
+    public ResponseEntity<HashMap<String, String>> getArticleTitle(@RequestParam(name = "DOI") String DOI) {
+        String articleTitle = articlesService.getArticleTitle(DOI);
+        HashMap<String, String> paperTitle = new HashMap<>();
+        paperTitle.put("Title", articleTitle);
+        return new ResponseEntity<>(paperTitle, HttpStatus.OK);
+    }
 
     @GetMapping("/getAllRejectedArticles")
     public ResponseEntity<Page<Articles>> getAllRejectedArticles(@RequestParam(defaultValue = "0") int pageNo,
@@ -218,6 +245,13 @@ public class ArticleController {
         headers.add("Total-Count", Long.toString(articlesPage.getTotalElements()));
         return new ResponseEntity<>(articlesPage, headers, HttpStatus.OK);
     }
+
+    @GetMapping("/getArticleByDOI")
+    public ResponseEntity<Articles> getArticle(@RequestParam(name = "DOI") String DOI){
+        return articlesService.getArticleByDOI(DOI);
+    }
+
+
 
 
 

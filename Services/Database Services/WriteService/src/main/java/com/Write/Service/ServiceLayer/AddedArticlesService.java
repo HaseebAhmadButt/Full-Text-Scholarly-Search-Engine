@@ -7,6 +7,7 @@ import com.JPA.Entities.Beans.Publisher;
 import com.JPA.Entities.Beans.User;
 import com.JPA.Entities.CompositBeans.AddedArticles;
 import com.Write.Service.RepositoryLayer.AddedArticlesRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,8 @@ public class AddedArticlesService {
         articlesRepository.save(new AddedArticles(admin, articles));
     }
 
-    public void removeArticlesFromAdded(Articles DOI, Admin adminID){
-//        Objects.requireNonNull(articlesRepository)
+    @Transactional
+    public void removeArticlesFromAdded(String DOI, Long adminID){
         articlesRepository.deleteByAdminIdAndDOI(adminID, DOI);
     }
 

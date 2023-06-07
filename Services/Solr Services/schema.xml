@@ -1,0 +1,54 @@
+<schema name="paper" version="1.6">
+  <fields>
+    <!-- Required default field -->
+    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+
+    <!-- Title field -->
+    <field name="title" type="text_general" indexed="true" stored="true" multiValued="false"/>
+
+    <!-- Abstract field -->
+    <field name="abstractText" type="text_general" indexed="true" stored="true" multiValued="false"/>
+
+    <!-- Published Date field as date type -->
+    <field name="publishedDate" type="date" indexed="true" stored="true"/>
+
+    <!-- Journal Name field -->
+    <field name="journalName" type="text_general" indexed="true" stored="true"/>
+
+    <!-- Author List field as a multiValued type -->
+    <field name="authorList" type="text_general" indexed="true" stored="true" multiValued="true"/>
+
+    <!-- Topics List field as a multiValued type -->
+    <field name="topicsList" type="text_general" indexed="true" stored="true" multiValued="true"/>
+
+    <!-- Dynamic field for custom attributes -->
+    <dynamicField name="*_s" type="string" indexed="true" stored="true" multiValued="true"/>
+  </fields>
+
+  <!-- Copy field to concatenate title and abstract fields for full-text search -->
+  <copyField source="title" dest="text"/>
+  <copyField source="abstractText" dest="text"/>
+
+  <!-- Field types definition -->
+  <types>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" format="snowball" />
+        <filter class="solr.PorterStemFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" format="snowball" />
+        <filter class="solr.PorterStemFilterFactory"/>
+      </analyzer>
+    </fieldType>
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+  </types>
+
+  <!-- Unique key definition -->
+  <uniqueKey>id</uniqueKey>
+</schema>

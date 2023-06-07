@@ -26,4 +26,8 @@ public class TopicEntity {
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.INCOMING)
     private List<PaperEntity> papers;
 
+    public TopicEntity(Long id, String Title) {
+        this.id = id;
+        this.Title = Title;
+    }
 }

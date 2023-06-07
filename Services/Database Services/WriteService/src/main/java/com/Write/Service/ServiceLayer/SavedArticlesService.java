@@ -22,17 +22,27 @@ public class SavedArticlesService {
     @Autowired
     private ArticlesService articlesService;
 
-    public String saveArticle(Set<String> DOIs, Long UserID){
+    public String saveArticle(List<String> DOIs, Long UserID){
         User user = userService.getUser(UserID);
+        System.out.println("user = " + user);
         List<SavedArticles> articlesList = new ArrayList<>();
         for (String DOI: DOIs){
             articlesList.add(new SavedArticles(user, articlesService.getArticleByID(DOI)));
         }
 //        Articles articles = articlesService.getArticleByID(DOI);
-//        articlesRepository.save(new SavedArticles(user, articles));
         articlesRepository.saveAll(articlesList);
+//        Articles articles = articlesService.getArticleByID(DOIs.get(0));
+//        System.out.println("articles = " + articles);
+//
+//        articlesRepository.save(new SavedArticles(user, articles));
         return "OK";
     }
+//    List<SavedArticles> articlesList = new ArrayList<>();
+//        for (String DOI: DOIs){
+//            articlesList.add(new SavedArticles(user, articlesService.getArticleByID(DOI)));
+//        }
+//        Articles articles = articlesService.getArticleByID(DOI);
+//        articlesRepository.saveAll(articlesList);
 
     @Transactional
     public String removeSavedArticle(List<String> DOI, Long userID){

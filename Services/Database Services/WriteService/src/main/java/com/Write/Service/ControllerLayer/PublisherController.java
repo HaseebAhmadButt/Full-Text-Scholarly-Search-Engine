@@ -182,13 +182,21 @@ public class PublisherController {
 
 
     @PostMapping("/saveArticle")
-    public String saveArticle(
+    public ResponseEntity<Object> saveArticle(
             @RequestBody Map<String, Object> stringObjectMap
     ) {
-        savedArticlesService.saveArticle(
-                (Set<String>) stringObjectMap.get("DOI"),
+       String status = savedArticlesService.saveArticle(
+                (List<String>) stringObjectMap.get("DOI"),
                 Long.valueOf((Integer) stringObjectMap.get("userID")));
-        return "OK";
+        if(status.equals("OK")){
+            System.out.println("OK status = " + status);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        else {
+            System.out.println("BAD status = " + status);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
     }
 
     @PostMapping("/removeArticle")

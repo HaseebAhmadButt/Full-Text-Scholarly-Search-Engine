@@ -11,12 +11,12 @@ public class EntitiesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EntitiesApplication.class, args);
 	}
-	@Value("${solr.host}")
-	private String solrHost;
-
-	@Bean
-	public SolrClient solrClient() {
-		return new Http2SolrClient.Builder(solrHost).build();
-	}
+//	@Value("${solr.host}")
+//	private String solrHost;
+//
+//	@Bean
+//	public SolrClient solrClient() {
+//		return new Http2SolrClient.Builder(solrHost).build();
+//	}
 }
 //}

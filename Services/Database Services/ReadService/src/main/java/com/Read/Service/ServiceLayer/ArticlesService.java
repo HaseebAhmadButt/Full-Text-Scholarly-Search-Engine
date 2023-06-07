@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -46,18 +48,10 @@ public class ArticlesService {
         return articlesRepository.getAllAddedAcceptedArticlesWithParameters(query, pageable);
     }
 
-
-
-
-
-
-
-
     public Page<List<Object>> getUploadedArticles(int pageNo, int PageSize, Long publisherID){
         Pageable pageable = PageRequest.of(pageNo, PageSize);
         try{
-            Page<List<Object>> lists = articlesRepository.getAllUploadedArticlesBySpecificPublisher(publisherID, pageable);
-            return lists;
+            return articlesRepository.getAllUploadedArticlesBySpecificPublisher(publisherID, pageable);
         }
         catch (Exception exception){
             return null;
@@ -66,8 +60,7 @@ public class ArticlesService {
     public Page<List<Object>> getAcceptedArticles(int pageNo, int PageSize, Long publisherID){
         Pageable pageable = PageRequest.of(pageNo, PageSize);
         try{
-            Page<List<Object>> lists = articlesRepository.getAllAcceptedArticlesBySpecificPublisher(publisherID, pageable);
-            return lists;
+            return articlesRepository.getAllAcceptedArticlesBySpecificPublisher(publisherID, pageable);
         }
         catch (Exception exception){
             return null;
@@ -76,8 +69,7 @@ public class ArticlesService {
     public Page<List<Object>> getAcceptedArticles(int pageNo, int PageSize, Long publisherID, String query){
         Pageable pageable = PageRequest.of(pageNo, PageSize);
         try{
-            Page<List<Object>> lists = articlesRepository.getAllAcceptedArticlesBySpecificPublisher(publisherID, query, pageable);
-            return lists;
+            return articlesRepository.getAllAcceptedArticlesBySpecificPublisher(publisherID, query, pageable);
         }
         catch (Exception exception){
             return null;
@@ -85,8 +77,7 @@ public class ArticlesService {
     }
     public List<Object> getArticleAuthors(String DOI){
         try{
-            List<Object> lists = articlesRepository.getAllAcceptedArticlesAuthors(DOI);
-            return lists;
+            return articlesRepository.getAllAcceptedArticlesAuthors(DOI);
         }
         catch (Exception exception){
             return null;
@@ -103,6 +94,12 @@ public class ArticlesService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Publisher publisher = publisherRepository.getPublisherThroughUserID(userID);
         return articlesRepository.getAllRequiredAcceptedArticles(query,publisher.getPublisherID(),pageable);
+    }
+    public Page<Articles> getCitingArticles(int pageNo, int pageSize,  List<String> query) {
+        return articlesRepository.getAllCitingArticles(query, PageRequest.of(pageNo, pageSize));
+    }
+    public String getArticleTitle(String query) {
+        return articlesRepository.getArticleTitle(query);
     }
 
     public Page<Articles> getAllRejectedArticles(int pageNo, int pageSize) {
@@ -143,26 +140,37 @@ public class ArticlesService {
     }
     public List<String> getArticleTopics(String DOIs){
 
-        List<String> ArticleTopics = articlesRepository.getArticleTopics(DOIs);
+        return articlesRepository.getArticleTopics(DOIs);
+    }
+    public List<Object> getArticleTopicsWithID(String DOIs){
 
-        return ArticleTopics;
+        return articlesRepository.getArticleTopicsWithId(DOIs);
+    }
+    public HashMap<String, String> getArticlePDFWithID(String DOIs){
+//        String Status = ;
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("PDF", articlesRepository.getArticlePdfStatusWithId(DOIs));
+        return hashMap;
+    }
+
+    public ResponseEntity<Articles> getArticleByDOI(String DOI){
+        Optional<Articles> articles = articlesRepository.findById(DOI);
+        return articles.map(value -> ResponseEntity.status(HttpStatus.OK).body(value)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+
     }
 
     public List<Map<String, Object>> getSavedArticles(Long userID) {
-        System.out.println("userID = " + userID);
         List<Map<String, Object>> maps = new ArrayList<>();
         List<Object[]> articles = articlesRepository.getSavedArticles(userID);
-        System.out.println("articles:");
-        for (Object[] article : articles) {
-            System.out.println(Arrays.toString(article));
-        }
         for (Object[] article : articles) {
             Map<String, Object> hashMap = new HashMap<>();
             generatingArticleObject(maps, article, hashMap);
         }
         return maps;
     }
-
+    public List<String> getSavedArticleIDs(Long userID) {
+        return articlesRepository.getSavedArticleIDs(userID);
+    }
     private void generatingArticleObject(List<Map<String, Object>> maps, Object[] article, Map<String, Object> hashMap) {
         hashMap.put("paperDOI", article[0]);
         hashMap.put("paperTitle", article[1]);
@@ -173,6 +181,8 @@ public class ArticlesService {
         hashMap.put("paperPDF", article[6]);
         maps.add(hashMap);
     }
+
+
 
 
 }

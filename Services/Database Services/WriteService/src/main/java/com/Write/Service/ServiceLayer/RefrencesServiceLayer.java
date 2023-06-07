@@ -2,15 +2,26 @@ package com.Write.Service.ServiceLayer;
 
 import com.JPA.Entities.Beans.Articles;
 import com.JPA.Entities.CompositBeans.References;
+import com.JPA.Entities.Neo.Paper.PaperEntity;
 import com.Write.Service.RepositoryLayer.RefrencesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class RefrencesServiceLayer {
+
+    @Value("${cloud.API-Gateway.URL}")
+    private String apiGateway;
+    @Value("${GRAPH-WRITE-SERVICE}")
+    private String graphWriteService;
+
 
     @Autowired
     private RefrencesRepository refrencesRepository;
@@ -30,13 +41,32 @@ public class RefrencesServiceLayer {
 
 
     public void saveRefrence(String article1, List<String> articlesList){
+        if(articlesList.size() == 0){ return;}
         List<References> references = new ArrayList<>();
-        Articles articles = articlesService.getArticleByID(article1);
-        for (String article: articlesList){
-            Articles article2 = articlesService.getArticleByID(article);
-            references.add(new References(articles, article2));
+//        List<PaperEntity> paperEntities = new ArrayList<>();
+        System.out.println("article1 = " + article1);
+        try {
+            Articles articles = articlesService.getArticleByID(article1);
+            for (String article : articlesList) {
+//            paperEntities.add(new PaperEntity(article));
+                Articles article2 = articlesService.getArticleByID(article);
+                references.add(new References(article2, articles));
+
+            }
+            refrencesRepository.saveAll(references);
+//        PaperEntity paperEntity = new PaperEntity();
+//        paperEntity.setPaperId(article1);
+//        paperEntity.setCitingPapers(paperEntities);
+//        try{
+            var payloadHashMap = new HashMap<String, Object>();
+            payloadHashMap.put("paperId", article1);
+            payloadHashMap.put("citingPapers", articlesList);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.postForEntity(apiGateway + "" + "/" + graphWriteService + "/savePaper", payloadHashMap, PaperEntity.class);
         }
-        refrencesRepository.saveAll(references);
+        catch (NoSuchElementException e){
+            System.out.println("e = " + e);
+        }
     }
 
     public void saveRefrence(Articles article1, Articles article2){
