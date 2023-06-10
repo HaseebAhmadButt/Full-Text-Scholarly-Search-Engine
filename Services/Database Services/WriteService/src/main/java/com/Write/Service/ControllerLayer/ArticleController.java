@@ -21,6 +21,7 @@ public class ArticleController {
     @Autowired
     private ArticlesService articlesService;
 
+    // This API is responsible for receiving and storing data from crawler.
     @PostMapping("/saveCrawledArticle")
     public String saveArticlesFromCrawler(@RequestBody Map<String, Object> stringObjectMap){
         return articlesService.savePaperCompleteFromCrawler(
