@@ -1,10 +1,17 @@
-This is my Final Year Project.
-This project has 4 Branches:
-  #### 1. main
-  Currently, you are in this branch.
-  #### 2. Backe-End
-  This branch contains all the back-end code, written in Spring Boot in Microservices Architecture.
-  #### 3. Front-End
-  This branch contains the Front-End code of this project implemented using React.js
+# Welcome to my Final Year Project repository!
+
+### Branches Overview:
+
+1. **main**
+   - You are currently on this branch.
   
+2. **Back-End**
+   - This branch houses all the back-end code, developed in Spring Boot within a Microservices Architecture.
   
+3. **Front-End**
+   - Here, you'll find the Front-End code implemented using React.js.
+  
+4. **Machine_Learning_Components**
+   - This branch hosts the ML Models utilized for the development of this application.
+
+Feel free to explore each branch to gain insights into specific aspects of the project. Happy coding! 🚀
